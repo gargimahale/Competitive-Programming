@@ -3,7 +3,7 @@
 using namespace std;
 
 /*
-// We can consolidate all odd and all even chips together at no cost. 
+We can consolidate all odd and all even chips together at no cost. 
 So, we will have two piles in the end, and we move chips from the smaller pile to the 
 larger one.
 Solution: Count chips in even and odd positions. Return the smaller count.
