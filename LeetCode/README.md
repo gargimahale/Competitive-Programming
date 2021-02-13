@@ -1,1 +1,1 @@
-### Leetcode Solutions along with Weekly and Biweekly Contests Included (In their respective tags)
+### Leetcode Solutions along with Weekly and Biweekly Contests Solutions Included (In their respective Tags)
