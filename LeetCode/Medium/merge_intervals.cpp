@@ -21,7 +21,7 @@ public:
                 end = intervals[i][1];
             }
             else{
-                if (intervals[i][0] >= start && intervals[i][0] <= end){
+                if (intervals[i][0] <= end){
                     end = max(end, intervals[i][1]);
                 }
             }
