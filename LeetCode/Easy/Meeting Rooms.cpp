@@ -5,23 +5,17 @@ using namespace std;
 class Solution {
 public:
     bool canAttendMeetings(vector<vector<int>>& intervals) {
-        if (intervals.empty()){
-            return true;
-        }
-        
-        sort(begin(intervals), end(intervals));
-        
+        int n = intervals.size();
+
+        if (n == 0) return 1;
+
         int cnt = 1;
-        int start = intervals[0][0], end = intervals[0][1];
-        
-        for (int i=1; i<intervals.size(); ++i){
-            if (intervals[i][0] >= end && intervals[i][1] > end){
-                start = intervals[i][0];
-                end = intervals[i][1];
-                ++cnt;
-            }
+        sort(begin(intervals), end(intervals));
+
+        for (int i=1; i<n; ++i){
+            if (intervals[i][0] < intervals[i-1][1]) return false;
+            ++cnt;
         }
-        
-        return cnt == intervals.size();
+        return cnt==n;
     }
 };
