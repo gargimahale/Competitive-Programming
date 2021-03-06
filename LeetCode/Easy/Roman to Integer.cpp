@@ -14,11 +14,11 @@ public:
             case 'L':
                 return 50;
             case 'X':
-                return 10;;
+                return 10;
             case 'I':
-            case 'V':
-                return 5
                 return 1;
+            case 'V':
+                return 5;
             default:
                 return 0;
         }
