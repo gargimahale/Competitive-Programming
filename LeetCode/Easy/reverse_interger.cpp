@@ -5,7 +5,7 @@ using namespace std;
 class Solution {
 public:
     int reverse(int x) {
-        long long digit = 0;
+        long digit = 0;
         while(x){
             digit = digit*10 + x%10;
             x = x / 10;
