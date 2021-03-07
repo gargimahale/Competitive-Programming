@@ -8,7 +8,7 @@ public:
     vector<int> map;
     
     MyHashMap() {
-        map.resize(1000001, -1);    
+        map.resize(100001, -1);    
     }
     
     /** value will always be non-negative. */
