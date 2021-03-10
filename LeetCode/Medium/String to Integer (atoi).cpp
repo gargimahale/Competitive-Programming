@@ -3,28 +3,26 @@ using namespace std;
 
 class Solution {
 public:
-    int myAtoi(string str) {
-        int i = 0;
+    int myAtoi(string s) {
+        int i = 0, n = s.size();
         int sign = 1;
-        int result = 0;
-        if (str.length() == 0) return 0;
+        long ans = 0;
+        if (s.length() == 0) return 0;
 
         //Discard whitespaces in the beginning
-        while (i < str.length() && str[i] == ' ')
+        while (i < s.length() && s[i] == ' ')
             i++;
 
         // Check if optional sign if it exists
-        if (i < str.length() && (str[i] == '+' || str[i] == '-'))
-            sign = (str[i++] == '-') ? -1 : 1;
+        if (i < s.length() && (s[i] == '+' || s[i] == '-'))
+            sign = (s[i++] == '-') ? -1 : 1;
 
         // Build the result and check for overflow/underflow condition
-        while (i < str.length() && isdigit(str[i])) {
-            if (result > INT_MAX / 10 ||
-                    (result == INT_MAX / 10 && str[i] - '0' > INT_MAX % 10)) {
-                return (sign == 1) ? INT_MAX : INT_MIN;
-            }
-            result = result * 10 + (str[i++] - '0');
+        while(i < n && isdigit(s[i])){
+            ans = ans*10 + (s[i++]-'0');
+            if (ans * sign >= INT_MAX) return INT_MAX;
+            if (ans * sign <= INT_MIN) return INT_MIN;
         }
-        return result * sign;
+        return ans*sign;
     }
 };
