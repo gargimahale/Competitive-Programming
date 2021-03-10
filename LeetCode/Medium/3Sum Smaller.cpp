@@ -14,7 +14,7 @@ public:
             int j = i+1, k = nums.size()-1;
             while(j<k){
                 if (nums[i]+nums[j]+nums[k] < target){
-                    count+= (k-j++);
+                    count+= (k - j++);
                 }
                 else{
                     --k;
