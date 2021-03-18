@@ -13,32 +13,7 @@ public:
     }
 };
 
-
 // OR
-
-// class Solution {
-// public:
-//     string frequencySort(string s) {
-//         string res = "";
-//         unordered_map<char, int> mp;
-//         priority_queue<pair<int, char>> pq;
-
-//         for (char ch : s) mp[ch]++;
-
-//         for (auto a : mp) {
-//             pq.push({a.second, a.first});
-//         }
-
-//         while (!pq.empty()) {
-//             auto t = pq.top(); pq.pop();
-//             res.append(t.first, t.second);
-//         }
-
-//         return res;
-//     }
-// };
-
-// O(127) Space & O(nlogn) - TC 
 
 class Solution {
 public:

@@ -2,23 +2,17 @@
 using namespace std;
 
 
-int wiggleMaxLength(vector<int>& nums) {
-	int i = 0, j = 1;
-	int len = 0;
-	while (j < nums.size() && i < j) {
-		int sign = j % 2 != 0 ? 1 : -1;
-		int diff = nums[j] - nums[j - 1];
-		if (sign * diff > 0) {
-			len = max(len, j - i + 1);
-		}
-		else {
-			i = j-1;
-		}
-		++j;
-	}
-	return len;
-}
+int wiggleMaxLength(vector<int> &nums){
 
+	int size = nums.size(), f = 1, d = 1;
+	for (int i = 1; i < size; ++i){
+		if (nums[i] > nums[i - 1])
+			f = d + 1;
+		else if (nums[i] < nums[i - 1])
+			d = f + 1;
+	}
+	return min(size, max(f, d));
+}
 
 int main() {
 	vector<int> nums = {1, 17, 5, 10, 13, 15, 10, 5, 16, 8};
