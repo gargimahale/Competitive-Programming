@@ -2,33 +2,31 @@
 
 using namespace std;
 
-class Solution {
+class Solution{
 public:
-    vector<string> topKFrequent(vector<string>& words, int k) {
-        unordered_map<string, int> mp;
-        for (string word: words){
-            mp[word]++;
+    vector<string> topKFrequent(vector<string> &words, int k){
+        unordered_map<string, int> freq;
+        for (auto w : words) freq[w]++;
+
+        auto comp = [&](auto a, auto b) {
+            return a.first > b.first || (a.first == b.first && a.second < b.second);
+        };
+
+        typedef priority_queue<pair<int, string>, vector<pair<int, string>>, decltype(comp)> my_priority_queue_t;
+        my_priority_queue_t pq(comp);
+
+        for (auto w : freq){
+            pq.emplace(w.second, w.first);
+            if (pq.size() > k)
+                pq.pop();
+        }
+
+        vector<string> output;
+        while (!pq.empty()){
+            output.insert(output.begin(), pq.top().second);
+            pq.pop();
         }
         
-        vector<pair<int, string>>vec;
-        
-        for (auto it = mp.begin(); it!=mp.end(); ++it){
-            vec.push_back(make_pair(it->second, it->first));
-        }
-        sort(vec.begin(), vec.end(), [](pair<int, string>& a, pair<int, string>& b){
-            if (a.first == b.first){
-                return a.second < b.second;
-            }
-            return a.first > b.first;
-        });
-        
-        vector<string> res;
-        for (auto& pi: vec){
-            if (k==0) break;
-            res.push_back(pi.second);
-            k--;
-        }
-        return res;
-        
+        return output;
     }
 };
