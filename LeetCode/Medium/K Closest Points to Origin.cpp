@@ -9,6 +9,7 @@ public:
                 return a.first > b.first;
             }
         };
+        
         // distance, index
         priority_queue<pair<double, int>, vector<pair<double, int>>, mycomp> m;
 
