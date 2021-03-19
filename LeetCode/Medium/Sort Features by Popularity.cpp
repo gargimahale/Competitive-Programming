@@ -12,6 +12,7 @@ vector<string> sortFeatures(vector<string> &features, vector<string> &responses)
         for (auto it = S.begin(); it != S.end(); ++it)
             mp[*it]++;
     }
+    
     unordered_map<string, int> idx;
     for (int i = 0; i < features.size(); ++i)
         idx[features[i]] = i;
