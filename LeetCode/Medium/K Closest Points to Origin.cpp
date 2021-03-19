@@ -17,11 +17,11 @@ public:
             m.push(make_pair(calc, i));
         }
 
-        vector<vector<int>> answer;
+        vector<vector<int>> ans;
         for (int i = 0; i < K; i++){
-            answer.push_back(points[m.top().second]);
+            ans.push_back(points[m.top().second]);
             m.pop();
         }
-        return answer;
+        return ans;
     }
 };
