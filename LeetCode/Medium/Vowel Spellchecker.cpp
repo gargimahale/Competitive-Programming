@@ -22,11 +22,12 @@ public:
 	vector<string> spellchecker(vector<string>& wordlist, vector<string>& queries) {
 		unordered_set<string> words(begin(wordlist), end(wordlist));
 		unordered_map<string, string> cap, vowel;
+		
 		for (string w : wordlist) {
-			string lower = tolow(w), devowel = todev(w);
-			cap.insert({lower, w});
-			vowel.insert({devowel, w});
+			cap.insert({tolow(w), w});
+			vowel.insert({todev(w), w});
 		}
+
 		for (int i = 0; i < queries.size(); ++i) {
 			if (words.count(queries[i])) continue;
 			string lower = tolow(queries[i]), devowel = todev(queries[i]);
