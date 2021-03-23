@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Also Called as Search Range in Binary Search Pack
+
 class Solution{
 public:
     int binSearch(vector<int> &nums, int target, bool check){
