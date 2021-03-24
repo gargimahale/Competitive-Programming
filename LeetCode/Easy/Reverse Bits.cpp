@@ -5,9 +5,12 @@ class Solution{
 public:
     uint32_t reverseBits(uint32_t n){
         bitset<32> b(n);
-        string str = b.to_string();
-        reverse(begin(str), end(str));
-        bitset<32> a(str);
-        return a.to_ulong();
+        int l = 0, r = 31;
+        while (l < r){
+            bool temp = b[l];
+            b[l++] = b[r];
+            b[r--] = temp;
+        }
+        return b.to_ulong();
     }
 };
