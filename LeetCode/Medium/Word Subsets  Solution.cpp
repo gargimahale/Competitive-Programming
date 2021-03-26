@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution
-{
+// TC: O(n), SC: O(n)
+
+class Solution{
 public:
     vector<int> countOccurances(string &s){
         vector<int> cnt(26);
