@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// TC: O(n), SC: O(1)
+
 class Solution{
 public:
     bool isPalindrome(string s){
