@@ -3,60 +3,52 @@ using namespace std;
 
 // TC: O(n), SC: O(1)
 
-class Solution{
+class Solution
+{
 public:
-    void reverseT(string &s, int i, int j){
-        while (i < j){
-            swap(s[i++], s[j--]);
-        }
-    }
-
-    void reverseWords(string &s, int n){
+    void reverseWords(string &s, int n)
+    {
         int i = 0, j = 0;
-        while (i < n){
+        while (i < n)
+        {
             while (i < j || i < n && s[i] == ' ')
                 ++i;
             while (j < i || j < n && s[j] != ' ')
                 ++j;
-            reverseT(s, i, j - 1);
+            reverse(begin(s) + i, begin(s) + j);
         }
     }
 
-    string cleanedSpaced(string &s, int n){
+    string cleanedWords(string &s, int n)
+    {
         int i = 0, j = 0;
-        while (j < n){
-
-            // skip spaces
+        while (j < n)
+        {
             while (j < n && s[j] == ' ')
                 ++j;
-
-            // keep chars
             while (j < n && s[j] != ' ')
                 s[i++] = s[j++];
-
-            // skip spaces
             while (j < n && s[j] == ' ')
                 ++j;
-
-            // leave only one space
             if (j < n)
                 s[i++] = ' ';
         }
         return s.substr(0, i);
     }
 
-    string reverseWords(string s){
+    string reverseWords(string s)
+    {
+
         if (s.empty())
             return "";
         int n = s.size();
 
         // reverse whole string
-        reverseT(s, 0, n - 1);
+        reverse(begin(s), end(s));
 
-        // reverse each word
+        // reverse words
         reverseWords(s, n);
 
-        // clean extra spaces
-        return cleanedSpaced(s, n);
+        return cleanedWords(s, n);
     }
 };
