@@ -2,6 +2,9 @@
 
 using namespace std;
 
+// Expanding from the center
+// TC: O(n^2), SC:O(1)
+
 class Solution {
 public:
     string longestPalindrome(string s) {
