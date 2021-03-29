@@ -2,6 +2,9 @@
 
 using namespace std;
 
+// TC: O(n), SC: O(1)
+
+
 class Solution {
 public:
     vector<int> shuffle(vector<int>& nums, int n) {
