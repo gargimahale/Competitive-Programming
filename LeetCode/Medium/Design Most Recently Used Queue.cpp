@@ -1,13 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// TC: O(n), SC: O(n)
+
 class MRUQueue{
 public:
     vector<int> Q;
 
     MRUQueue(int n){
-        for (int i = 1; i <= n; ++i)
-        {
+        for (int i = 1; i <= n; ++i){
             Q.push_back(i);
         }
     }
