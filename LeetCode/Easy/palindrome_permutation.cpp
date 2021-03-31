@@ -2,6 +2,8 @@
 
 using namespace std;
 
+// TC: O(N), SC: O(N)
+
 bool canPermutePalindrome(string s) {
     unordered_map<char, int> map;
     for (char ch: s){
