@@ -17,6 +17,8 @@ public:
         : val(_val), left(_left), right(_right), next(_next) {}
 };
 
+
+// TC: O(n), SC: O(n)
 class Solution {
 public:
     Node* connect(Node* root) {
@@ -47,6 +49,38 @@ public:
                     q.push(temp->right);
                 }
             }
+        }
+        return root;
+    }
+};
+
+
+// TC: O(n), SC: O(1)
+
+class Solution
+{
+public:
+    Node *connect(Node *root)
+    {
+        if (!root)
+            return NULL;
+
+        Node *curr = root;
+        while (curr)
+        {
+            Node *ptr = curr;
+            while (ptr && ptr->left)
+            {
+                ptr->left->next = ptr->right;
+                if (ptr->next != NULL)
+                {
+                    ptr->right->next = ptr->next->left;
+                }
+                else
+                    ptr->next = NULL;
+                ptr = ptr->next;
+            }
+            curr = curr->left;
         }
         return root;
     }
