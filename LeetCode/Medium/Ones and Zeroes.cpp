@@ -17,12 +17,11 @@ public:
                     numOnes++;
             }
 
-            // memo[i][j] = the max number of strings that can be formed with i 0's and j 1's
-            // from the first few strings up to the current string s
-            // Catch: have to go from bottom right to top left
-            // Why? If a cell in the memo is updated(because s is selected),
-            // we should be adding 1 to memo[i][j] from the previous iteration (when we were not considering s)
-            // If we go from top left to bottom right, we would be using results from this iteration => overcounting
+/*
+memo[i][j] = the max number of strings that can be formed with i 0's and j 1's
+we should be adding 1 to memo[i][j] from the previous itr (when we were not considering s)
+If we go from top left to bottom right we would be using results from this itr => overcounting
+*/
             for (int i = m; i >= numZeroes; i--){
                 for (int j = n; j >= numOnes; j--){
                     memo[i][j] = max(memo[i][j], memo[i - numZeroes][j - numOnes] + 1);
