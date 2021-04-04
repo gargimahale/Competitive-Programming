@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+// TC: O(n), SC: O(n)
 class Solution{
 public:
     int longestValidParentheses(string s){
