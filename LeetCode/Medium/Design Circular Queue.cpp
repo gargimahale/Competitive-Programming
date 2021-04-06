@@ -3,8 +3,7 @@ using namespace std;
 
 // TC: O(1), SC: O(capacity)
 
-class MyCircularQueue
-{
+class MyCircularQueue{
 public:
     vector<int> Q;
     int cap;
