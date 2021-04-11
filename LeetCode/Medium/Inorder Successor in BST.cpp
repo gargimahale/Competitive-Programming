@@ -10,14 +10,11 @@ using namespace std;
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution
-{
+class Solution{
 public:
-    TreeNode *inorderSuccessor(TreeNode *root, TreeNode *p)
-    {
+    TreeNode* inorderSuccessor(TreeNode *root, TreeNode *p){
         TreeNode *successor = NULL;
-        if (p->right)
-        {
+        if (p->right){
             successor = p->right;
             while (successor->left)
             {
@@ -25,21 +22,15 @@ public:
             }
             return successor;
         }
-        while (root)
-        {
-            if (p->val < root->val)
-            {
+        while (root){
+            if (p->val < root->val){
                 successor = root;
                 root = root->left;
             }
-            else if (p->val > root->val)
-            {
+            else if (p->val > root->val){
                 root = root->right;
             }
-            else
-            {
-                break;
-            }
+            else break;
         }
         return successor;
     }
