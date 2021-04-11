@@ -1,7 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class MKAverage{
+/*  
+    Time:
+        MKAverage: O(1)
+        addElement: O(logM)
+        calculateMKAverage: O(1)
+    Space: O(M)
+*/
+
+    class MKAverage
+{
     multiset<int> top, bot, mid;
     queue<int> q;
     long sum = 0, m, k;
