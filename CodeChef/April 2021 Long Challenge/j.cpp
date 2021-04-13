@@ -1,16 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void solve(){
+void solve() {
     long long n;
     cin >> n;
-    
+
 }
 
-int main(){
+int main() {
     int T;
     cin >> T;
-    while(T--){
+    while (T--) {
         solve();
     }
     return 0;

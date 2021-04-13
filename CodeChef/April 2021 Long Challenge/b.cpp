@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void solve(){
+void solve() {
     double k1, k2, k3, v;
     cin >> k1 >> k2 >> k3 >> v;
 
@@ -9,18 +9,18 @@ void solve(){
 
     total = round(total * 100.0) / 100.0;
 
-    if (total < 9.58){
+    if (total < 9.58) {
         cout << "YES\n";
     }
-    else{
+    else {
         cout << "NO\n";
     }
 }
 
-int main(){
+int main() {
     int T;
     cin >> T;
-    while (T--){
+    while (T--) {
         solve();
     }
     return 0;

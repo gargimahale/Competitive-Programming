@@ -2,17 +2,17 @@
 using namespace std;
 
 
-void solve(){
+void solve() {
     long long n, k, cnt = 0, maxCnt = 0;
     cin >> n >> k;
     string s;
     cin >> s;
 
-    for (char ch: s){
-        if (ch == '*'){
+    for (char ch : s) {
+        if (ch == '*') {
             ++cnt;
             maxCnt = max(maxCnt, cnt);
-            if (maxCnt >= k){
+            if (maxCnt >= k) {
                 cout << "YES\n";
                 return;
             }
@@ -23,10 +23,10 @@ void solve(){
     cout << "NO\n";
 }
 
-int main(){
+int main() {
     int T;
     cin >> T;
-    while(T--){
+    while (T--) {
         solve();
     }
     return 0;
