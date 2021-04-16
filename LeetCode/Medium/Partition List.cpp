@@ -22,9 +22,9 @@ public:
             ListNode* & ref = head->val < x ? l : r;
             ref->next = head;
             ref = ref->next;
-
             head = head->next;
         }
+
         l->next = right.next;
         r->next = NULL;
         return left.next;
