@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -21,13 +21,13 @@ public:
         ListNode* answer = new ListNode(0);
         ListNode* newHead = answer;
         int c = 0;
-        while(c || l1 || l2){
-            c += (l1? l1->val:0) + (l2?l2->val:0);
-            answer->next = new ListNode(c%10);
+        while (c || l1 || l2) {
+            c += (l1 ? l1->val : 0) + (l2 ? l2->val : 0);
+            answer->next = new ListNode(c % 10);
             answer = answer->next;
-            c/=10;
-            l1 = l1?l1->next: NULL;
-            l2 = l2?l2->next: NULL;
+            c /= 10;
+            l1 = l1 ? l1->next : NULL;
+            l2 = l2 ? l2->next : NULL;
         }
         return newHead->next;
     }
