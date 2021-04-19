@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 // Two pointer method
@@ -14,13 +14,13 @@ struct ListNode {
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode* prev = new ListNode(-1,head);
+        ListNode* prev = new ListNode(-1, head);
         ListNode* p1 = head;
         ListNode* p2 = prev;
         int count = 0;
         while (p1) {
             p1 = p1->next;
-            if(count++ >= n) {
+            if (count++ >= n) {
                 p2 = p2->next;
             }
         }
@@ -36,8 +36,8 @@ ListNode* removeNthFromEnd(ListNode* head, int n) {
     dummy -> next = head;
     ListNode* fast = dummy;
     ListNode* slow = dummy;
-    while(n) fast = fast -> next, n --;
-    while(fast -> next != NULL) fast = fast->next, slow = slow->next;
+    while (n) fast = fast -> next, n --;
+    while (fast -> next != NULL) fast = fast->next, slow = slow->next;
     slow -> next = slow -> next -> next;
     return dummy->next;
 }
