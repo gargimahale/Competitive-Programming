@@ -31,8 +31,8 @@ public:
         }
         
         res.push_back(root->val);
-        for(auto n: root->children){
-            travel(n);
+        for (Node* child: root->children){
+            travel(child);
         }
     }
     
