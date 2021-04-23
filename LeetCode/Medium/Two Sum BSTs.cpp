@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -15,27 +14,42 @@ using namespace std;
  */
 class Solution {
 public:
-    vector<int> tree;
+    vector<int> nodes;
     
-    void flattenTree(TreeNode* r){
-        if (!r) return;
-        flattenTree(r->left);
-        tree.push_back(r->val);
-        flattenTree(r->right);
+    void inorder(TreeNode* root){
+        if (!root) return;
+        inorder(root->left);
+        nodes.push_back(root->val);
+        inorder(root->right);
     }
     
-    bool twoSumBSTs(TreeNode* root1, TreeNode* root2, int target) {
-        tree.clear();
-        flattenTree(root1);
-        flattenTree(root2);
-        
-        int l = 0, r = tree.size()-1;
-        while(l < r){
-            if (tree[l] + tree[r] == target) return true;
-            else if (tree[l] + tree[r] < target) ++l;
-            else --r;
+    // Two pointer
+    bool checkTargetExists(int k){
+        int i = 0, j = nodes.size()-1;
+        while(i < j){
+            int sum = nodes[i]+nodes[j];
+            if (sum == k) return true;
+            else if (sum > k) --j;
+            else ++i;
         }
         return false;
-        
+    }
+    
+    bool findTarget(TreeNode* root, int k) {
+        inorder(root);
+        return checkTargetExists(k);
+    }
+};
+
+// OR
+
+class Solution {
+public:
+    unordered_set<int> S;
+    bool findTarget(TreeNode* root, int k) {
+        if (!root) return false;
+        if (S.count(k - root->val)) return true;
+        S.insert(root->val);
+        return findTarget(root->left, k) || findTarget(root->right, k);
     }
 };
