@@ -5,7 +5,7 @@ class Solution {
 public:
     int missingNumber(vector<int>& arr) {
         
-        if (arr.size() == 0) return 0;
+        if (arr.size() <= 2) return 0;
         int diff = arr[1] - arr[0] >= 0 ? INT_MAX: INT_MIN;
         for (int i=1; i<arr.size(); ++i){
             int val = arr[i]-arr[i-1];
