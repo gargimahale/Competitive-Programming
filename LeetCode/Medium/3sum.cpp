@@ -7,15 +7,12 @@ public:
 	vector<vector<int>> threeSum(vector<int>& nums) {
 		int n = nums.size();
 		vector<vector<int>> ans;
-
 		sort(nums.begin(), nums.end());
 
 		// base case
 		if (n < 3) return ans;
 
-
 		for (int i = 0; i < nums.size() - 2; ++i) {
-
 			// ignores duplicates
 			if (i == 0 || nums[i] != nums[i - 1]) {
 				int j = i + 1, k = nums.size() - 1;
