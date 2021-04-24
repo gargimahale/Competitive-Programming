@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// The total number of valid parentheses is a Catalan number
+// TC: O(C(2n, n)/(n + 1))
+// SC: O(n)
+
 class Solution {
 public:
     vector<string> result;
