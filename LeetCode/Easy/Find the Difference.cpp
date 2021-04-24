@@ -1,30 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// TC: O(n), SC: O(n)
+// TC: O(n), SC: O(1)
 
-class Solution
-{
+class Solution {
 public:
-    char findTheDifference(string s, string t)
-    {
-        unordered_map<char, int> mp;
-        char ans;
-        for (char ch : s)
-            mp[ch]++;
-
-        for (int i = 0; i < t.size(); ++i)
-        {
-            if (mp[t[i]] == 0)
-            {
-                ans = t[i];
-                break;
-            }
-            else
-            {
-                mp[t[i]]--;
-            }
+    char findTheDifference(string s, string t) {
+        char ch;
+        for (int i=0; i<s.size(); ++i){
+            ch ^= (s[i]^t[i]);
         }
-        return ans;
+        return ch^t[t.size()-1];
     }
 };
