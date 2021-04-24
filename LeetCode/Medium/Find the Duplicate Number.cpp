@@ -1,14 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution{
+class Solution {
 public:
-    int findDuplicate(vector<int> &nums){
-        for (int x : nums){
-            if (nums[abs(x) - 1] < 0)
-                return abs(x);
-            else
-                nums[abs(x) - 1] *= -1;
+    int findDuplicate(vector<int>& nums) {
+        for (int i=0; i<nums.size(); ++i){
+            int x = abs(nums[i]);
+            if (nums[x-1] > 0){
+                nums[x-1] *= -1;
+            }
+            else return abs(nums[i]);
         }
         return 0;
     }
