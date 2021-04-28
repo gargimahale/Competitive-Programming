@@ -9,7 +9,6 @@ public:
 };
 
 //  OR
-
 class Solution{
 public:
     bool isPowerOfThree(int n){
@@ -23,7 +22,6 @@ public:
 };
 
 // OR
-
 class Solution{
 public:
     bool isPowerOfThree(int n){
