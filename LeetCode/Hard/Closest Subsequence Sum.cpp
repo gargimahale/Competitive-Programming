@@ -4,14 +4,15 @@ using namespace std;
 
 
 /*
-So, we pivot this problem into Two Sum Closest: generate all possible sums for the first half of the array and store it in a set h1. 
-Then, generate possible sums for the second half in h2.
+So, we pivot this problem into Two Sum Closest: generate all possible sums for the first half of the array and 
+store it in a set h1. Then, generate possible sums for the second half in h2.
 
 For each sum from the second half, use binary search to find a complement sum in the first half.
 
 Additional optimizations:
 
-    Compute sum of all positive and all negative values. If the goal is larger (or smaller), we know what's the best at this point.
+    Compute sum of all positive and all negative values. If the goal is larger (or smaller), 
+    we know what's the best at this point.
     Check if res == 0 and exit. We cannot do better than zero!
     Check if a sum is already in the set and do not search for a compliment in this case.
 
