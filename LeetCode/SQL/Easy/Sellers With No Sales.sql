@@ -1,5 +1,3 @@
-# Write your MySQL query statement below
-
 select seller_name
 from seller
 where seller_id not in(
