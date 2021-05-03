@@ -1,32 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class WordFilter {
+class Solution {
 public:
-    unordered_map<string, int> mp;
-    WordFilter(vector<string>& words) {
-        int n = words.size();
-        for (int i = 0; i<n; ++i){
-            string word = words[i];
-            int wordSize = word.size();
-            for (int j = 1; j<=wordSize; ++j){
-                string p = word.substr(0, j);
-                for (int k = 0; k<wordSize; ++k){
-                    string s = word.substr(k, wordSize);
-                    mp[p + '|' + s] = i+1;
-                }
+    int scheduleCourse(vector<vector<int>>& courses) {
+        if (courses.size() == 0) return 0;
+        sort(begin(courses), end(courses), [&](auto a, auto b){
+            return a[1] < b[1];
+        });
+        priority_queue<int> heap;
+        int now = 0;
+        
+        for (int i = 0; i<courses.size(); ++i){
+            heap.push(courses[i][0]);
+            now += courses[i][0];
+            if (now > courses[i][1]){
+                now -= heap.top();
+                heap.pop();
             }
         }
-    }
-    
-    int f(string prefix, string suffix) {
-        string s = prefix + '|' + suffix;
-        return mp[s]-1;
+        return heap.size();
     }
 };
-
-/**
- * Your WordFilter object will be instantiated and called as such:
- * WordFilter* obj = new WordFilter(words);
- * int param_1 = obj->f(prefix,suffix);
- */
