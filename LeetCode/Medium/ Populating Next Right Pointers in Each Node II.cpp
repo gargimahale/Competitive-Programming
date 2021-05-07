@@ -3,7 +3,6 @@
 using namespace std;
 
 /*
-// Definition for a Node.
 class Node {
 public:
     int val;
@@ -19,12 +18,9 @@ public:
 
 // TC: O(n), SC: O(n)
 
-class Solution
-{
+class Solution{
 public:
-    Node *connect(Node *root)
-    {
-
+    Node *connect(Node *root){
         if (!root)
             return NULL;
 
@@ -33,12 +29,10 @@ public:
         Q.push(NULL);
         Node *prev = NULL;
 
-        while (!Q.empty())
-        {
+        while (!Q.empty()){
             Node *temp = Q.front();
             Q.pop();
-            if (!temp)
-            {
+            if (!temp){
                 if (!Q.empty())
                 {
                     Q.push(NULL);
@@ -46,19 +40,15 @@ public:
                 prev->next = NULL;
                 prev = NULL;
             }
-            else
-            {
-                if (prev)
-                {
+            else{
+                if (prev){
                     prev->next = temp;
                 }
                 prev = temp;
-                if (temp->left)
-                {
+                if (temp->left){
                     Q.push(temp->left);
                 }
-                if (temp->right)
-                {
+                if (temp->right){
                     Q.push(temp->right);
                 }
             }
