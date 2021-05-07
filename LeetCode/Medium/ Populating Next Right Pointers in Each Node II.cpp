@@ -16,7 +16,7 @@ public:
 };
 */
 
-// TC: O(n), SC: O(n)
+// TC: O(n), SC: O(1)
 
 class Solution{
 public:
@@ -56,5 +56,3 @@ public:
         return root;
     }
 };
-
-// TC: O(n), SC: O(1)
