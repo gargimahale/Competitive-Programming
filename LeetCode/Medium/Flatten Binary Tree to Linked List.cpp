@@ -13,8 +13,6 @@ using namespace std;
  * };
  */
 
-// Preorder traversal
-
 class Solution {
 public:
 
