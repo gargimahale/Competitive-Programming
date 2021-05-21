@@ -2,6 +2,8 @@
 
 using namespace std;
 
+
+// dfs
 class Solution {
 public:
 
@@ -51,5 +53,37 @@ public:
         }
         // return result
         return numIslands;
+    }
+};
+
+
+//bfs
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int r = grid.size(), c = grid[0].size();
+        int islands = 0, offset[] = {0, 1, 0, -1, 0};
+        for (int i = 0; i < r; ++i) {
+            for (int j = 0; j < c; ++j) {
+                if (grid[i][j] == '1') {
+                    ++islands;
+                    grid[i][j] = 0;
+                    queue<pair<int, int>> Q;
+                    Q.push({i, j});
+                    while (!Q.empty()) {
+                        pair<int, int> p = Q.front(); Q.pop();
+                        for (int k = 0; k < 4; ++k) {
+                            int row = p.first + offset[k];
+                            int col = p.second + offset[k + 1];
+                            if (row >= 0 && row < r && col >= 0 && col < c && grid[row][col] == '1') {
+                                grid[row][col] = '0';
+                                Q.push({row, col});
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return islands;
     }
 };
