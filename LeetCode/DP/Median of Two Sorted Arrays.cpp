@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// TC: O(log(min(x, y))), SC: O(1)
+
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
@@ -44,3 +46,6 @@ int main(void) {
     vector<int> b = {3, 5, 7, 9, 11, 16};
     cout << sol.findMedianSortedArrays(a, b) << "\n";
 }
+
+// Explanation: https://www.youtube.com/watch?v=LPFhl65R7ww&ab_channel=TusharRoy-CodingMadeSimpleTusharRoy-CodingMadeSimple
+// Tushar Roy
