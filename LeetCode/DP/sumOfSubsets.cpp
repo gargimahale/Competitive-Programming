@@ -4,11 +4,23 @@ using namespace std;
 class Solution {
 public:
     bool sumOfSubsets(vector<int>& arr, int sum) {
-        vector<vector<bool>> dp(arr.size() + 1, vector<bool>(sum + 1));
-        for (int i = 1; i <= arr.size(); ++i) {
+        int n = arr.size();
+
+        vector<vector<bool>> dp(n + 1, vector<bool>(sum + 1));
+
+        // If sum is not 0 and set is empty
+        for (int i = 1; i <= sum; ++i) {
+            dp[0][i] =  false;
+        }
+
+        // sum is 0
+        for (int i = 0; i <= n; ++i) {
+            dp[i][0] = true;
+        }
+
+        for (int i = 1; i <= n; ++i) {
             for (int j = 1; j <= sum; ++j) {
                 if (j < arr[i]) {
-
                     // take the value above
                     dp[i][j] = dp[i - 1][j];
                 }
@@ -18,7 +30,7 @@ public:
                 }
             }
         }
-        return dp[arr.size()][sum];
+        return dp[n][sum];
     }
 };
 
