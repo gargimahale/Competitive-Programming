@@ -1,8 +1,5 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-
-// Prefix Sum logic - Errichto
 
 class Solution {
 public:
@@ -31,3 +28,5 @@ public:
         return count;
     }
 };
+
+// TC: O(N), SC: O(N)
