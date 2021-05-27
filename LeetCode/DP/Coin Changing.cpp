@@ -5,7 +5,7 @@ class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
 
-        vector<int> dp (amount + 1, amount + 1);
+        vector<int> dp (amount + 1, INT_MAX);
 
         sort(begin(coins), end(coins));
         dp[0] = 0;
@@ -27,9 +27,10 @@ public:
 };
 
 int main(void) {
+    Solution sol;
     vector<int> den = {1, 5, 6, 8};
     int total = 11;
-    cout << minCoinsRequired(den, total) << "\n";
+    cout << sol.coinChange(den, total) << "\n";
 }
 
 // Tc: O(amount * denominations), SC: O(amount)
