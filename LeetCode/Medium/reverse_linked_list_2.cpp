@@ -14,7 +14,7 @@ struct ListNode {
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int start, int end) {
-        if (start == end || !head){
+        if (start == end || !head) {
             return head;
         }
 
@@ -22,13 +22,13 @@ public:
         dummy->next = head;
         ListNode* prev = dummy;
         int pos = 1;
-        while(pos < start){
+        while (pos < start) {
             prev = prev ->next;
             pos++;
         }
 
         ListNode* workPtr = prev->next;
-        while(start < end){
+        while (start < end) {
             ListNode* NodeExtract = workPtr->next;
             workPtr->next = NodeExtract->next;
             NodeExtract->next = prev->next;

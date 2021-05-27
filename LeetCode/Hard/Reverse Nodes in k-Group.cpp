@@ -14,10 +14,43 @@ using namespace std;
 
 class Solution {
 public:
-    
-    ListNode* reverseLL(ListNode* start, ListNode* end){
+    ListNode* dummy = new ListNode(0), *prev = dummy;
+    ListNode* reverseAtTime(ListNode* head, int parts, int k) {
+        dummy->next = head;
+        for (int i = 0; i < parts; ++i) {
+            for (int j = 1; j < k; ++j) {
+                ListNode* temp = prev->next;
+                prev->next = head->next;
+                head->next = head->next->next;
+                prev->next->next = temp;
+            }
+            prev = head;
+            head = head->next;
+        }
+        return dummy->next;
+    }
+
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode* curr = head;
+        int cnt = 0, parts;
+        while (curr) {
+            ++cnt;
+            curr = curr->next;
+        }
+
+        parts = cnt / k;
+        return reverseAtTime(head, parts, k);
+    }
+};
+
+// OR
+
+class Solution {
+public:
+
+    ListNode* reverseLL(ListNode* start, ListNode* end) {
         ListNode* prev = end;
-        while(start != end){
+        while (start != end) {
             ListNode* tmp = start->next;
             start->next = prev;
             prev = start;
@@ -25,16 +58,16 @@ public:
         }
         return prev;
     }
-    
+
     ListNode* reverseKGroup(ListNode* head, int k) {
         ListNode* node = head;
-        for (int i=0; i<k; ++i){
-            if (!node){
+        for (int i = 0; i < k; ++i) {
+            if (!node) {
                 return head;
             }
             node = node->next;
         }
-        
+
         ListNode* newHead = reverseLL(head, node);
         head->next = reverseKGroup(node, k);
         return newHead;
