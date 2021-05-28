@@ -1,12 +1,12 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-bool isValid(char a){
-    return a!= '0';
+bool isValid(char a) {
+    return a != '0';
 }
 
-bool isValid(char a, char b){
+bool isValid(char a, char b) {
     return a == '1' || (a == '2' && b <= '6');
 }
 
@@ -14,13 +14,13 @@ int solve(string s) {
     int n = s.size();
     if (n == 0 || s[0] == '0') return 0;
     if (n == 1) return 1;
-    int f1=1, f2=1, count=0;
-    for (int i=1; i<n;++i){
+    int f1 = 1, f2 = 1, count = 0;
+    for (int i = 1; i < n; ++i) {
         int temp = f1;
-        if (isValid(s[i]) && isValid(s[i-1], s[i])) count += f1 + f2;
-        if (!isValid(s[i]) && isValid(s[i-1], s[i])) count += f2;
-        if (isValid(s[i]) && !isValid(s[i-1], s[i])) count += f1;
-        if (!isValid(s[i]) && !isValid(s[i-1], s[i])) return 0;
+        if (isValid(s[i]) && isValid(s[i - 1], s[i])) count += f1 + f2;
+        if (!isValid(s[i]) && isValid(s[i - 1], s[i])) count += f2;
+        if (isValid(s[i]) && !isValid(s[i - 1], s[i])) count += f1;
+        if (!isValid(s[i]) && !isValid(s[i - 1], s[i])) return 0;
         f1 = count;
         f2 = temp;
         count = 0;
