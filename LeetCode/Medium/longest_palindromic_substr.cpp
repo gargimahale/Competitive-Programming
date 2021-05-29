@@ -7,52 +7,38 @@ using namespace std;
 
 class Solution {
 public:
-    string longestPalindrome(string s) {
-        if (s.length() <= 1){
-            return s;
-        }
-
-        int start=0, max_len = 1, end=0;
-
-        // ODD
-        for (int i=0; i<s.size()-1; ++i){
-            int l = i, r = i;
-            while(l>=0 && r<s.size()){
-                if (s[l] == s[r]){
-                    l--, r++;
-                }
-                else{
-                    break;
-                }
+    string getLongestPalindrome(string& s, bool type) {
+        int st = 0, max_len = 1, l, r;
+        for (int i = 0; i < s.size(); ++i) {
+            if (type) {
+                l = i, r = i + 1;
             }
-
-            int len = r-l-1;
-            if (len > max_len){
+            else {
+                l = r = i;
+            }
+            while (l >= 0 && r < s.size() && s[l] == s[r]) {
+                --l, ++r;
+            }
+            int len = r - l - 1;
+            if (len > max_len) {
                 max_len = len;
-                start = l+1;
-                end = r-1;
+                st = l + 1;
             }
         }
+        return s.substr(st, max_len);
+    }
 
-        // EVEN
-        for (int i=0; i<s.size()-1; ++i){
-            int l = i, r = i+1;
-            while(l>=0 && r<s.size()){
-                if (s[l] == s[r]){
-                    l--, r++;
-                }
-                else{
-                    break;
-                }
-            }
+    string longestPalindrome(string& s) {
+        if (s.size() < 2) return s;
 
-            int len = r-l-1;
-            if (len > max_len){
-                max_len = len;
-                start = l+1;
-                end = r-1;
-            }
-        }
-        return s.substr(start, max_len);
+        string odd = getLongestPalindrome(s, false);
+        string even = getLongestPalindrome(s, true);
+        return odd.size() > even.size() ? odd : even;
     }
 };
+
+int main(void) {
+    Solution sol;
+    string a = "babad";
+    cout << sol.longestPalindrome(a) << "\n";
+}
