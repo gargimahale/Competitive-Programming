@@ -34,3 +34,6 @@ public:
         return -1;
     }
 };
+
+// TC: O(log N)
+// SC: O(1)
