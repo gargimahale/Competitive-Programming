@@ -25,3 +25,5 @@ int main(void) {
     vector<int> nums = {3, 3, 4};
     cout << sol.solve(nums);
 }
+
+// TC: O(N), SC: O(1)
