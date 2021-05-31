@@ -1,12 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution{
+class Solution {
 public:
-    vector<int> countBits(int num){
+    vector<int> countBits(int num) {
         vector<int> nums(num + 1, 0);
         for (int i = 1; i <= num; ++i)
-            nums[i] = nums[i / 2] + i % 2;
+            nums[i] =  __builtin_popcount(i);
         return nums;
     }
 };
+
+// TC: O(n), SC: O
