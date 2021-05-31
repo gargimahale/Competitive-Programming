@@ -7,19 +7,19 @@ public:
     int shortestPathBinaryMatrix(vector<vector<int>>& g, int steps = 0) {
         queue<pair<int, int>> q;
         q.push({0, 0});
-        while(!q.empty()){
+        while (!q.empty()) {
             ++steps;
             queue<pair<int, int>> q1;
-            while(!q.empty()){
+            while (!q.empty()) {
                 auto c = q.front();
                 q.pop();
                 if (exchange(g[c.first][c.second], 1) == 1) continue;
-                if (c.first == g.size() - 1 && c.second == g.size()-1){
+                if (c.first == g.size() - 1 && c.second == g.size() - 1) {
                     return steps;
                 }
-                for (auto i=c.first-1; i<=c.first+1; ++i){
-                    for(int j=c.second-1; j<=c.second+1; ++j){
-                        if (i >= 0 && j >= 0 && i <g.size() && j<g.size() && !g[i][j]){
+                for (auto i = c.first - 1; i <= c.first + 1; ++i) {
+                    for (int j = c.second - 1; j <= c.second + 1; ++j) {
+                        if (i >= 0 && j >= 0 && i < g.size() && j < g.size() && !g[i][j]) {
                             q1.push({i, j});
                         }
                     }
