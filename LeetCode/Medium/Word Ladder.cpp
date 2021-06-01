@@ -1,10 +1,7 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-
 // Use this https://leetcode.com/problems/word-ladder/discuss/40707/C%2B%2B-BFS
-
 
 class Solution {
 public:
