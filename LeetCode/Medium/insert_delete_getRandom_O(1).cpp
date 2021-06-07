@@ -17,17 +17,17 @@ public:
         }
         list.push_back(val);
 //         Storing the idx
-        map[val] = list.size()-1;
+        map[val] = list.size() - 1;
         return true;
     }
 
     /** Removes a value from the set. Returns true if the set contained the specified element. */
     bool remove(int val) {
-        if (map.find(val) != map.end()){
+        if (map.find(val) != map.end()) {
             int idx = map[val];
-            map[list[list.size()-1]] = idx;
+            map[list[list.size() - 1]] = idx;
             map.erase(val);
-            swap(list[idx], list[list.size()-1]);
+            swap(list[idx], list[list.size() - 1]);
             list.pop_back();
             return true;
         }
