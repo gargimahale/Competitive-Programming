@@ -9,6 +9,7 @@ public:
         vector<vector<int>> adj(numCourses, vector<int>());
         vector<int> degree(numCourses, 0);
 
+        // get count for all the indegrees
         for (auto& p : prerequisites) {
             adj[p[1]].push_back(p[0]);
             ++degree[p[0]];
@@ -16,10 +17,12 @@ public:
 
         queue<int> Q;
 
+        // Add to Q the nodes having no dependencies
         for (int i = 0; i < numCourses; ++i) {
             if (degree[i] == 0) Q.push(i);
         }
 
+        //  ppa
         while (!Q.empty()) {
             int curr = Q.front();
             Q.pop();
