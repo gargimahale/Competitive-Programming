@@ -3,28 +3,28 @@ using namespace std;
 
 class Solution {
 public:
-    string mostCommonWord(string paragraph, vector<string>& banned) {
-        unordered_map<string, int> mp;
-        for(int i=0; i<paragraph.size();){
-            string temp = "";
-            while(i < paragraph.size() && isalpha(paragraph[i])) {
-                paragraph[i] = tolower(paragraph[i]);
-                temp += (tolower(paragraph[i]));
-                ++i;
-            }
-            while(i < paragraph.size() && !isalpha(paragraph[i])) ++i;
-            mp[temp]++;
-        }
-        
-        for (auto x: banned) mp[x] = 0;
-        string res = "";
-        int cnt = 0;
-        for(auto x: mp){
-            if (x.second > cnt){
-                res = x.first;
-                cnt = x.second;
+    string mostCommonWord(string para, vector<string>& banned) {
+        unordered_set<string> ban(banned.begin(), banned.end());
+        unordered_map<string, int> count;
+
+        int n = para.size();
+        if (n == 0) return para;
+
+        for (auto& ch : para) c = isalpha(ch) ? tolower(ch) : ' ';
+
+        istringstream iss(para);
+        string w;
+        pair<string, int> res("", 0);
+        while (iss >> w) {
+            if (ban.find(w) == ban.end() && ++count[w] > res.second) {
+                res = make_pair(w, count[w]);
             }
         }
-        return res;
+        return res.first;
     }
 };
+
+// TC: (N+M)
+// SC: O(N+M)
+// where n - is for the pipeline
+// m - is for the set
