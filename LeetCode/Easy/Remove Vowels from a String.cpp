@@ -6,8 +6,8 @@ class Solution {
 public:
     string removeVowels(string s) {
         string res;
-        for (char& ch: s){
-            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o'|| ch == 'u'){
+        for (char& ch : s) {
+            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
                 continue;
             }
             res += ch;

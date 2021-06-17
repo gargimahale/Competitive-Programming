@@ -23,13 +23,13 @@ public:
         //     swap(root->left, root->right);
         // }
         // return root;
-        
+
         // Iterative Solutions
         stack<TreeNode*> stk;
         stk.push(root);
-        while(!stk.empty()){
+        while (!stk.empty()) {
             TreeNode* p = stk.top(); stk.pop();
-            if (p){
+            if (p) {
                 stk.push(p->left);
                 stk.push(p->right);
                 swap(p->left, p->right);

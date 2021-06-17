@@ -7,7 +7,7 @@ public:
     /** Initialize your data structure here. */
     int size;
     queue<int> q;
-    int sum=0;
+    int sum = 0;
 
     MovingAverage(int size) {
         this->size = size;
@@ -16,11 +16,11 @@ public:
     double next(int val) {
         sum += val;
         q.push(val);
-        if(q.size() > size){
+        if (q.size() > size) {
             sum -= q.front();
             q.pop();
         }
-        return 1.0*sum/q.size();
+        return 1.0 * sum / q.size();
     }
 };
 

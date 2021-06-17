@@ -2,11 +2,11 @@
 
 using namespace std;
 
-class Solution{
+class Solution {
 public:
-    int thirdMax(vector<int> &nums){
+    int thirdMax(vector<int> &nums) {
         set<int> S;
-        for (int x : nums){
+        for (int x : nums) {
             S.insert(x);
             if (S.size() > 3)
                 S.erase(S.begin());

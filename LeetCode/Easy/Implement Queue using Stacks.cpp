@@ -6,39 +6,39 @@ public:
     /** Initialize your data structure here. */
     stack<int> Q, temp;
     MyQueue() {}
-    
+
     /** Push element x to the back of queue. */
     void push(int x) {
-        if(Q.empty()){
+        if (Q.empty()) {
             Q.push(x);
         }
-        else{
-            while(!Q.empty()){
+        else {
+            while (!Q.empty()) {
                 temp.push(Q.top());
                 Q.pop();
             }
-            
+
             Q.push(x);
-            
-            while(!temp.empty()){
+
+            while (!temp.empty()) {
                 Q.push(temp.top());
                 temp.pop();
             }
         }
     }
-    
+
     /** Removes the element from in front of queue and returns that element. */
     int pop() {
         int x = Q.top();
         Q.pop();
         return x;
     }
-    
+
     /** Get the front element. */
     int peek() {
         return Q.top();
     }
-    
+
     /** Returns whether the queue is empty. */
     bool empty() {
         return Q.empty();

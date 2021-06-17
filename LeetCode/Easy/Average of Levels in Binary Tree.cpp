@@ -21,15 +21,15 @@ public:
         queue<TreeNode*> q;
         q.push(root);
         q.push(nullptr);
-        while(!q.empty()){
+        while (!q.empty()) {
             TreeNode* t = q.front();
             q.pop();
-            if (t == nullptr){
-                ans.push_back(sum/cnt);
+            if (t == nullptr) {
+                ans.push_back(sum / cnt);
                 sum = cnt = 0;
                 if (!q.empty()) q.push(nullptr);
             }
-            else{
+            else {
                 sum += t->val;
                 ++cnt;
                 if (t->right) q.push(t->right);

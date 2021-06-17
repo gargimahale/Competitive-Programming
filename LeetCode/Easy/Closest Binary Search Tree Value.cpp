@@ -12,11 +12,11 @@ using namespace std;
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution{
+class Solution {
 public:
-    int closestValue(TreeNode *root, double target){
+    int closestValue(TreeNode *root, double target) {
         int val, close = root->val;
-        while (root){
+        while (root) {
             val = root->val;
             close = abs(val - target) < abs(close - target) ? val : close;
             root = target < root->val ? root->left : root->right;

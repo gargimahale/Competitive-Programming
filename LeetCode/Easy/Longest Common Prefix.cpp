@@ -7,9 +7,9 @@ public:
     string longestCommonPrefix(vector<string>& s) {
         // vertical scaling
         if (s.empty()) return "";
-        for (int j=0; ;++j){
-            for(int i=0; i<s.size(); ++i){
-                
+        for (int j = 0; ; ++j) {
+            for (int i = 0; i < s.size(); ++i) {
+
             }
         }
     }

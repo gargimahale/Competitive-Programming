@@ -14,9 +14,9 @@ using namespace std;
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution{
+class Solution {
 public:
-    TreeNode *sortedArrayToBST(vector<int> &nums){
+    TreeNode *sortedArrayToBST(vector<int> &nums) {
         if (nums.size() == 0)
             return 0;
 

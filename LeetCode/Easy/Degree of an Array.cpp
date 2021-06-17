@@ -19,14 +19,14 @@ using namespace std;
 //         if (max_freq == 1){
 //             return 1;
 //         }
-        
+
 //         // elemets with highest degree;
 //         for(auto x: map){
 //             if (x.second == max_freq){
 //                 temp.push_back(x.first);
 //             }
 //         }
-        
+
 //         int ans = INT_MAX;
 //         for (int x: temp){
 //             int i=0, j= nums.size()-1;
@@ -39,7 +39,7 @@ using namespace std;
 //             ans = min(ans, j-i+1);
 //         }
 //         return ans;
-        
+
 //     }
 // };
 
@@ -49,34 +49,34 @@ using namespace std;
 class Solution {
 public:
     unordered_map<int, pair<pair<int, int>, int>> map; // (num: <(start, end), freq)>);
-    
-    
+
+
     int findShortestSubArray(vector<int>& nums) {
-        for (int i=0; i<nums.size(); ++i){
-            if (map.find(nums[i]) == map.end()){
+        for (int i = 0; i < nums.size(); ++i) {
+            if (map.find(nums[i]) == map.end()) {
                 map[nums[i]].first = {i, i};
                 map[nums[i]].second++;
             }
-            else{
+            else {
                 map[nums[i]].first.second = i;
                 map[nums[i]].second++;
             }
         }
-        
+
         int max_freq = 0;
-        for (int x:nums){
-            if (map[x].second > max_freq){
+        for (int x : nums) {
+            if (map[x].second > max_freq) {
                 max_freq = map[x].second;
             }
         }
-        
-        if (max_freq == 1){
+
+        if (max_freq == 1) {
             return 1;
         }
-        
+
         int ans = INT_MAX;
-        for (auto x: map){
-            if (x.second.second == max_freq){
+        for (auto x : map) {
+            if (x.second.second == max_freq) {
                 ans = min(ans, (x.second.first.second - x.second.first.first + 1));
             }
         }

@@ -9,12 +9,12 @@ public:
         if (s.size() != t.size()) {
             return false;
         }
-        for (int i=0; i<s.size(); ++i){
-            ch[s[i]-'a']++;
-            ch[t[i]-'a']--;
+        for (int i = 0; i < s.size(); ++i) {
+            ch[s[i] - 'a']++;
+            ch[t[i] - 'a']--;
         }
-        for (int x: ch) {
-            if(ch < 0){
+        for (int x : ch) {
+            if (ch < 0) {
                 return false;
             }
         }

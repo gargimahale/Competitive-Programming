@@ -2,11 +2,11 @@
 
 using namespace std;
 
-class Solution{
+class Solution {
 public:
-    int arraySign(vector<int> &nums){
+    int arraySign(vector<int> &nums) {
         long ans = 1;
-        for (int x : nums){
+        for (int x : nums) {
             ans = (ans * x) % (int)(1e9 + 7);
         }
 

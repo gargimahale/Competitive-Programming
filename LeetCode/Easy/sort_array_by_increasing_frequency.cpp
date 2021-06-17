@@ -22,7 +22,7 @@ using namespace std;
 //         });
 //         vector<int> ans;
 //         for (auto ele: map){
-                // (it, count, element to be repeated) 
+// (it, count, element to be repeated)
 //             ans.insert(ans.end(), ele.first, ele.second);
 //         }
 //         return ans;
@@ -57,7 +57,7 @@ vector<int> frequencySort(vector<int>& nums) {
     // OR
 
     int cnt[201] = {};
-    for (auto n : nums){
+    for (auto n : nums) {
         ++cnt[n + 100];
     }
     sort(begin(nums), end(nums), [&](int a, int b) {
@@ -66,10 +66,10 @@ vector<int> frequencySort(vector<int>& nums) {
     return nums;
 }
 
-int main(){
+int main() {
     vector<int> nums = {1, 1, 2, 2, 2, 3};
     nums = frequencySort(nums);
-    for (int x: nums){
+    for (int x : nums) {
         cout << x << " ";
     }
     return 0;

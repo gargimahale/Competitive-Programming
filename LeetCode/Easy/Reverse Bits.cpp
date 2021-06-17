@@ -1,12 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution{
+class Solution {
 public:
-    uint32_t reverseBits(uint32_t n){
+    uint32_t reverseBits(uint32_t n) {
         bitset<32> b(n);
         int l = 0, r = 31;
-        while (l < r){
+        while (l < r) {
             bool temp = b[l];
             b[l++] = b[r];
             b[r--] = temp;

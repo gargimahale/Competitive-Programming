@@ -5,24 +5,24 @@ using namespace std;
 class Solution {
 public:
     string mergeAlternately(string word1, string word2) {
-        int i=0, j =0, cnt=0;
+        int i = 0, j = 0, cnt = 0;
         string res;
-        for (int cnt = 0; i<word1.size() && j<word2.size(); ){
-            if (cnt % 2 == 0){
+        for (int cnt = 0; i < word1.size() && j < word2.size(); ) {
+            if (cnt % 2 == 0) {
                 res += word1[i++];
                 ++cnt;
             }
-            else{
+            else {
                 res += word2[j++];
                 ++cnt;
             }
         }
-        
-        while(i < word1.size()){
+
+        while (i < word1.size()) {
             res += word1[i++];
         }
-        
-        while(j < word2.size()){
+
+        while (j < word2.size()) {
             res += word2[j++];
         }
         return res;

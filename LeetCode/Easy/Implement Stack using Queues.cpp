@@ -5,30 +5,30 @@ class MyStack {
 public:
     /** Initialize your data structure here. */
     queue<int> Q;
-    
+
     MyStack() {}
-    
+
     /** Push element x onto stack. */
     void push(int x) {
         Q.push(x);
-        for(int i=0; i<Q.size()-1; ++i){
+        for (int i = 0; i < Q.size() - 1; ++i) {
             Q.push(Q.front());
             Q.pop();
         }
     }
-    
+
     /** Removes the element on top of the stack and returns that element. */
     int pop() {
         int x = Q.front();
         Q.pop();
         return x;
     }
-    
+
     /** Get the top element. */
     int top() {
         return Q.front();
     }
-    
+
     /** Returns whether the stack is empty. */
     bool empty() {
         return Q.empty();

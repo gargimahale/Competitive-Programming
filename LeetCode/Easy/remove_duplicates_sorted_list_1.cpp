@@ -10,15 +10,15 @@ struct ListNode {
 };
 
 ListNode* deleteDuplicates(ListNode* head) {
-        if(!head) return head;
-        ListNode* curr = head;
-        while(curr && curr->next){
-            ListNode* next = curr->next;
-            if(curr->val == curr->next->val){
-                curr->next = next->next;
-                delete(next);
-            }
-            else curr = curr->next;
+    if (!head) return head;
+    ListNode* curr = head;
+    while (curr && curr->next) {
+        ListNode* next = curr->next;
+        if (curr->val == curr->next->val) {
+            curr->next = next->next;
+            delete(next);
         }
-        return head;
+        else curr = curr->next;
     }
+    return head;
+}

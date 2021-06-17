@@ -12,8 +12,8 @@ public:
         int cnt = 1;
         sort(begin(intervals), end(intervals));
 
-        for (int i=1; i<n; ++i){
-            if (intervals[i][0] < intervals[i-1][1]) return false;
+        for (int i = 1; i < n; ++i) {
+            if (intervals[i][0] < intervals[i - 1][1]) return false;
             ++cnt;
         }
         return true;

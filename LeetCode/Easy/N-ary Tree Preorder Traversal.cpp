@@ -24,18 +24,18 @@ public:
 class Solution {
 public:
     vector<int> res;
-    
-    void travel(Node* root){
-        if (root == NULL){
+
+    void travel(Node* root) {
+        if (root == NULL) {
             return;
         }
-        
+
         res.push_back(root->val);
-        for (Node* child: root->children){
+        for (Node* child : root->children) {
             travel(child);
         }
     }
-    
+
     vector<int> preorder(Node* root) {
         travel(root);
         return res;
