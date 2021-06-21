@@ -60,12 +60,11 @@ public:
             // Capacity Full
             while (mostRecentVal.size() == cap) {
                 // remove elment from map
-                auto x = pq.top();
+                auto x = pq.top(); pq.pop();
                 if (frequency[x.second.second] == x.first) {
                     mostRecentVal.erase(x.second.second);
                     frequency.erase(x.second.second);
                 }
-                pq.pop();
             }
         }
         // Fill Queue and increase time
