@@ -6,31 +6,32 @@ using namespace std;
 class Solution {
 public:
     int calculate(string s) {
-        stack<int> signs({1});
-        int ans = 0, num = 0, sign = 1;
+        int n = s.size(), result = 0, sign = 1;
+        stack<int> stk;
 
-        for (char c : s) {
-            if (isdigit(c)) {
-                num = num * 10 + (c - '0');
+        for (int i = 0; i < n; ++i) {
+            if (isdigit(s[i])) {
+                int num = s[i] - '0';
+                while (i + 1 < n && isdigit(s[i + 1])) {
+                    num = num * 10 + (s[++i] - '0');
+                }
+                result += sign * num;
             }
-            else if (c == '+' || c == '-') {
-                ans += num * sign * signs.top();
-                num = 0;
-                sign = (c == '+' ? 1 : -1);
-            }
-            else if (c == '(') {
-                signs.push(sign * signs.top());
+            else if (s[i] == '+') sign = 1;
+            else if (s[i] == '-') sign = -1;
+            else if (s[i] == '(') {
+                stk.push(result);
+                stk.push(sign);
+                result = 0;
                 sign = 1;
-            }
-            else if (c == ')') {
-                ans += num * sign * signs.top();
-                num = 0;
-                signs.pop();
-                sign = 1;
+            } else if (s[i] == ')') {
+                result *= stk.top();
+                stk.pop();
+                result += stk.top();
+                stk.pop();
             }
         }
-        if (num)
-            ans += num * sign * signs.top();
-        return ans;
+
+        return result;
     }
 };
