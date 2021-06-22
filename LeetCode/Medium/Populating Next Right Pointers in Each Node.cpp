@@ -27,25 +27,25 @@ public:
         q.push(root);
         q.push(NULL);
         Node* prev = NULL;
-        while(!q.empty()){
+        while (!q.empty()) {
             Node* temp = q.front();
             q.pop();
-            if (!temp){
-                if (!q.empty()){
+            if (!temp) {
+                if (!q.empty()) {
                     q.push(NULL);
                 }
                 prev->next = NULL;
                 prev = NULL;
             }
-            else{
-                if (prev){
+            else {
+                if (prev) {
                     prev->next = temp;
                 }
                 prev = temp;
-                if (temp->left){
+                if (temp->left) {
                     q.push(temp->left);
                 }
-                if (temp->right){
+                if (temp->right) {
                     q.push(temp->right);
                 }
             }
