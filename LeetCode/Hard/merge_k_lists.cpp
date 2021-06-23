@@ -2,7 +2,8 @@
 
 using namespace std;
 
-// Definition for singly-linked list.
+// TC: O(Nlogk) - N is the number of nodes, k is the number of linkedlists
+// SC: O(1)
 
 struct ListNode {
     int val;
@@ -15,34 +16,37 @@ struct ListNode {
 class Solution {
 public:
 
-    ListNode* mergeTwoLists(ListNode *l1, ListNode *l2) {
-        if (l1 == nullptr) {
-            return l2;
+    ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
+        ListNode* dummy = new ListNode(0);
+        ListNode* curr = dummy;
+
+        while (l1 && l2) {
+            if (l1->val <= l2->val) {
+                curr->next = l1;
+                l1 = l1->next;
+            } else {
+                curr->next = l2;
+                l2 = l2->next;
+            }
+            curr = curr->next;
         }
-        if (l2 == nullptr) {
-            return l1;
-        }
-        if (l1->val <= l2->val) {
-            l1->next = mergeTwoLists(l1->next, l2);
-            return l1;
-        }
-        else {
-            l2->next = mergeTwoLists(l1, l2->next);
-            return l2;
-        }
+        curr->next = l1 ? l1 : l2;
+
+        return dummy->next;
     }
 
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if (lists.empty()) {
-            return nullptr;
-        }
         int len = lists.size();
+        if (len == 0) return NULL;
+
         while (len > 1) {
             for (int i = 0; i < len / 2; ++i) {
-                lists[i] = mergeTwoLists(lists[i], lists[len - 1 - i]);
+                lists[i] = mergeTwoLists(lists[i], lists[len - i - 1]);
             }
+
             len = (len + 1) / 2;
         }
+
         return lists.front();
     }
 };
