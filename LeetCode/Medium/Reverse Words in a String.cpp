@@ -3,11 +3,11 @@ using namespace std;
 
 // TC: O(n), SC: O(1)
 
-class Solution{
+class Solution {
 public:
-    void reverseWords(string &s, int n){
+    void reverseWords(string &s, int n) {
         int i = 0, j = 0;
-        while (i < n){
+        while (i < n) {
             while (i < j || i < n && s[i] == ' ')
                 ++i;
             while (j < i || j < n && s[j] != ' ')
@@ -16,9 +16,9 @@ public:
         }
     }
 
-    string cleanedWords(string &s, int n){
+    string cleanedWords(string &s, int n) {
         int i = 0, j = 0;
-        while (j < n){
+        while (j < n) {
             while (j < n && s[j] == ' ')
                 ++j;
             while (j < n && s[j] != ' ')
@@ -31,7 +31,7 @@ public:
         return s.substr(0, i);
     }
 
-    string reverseWords(string s){
+    string reverseWords(string s) {
 
         if (s.empty())
             return "";

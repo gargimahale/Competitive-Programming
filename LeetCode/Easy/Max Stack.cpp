@@ -61,3 +61,62 @@ public:
  * int param_4 = obj->peekMax();
  * int param_5 = obj->popMax();
  */
+
+
+// OR
+
+class MaxStack {
+public:
+    /** initialize your data structure here. */
+    stack<int> stk, mStk;
+    MaxStack() {}
+
+    void addMax(int x) {
+        if (mStk.empty() || x >= mStk.top()) {
+            mStk.push(x);
+        }
+    }
+
+    void push(int x) {
+        addMax(x);
+        stk.push(x);
+    }
+
+    int pop() {
+        int val = stk.top();
+        if (val == mStk.top()) {
+            mStk.pop();
+        }
+        stk.pop();
+        return val;
+    }
+
+    int top() {
+        return stk.top();
+    }
+
+    int peekMax() {
+        return mStk.top();
+    }
+
+    int popMax() {
+        int val = mStk.top();
+        stack<int> tmp;
+
+        while (mStk.top() != stk.top()) {
+            tmp.push(stk.top());
+            stk.pop();
+        }
+
+        mStk.pop();
+        stk.pop();
+
+        while (!tmp.empty()) {
+            stk.push(tmp.top());
+            addMax(tmp.top());
+            tmp.pop();
+        }
+
+        return val;
+    }
+};

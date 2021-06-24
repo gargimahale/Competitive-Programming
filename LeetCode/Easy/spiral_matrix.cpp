@@ -28,7 +28,7 @@ public:
 
             for (int i = bottom; i >= top && sol.size() < size; --i) {
                 sol.push_back(matrix[i][left]);
-            }
+            } s
             left++;
         }
         return sol;
