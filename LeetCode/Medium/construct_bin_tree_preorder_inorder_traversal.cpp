@@ -11,15 +11,16 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
+
 class Solution {
 public:
 
-    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int stop, int& inPos, int& prePos){
-        if (prePos >= preorder.size()){
+    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int stop, int& inPos, int& prePos) {
+        if (prePos >= preorder.size()) {
             return nullptr;
         }
 
-        if (inorder[inPos] == stop){
+        if (inorder[inPos] == stop) {
             inPos++;
             return NULL;
         }
