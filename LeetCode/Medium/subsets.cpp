@@ -1,23 +1,5 @@
 #include <bits/stdc++.h>
-#define pb push_back
-
 using namespace std;
-
-// void dfs(vector<vector<int>>& result, int index, vector<int>& nums, vector<int> current){
-//     result.pb(current);
-//     for (int i = index; i<nums.size(); ++i){
-//         current.pb(nums[i]);
-//         dfs(result, i+1, nums, current);
-//         current.pop_back();
-//     }
-// }
-
-// vector<vector<int>> subsets(vector<int>& nums) {
-//     vector<vector<int>> result;
-//     dfs(result, 0, nums, {});
-//     return result;
-// }
-
 
 class Solution {
 public:
