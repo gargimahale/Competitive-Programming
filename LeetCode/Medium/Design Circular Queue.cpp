@@ -91,12 +91,12 @@ public:
 
 int main(void) {
     MyCircularQueue* obj = new MyCircularQueue(3);
-    bool p1 = obj->enqueue(4);
+    bool p1 = obj->enQueue(4);
     cout << p1;
-    p1 = obj->enqueue(5);
+    p1 = obj->enQueue(5);
     cout << p1;
-    p1 = obj->enqueue(6);
+    p1 = obj->enQueue(6);
     cout << p1;
-    p1 = obj->enqueue(8);
+    p1 = obj->enQueue(8);
     cout << p1;
 }
