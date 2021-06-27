@@ -1,10 +1,10 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 class Solution {
 public:
-    #define iterator vector<vector<int>>::iterator
-    
+#define iterator vector<vector<int>>::iterator
+
     void sort_count(iterator l, iterator r, vector<int>& count) {
         if (r - l <= 1) return;
         iterator m = l + (r - l) / 2;
@@ -16,7 +16,7 @@ public:
         }
         inplace_merge(l, m, r);
     }
-    
+
     vector<int> countSmaller(vector<int>& nums) {
         vector<vector<int>> hold;
         int n = nums.size();
