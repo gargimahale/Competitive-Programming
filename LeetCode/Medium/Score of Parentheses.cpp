@@ -6,7 +6,7 @@ public:
     int scoreOfParentheses(string S) {
         stack<int> stack;
         int cur = 0;
-        for (char i : S){
+        for (char i : S) {
             if (i == '(') {
                 stack.push(cur);
                 cur = 0;
