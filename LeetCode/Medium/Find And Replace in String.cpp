@@ -25,3 +25,8 @@ public:
         return res;
     }
 };
+
+
+// Complexity Analysis
+// Runtime: O(n + m), where n is the size of the original string, and m is the size of all replacement strings.
+// Memory: O(max(n, m)) to accommodate the resulting string.
