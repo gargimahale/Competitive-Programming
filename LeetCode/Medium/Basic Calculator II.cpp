@@ -7,7 +7,7 @@ public:
         stack<int> stk;
         istringstream iss(s);
         char op = '+';
-        int n = s.size(), a;
+        int a;
         while (iss >> a) {
             if (op == '+') {
                 stk.push(a);
