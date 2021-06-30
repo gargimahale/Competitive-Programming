@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 // TC: O(n), SC: O(1)
@@ -6,10 +6,9 @@ using namespace std;
 class Solution {
 public:
     char findTheDifference(string s, string t) {
-        char ch;
-        for (int i = 0; i < s.size(); ++i) {
-            ch ^= (s[i] ^ t[i]);
-        }
-        return ch ^ t[t.size() - 1];
+        char ch = 0;
+        for (char c : s) ch ^= c;
+        for (char c : t) ch ^= c;
+        return ch;
     }
 };
