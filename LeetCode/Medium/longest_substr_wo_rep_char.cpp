@@ -13,12 +13,12 @@ public:
         cnt[s[0]]++;
 
         int ans = 1;
-        while(j < n-1){
-            if (cnt[s[j+1]] == 0){
+        while (j < n - 1) {
+            if (cnt[s[j + 1]] == 0) {
                 cnt[s[++j]] = 1;
-                ans = max(ans, j-i+1);
+                ans = max(ans, j - i + 1);
             }
-            else{
+            else {
                 cnt[s[i++]]--;
             }
         }
