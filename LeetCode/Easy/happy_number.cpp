@@ -1,6 +1,9 @@
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
 using namespace std;
+
+/*
+Using Floyd Cycle detection Algo
+ */
 
 class Solution {
 public:
@@ -15,13 +18,13 @@ public:
     }
 
     bool isHappy(int n) {
-        unordered_set<int> S;
-        while (true) {
-            if (n == 1) return true;
-            n = helper(n);
-            if (S.count(n) > 0) return false;
-            S.insert(n);
-        }
-        return false;
+        int slow = n, fast = n;
+        do {
+            slow = helper(slow);
+            fast = helper(fast);
+            fast = helper(fast);
+        } while (slow != fast);
+        if (slow == 1) return 1;
+        return 0;
     }
 };
