@@ -8,19 +8,23 @@ public:
         string res, s;
         vector<string> a;
         stringstream ss(path);
-        while(getline(ss, s, '/')){
-            if (s == "" || s == "."){
+
+        while (getline(ss, s, '/')) {
+            if (s == "" || s == ".") {
                 continue;
             }
-            if (s == ".." && !a.empty()){
+
+            if (s == ".." && !a.empty()) {
                 a.pop_back();
             }
-            else if (s != ".."){
+
+            if (s != "..") {
                 a.push_back(s);
             }
+
         }
-        for (string it: a){
-            res += "/"+it;
+        for (string it : a) {
+            res += "/" + it;
         }
         return res.empty() ? "/" : res;
     }
