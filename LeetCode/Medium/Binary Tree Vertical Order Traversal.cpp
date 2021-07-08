@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 /**
@@ -14,36 +13,31 @@ using namespace std;
  * };
  */
 class Solution {
-    void dfs(TreeNode* node, int r, int c, unordered_map<int, vector<pair<int, int>>>& cache, int& minC, int& maxC){
-        if(node == nullptr) return;
-        if(cache.count(c)) cache[c].push_back({r, node->val});
-        else cache.insert({c, {{r, node->val}}});
-        minC = min(minC, c);
-        maxC = max(maxC, c);
-        dfs(node->left, r+1, c-1, cache, minC, maxC);
-        dfs(node->right, r+1, c+1, cache, minC, maxC);
-    }
 public:
     vector<vector<int>> verticalOrder(TreeNode* root) {
-        vector<vector<int>> result;
-        if(root == nullptr) return result;
-        
-        unordered_map<int, vector<pair<int, int>>> cache;
-        int minC = 0, maxC = 0;
-        dfs(root, 0, 0, cache, minC, maxC);
-        
-        for(int c = minC; c < maxC+1; ++c){
-            sort(cache[c].begin(), cache[c].end(), [](pair<int, int>& p1, pair<int, int>& p2){
-                if (p1.first == p2. first){
-                    return p1.second < p2.second;
-                }
-                return (p1.first < p2.first);
-            });
-            vector<int> col;
-            for(pair<int, int>& p: cache[c])
-                col.push_back(p.second);
-            result.push_back(col);
+        vector<vector<int>> ans;
+        if (!root) return ans;
+        map<int, vector<int>> m;
+        queue<pair<int, TreeNode*>> Q;
+        Q.push({0, root});
+
+        while (!Q.empty()) {
+            int size = Q.size();
+            for (int i = 0; i < size; ++i) {
+                auto ele = Q.front();
+                int tmp = ele.first;
+                Q.pop();
+
+                m[tmp].push_back(ele.second->val);
+
+                if (ele.second->left) Q.push({tmp - 1, ele.second->left});
+                if (ele.second->right) Q.push({tmp + 1, ele.second->right});
+            }
         }
-        return result;
+
+        for (auto& vec : m) {
+            ans.push_back(vec.second);
+        }
+        return ans;
     }
 };
