@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 
@@ -15,7 +14,6 @@ Additional optimizations:
     we know what's the best at this point.
     Check if res == 0 and exit. We cannot do better than zero!
     Check if a sum is already in the set and do not search for a compliment in this case.
-
 
 */
 
