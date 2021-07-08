@@ -12,40 +12,6 @@ using namespace std;
  * };
  */
 
-
-class Solution {
-public:
-    ListNode* dummy = new ListNode(0), *prev = dummy;
-    ListNode* reverseAtTime(ListNode* head, int parts, int k) {
-        dummy->next = head;
-        for (int i = 0; i < parts; ++i) {
-            for (int j = 1; j < k; ++j) {
-                ListNode* temp = prev->next;
-                prev->next = head->next;
-                head->next = head->next->next;
-                prev->next->next = temp;
-            }
-            prev = head;
-            head = head->next;
-        }
-        return dummy->next;
-    }
-
-    ListNode* reverseKGroup(ListNode* head, int k) {
-        ListNode* curr = head;
-        int cnt = 0, parts;
-        while (curr) {
-            ++cnt;
-            curr = curr->next;
-        }
-
-        parts = cnt / k;
-        return reverseAtTime(head, parts, k);
-    }
-};
-
-// OR
-
 // TC: O(Nlogk), SC: O(N/k)
 class Solution {
 public:
