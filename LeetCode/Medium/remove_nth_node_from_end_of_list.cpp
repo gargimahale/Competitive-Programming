@@ -31,13 +31,28 @@ public:
 
 // OR
 
-ListNode* removeNthFromEnd(ListNode* head, int n) {
-    ListNode* dummy = new ListNode();
-    dummy -> next = head;
-    ListNode* fast = dummy;
-    ListNode* slow = dummy;
-    while (n) fast = fast -> next, n --;
-    while (fast -> next != NULL) fast = fast->next, slow = slow->next;
-    slow -> next = slow -> next -> next;
-    return dummy->next;
-}
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if (!head) return NULL;
+
+        ListNode newHead(0);
+        newHead.next = head;
+        ListNode* fast = &newHead, *slow = &newHead;
+
+        while (n--) {
+            fast = fast->next;
+        }
+
+        while (fast->next != NULL) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+
+        ListNode *to_delete = slow->next;
+        slow->next = slow->next->next;
+
+        delete to_delete;
+        return newHead.next;
+    }
+};
