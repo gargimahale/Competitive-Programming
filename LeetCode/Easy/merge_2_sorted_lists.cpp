@@ -33,3 +33,5 @@ public:
         return dummy.next;
     }
 };
+
+// TC: O(N+M), SC: O(1)
