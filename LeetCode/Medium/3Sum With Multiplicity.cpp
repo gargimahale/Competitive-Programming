@@ -1,13 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution{
+class Solution {
 public:
-    int threeSumMulti(vector<int> &nums, int target){
+    int threeSumMulti(vector<int> &nums, int target) {
         long m[101] = {}, res = 0;
         for (auto n : nums)
             ++m[n];
-        for (auto i = 0; i < 101; ++i){
+        for (auto i = 0; i < 101; ++i) {
             if (i * 3 == target)
                 res += m[i] * (m[i] - 1) * (m[i] - 2) / 6;
             for (auto j = i + 1, k = target - i - j; j < 101; ++j, --k)
