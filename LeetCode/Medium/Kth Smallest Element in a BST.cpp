@@ -15,26 +15,22 @@ using namespace std;
  */
 class Solution {
 public:
-    
-    void dfs(TreeNode* root, vector<int>& temp){
-        if (root == nullptr) return;
-        dfs(root->left, temp);
-        temp.push_back(root->val);
-        dfs(root->right, temp);
-    }
-    
-    int kthSmallest(TreeNode* root, int k) {
-        if (!root){
-            return 0;
-        }
-        vector<int> temp;
-        dfs(root, temp);
-        for (int i=0; i<temp.size(); ++i){
-            --k;
-            if (k==0){
-                return temp[i];
+
+    void findKthSmallest(TreeNode* root, int k, vector<int>* kth) {
+        if (!root) return;
+
+        if (root && kth->size() < k) {
+            findKthSmallest(root->left, k, kth);
+            if (kth->size() < k) {
+                kth->push_back(root->val);
+                findKthSmallest(root->right, k, kth);
             }
         }
-        return -1;
+    }
+
+    int kthSmallest(TreeNode* root, int k) {
+        vector<int> kth;
+        findKthSmallest(root, k, &kth);
+        return kth.back();
     }
 };

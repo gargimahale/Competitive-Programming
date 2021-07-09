@@ -26,3 +26,30 @@ public:
     }
 };
 
+// BFS
+
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if (!root) return true;
+
+        queue<pair<TreeNode*, pair<long, long>>> Q;
+        Q.push({root, {LONG_MIN, LONG_MAX}});
+
+        while (!Q.empty()) {
+            auto ele = Q.front();
+            Q.pop();
+
+            if (ele.first->val <= ele.second.first || ele.first->val >= ele.second.second) return false;
+
+            if (ele.first->left) {
+                Q.push({ele.first->left, {ele.second.first, ele.first->val}});
+            }
+            if (ele.first->right) {
+                Q.push({ele.first->right, {ele.first->val, ele.second.second}});
+            }
+        }
+
+        return true;
+    }
+};
