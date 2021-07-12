@@ -16,7 +16,6 @@ public:
         int first = intervals[0][1];
 
         for (int i = 1; i < n; ++i) {
-            cout << intervals[i][0] << " " << intervals[i][1] << "\n";
             if (intervals[i][0] < first) {
                 ++cnt;
             } else {
