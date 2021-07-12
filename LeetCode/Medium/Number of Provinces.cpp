@@ -21,7 +21,7 @@ public:
             if (!visited[i]) {
                 dfs(isConnected, visited, i);
                 ++cnt;
-            } s
+            }
         }
 
         return cnt;
