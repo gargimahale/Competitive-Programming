@@ -3,25 +3,25 @@
 
 using namespace std;
 
-void getString(string S, string newString, vector<string>& result, int i){
-    if (i == S.size()){
+void getString(string S, string newString, vector<string>& result, int i) {
+    if (i == S.size()) {
         result.pb(newString);
         return;
     }
-    if (S[i] == '{'){
+    if (S[i] == '{') {
         vector<char> current;
-        while(S[i] != '}'){
-            if (isalpha(S[i])){
+        while (S[i] != '}') {
+            if (isalpha(S[i])) {
                 current.pb(S[i]);
             }
             i++;
         }
-        for (char ch: current){
-            getString(S, newString+ch, result, i+1);
+        for (char ch : current) {
+            getString(S, newString + ch, result, i + 1);
         }
-    } 
-    else if (isalpha(S[i])){
-        getString(S, newString+S[i], result, i+1);
+    }
+    else if (isalpha(S[i])) {
+        getString(S, newString + S[i], result, i + 1);
     }
 }
 
@@ -34,10 +34,10 @@ vector<string> expand(string S) {
     return result;
 }
 
-int main(){
+int main() {
     string s = "{a,b}c{d,e}f";
     vector<string> res = expand(s);
-    for (string r: res){
+    for (string r : res) {
         cout << r << " ";
     }
     cout << "\n";
