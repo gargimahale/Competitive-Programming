@@ -12,6 +12,7 @@ public:
 
         for (int i = 1; i <= n; ++i) {
             for (int j = 1; j <= cap; ++j) {
+
                 // when the cap is less than the cap of the item
                 if (j < wt[i]) {
                     // Take the max Value found so far by not considering the current item
