@@ -11,17 +11,17 @@ public:
         vector<vector<int>> dp(n + 1, vector<int>(cap + 1));
 
         for (int i = 0; i <= n; ++i) {
-
             for (int j = 0; j <= cap; ++j) {
-
                 if (i == 0 || j == 0) {
                     // boundary
                     dp[i][j] = 0;
                 }
+
                 else if (j < wt[i]) {
                     // when the cap is less than the cap of the item
                     dp[i][j] = dp[i - 1][j];
                 }
+
                 else {
                     // max((item taken + item that can be taken with remaining weight), the max you can do without taking the item)
                     dp[i][j] = max(val[i] + dp[i - 1][j - wt[i]], dp[i - 1][j]);
