@@ -1,11 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(void) {
-    string a = "ab";
 
-    // starting form position 0 copy 0 chars and start copying chars from [i+1, ..]
-    cout << a.substr(0, 0) << " " << a.substr(0 + 1);
-    // cout << "Hello World!";
-    // return 0;
+int add(int a, int b) {
+    return a + b;
+}
+
+double add(double a, double b) {
+    return a + b;
+}
+
+int main(void) {
+    cout << add(5, 3);
+    cout << add(5.0, 3.0);
 }
