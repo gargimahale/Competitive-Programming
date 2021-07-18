@@ -2,6 +2,9 @@
 
 using namespace std;
 
+
+// TC: O(N*M), SC: O(N+M)
+
 class Solution {
 public:
     string multiply(string num1, string num2) {

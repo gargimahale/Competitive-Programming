@@ -4,18 +4,25 @@ using namespace std;
 
 class Solution {
 public:
-    int jump(vector<int>nums) {
-        int n = nums.size(), start = 0, end = 0, steps = 0;
-        while (end < n - 1) {
-            steps++;
-            int maxend = end + 1;
-            for (int i = start; i <= end; ++i) {
-                if (i + nums[i] >= n - 1) return steps;
-                maxend = max(maxend, i + nums[i]);
-            }
-            start = end + 1;
-            end = maxend;
+    int jump(vector<int>& nums) {
+        int n = nums.size(), jumps = 0, currEnd = 0, currFarthest = 0;
+
+        if (n <= 1) {
+            return 0;
         }
-        return steps;
+
+        for (int i = 0; i < n; ++i) {
+            currFarthest = max(currFarthest, i + nums[i]);
+            if (i == currEnd) {
+                ++jumps;
+                currEnd = currFarthest;
+
+                if (currFarthest >= n - 1) {
+                    break;
+                }
+            }
+        }
+        return jumps;
     }
 };
+
