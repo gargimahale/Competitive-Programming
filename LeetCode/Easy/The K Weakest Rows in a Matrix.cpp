@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 class Solution {
@@ -25,9 +24,7 @@ public:
             m.push_back({x, i});
         }
 
-        sort(begin(m), end(m), [&](pair<int, int> a, pair<int, int> b) {
-            return a.first == b.first ? a.second < b.second : a.first < b.first;
-        });
+        sort(begin(m), end(m));
 
         vector<int> res;
         for (auto it = begin(m); k > 0; ++it, --k) {
