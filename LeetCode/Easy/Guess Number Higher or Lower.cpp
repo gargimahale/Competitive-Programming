@@ -10,14 +10,11 @@ using namespace std;
  * int guess(int num);
  */
 
-class Solution
-{
+class Solution {
 public:
-    int guessNumber(int n)
-    {
+    int guessNumber(int n) {
         int lo = 1, hi = n;
-        while (lo <= hi)
-        {
+        while (lo <= hi) {
             int m = lo + (hi - lo) / 2;
             int ans = guess(m);
             if (ans == 0)
