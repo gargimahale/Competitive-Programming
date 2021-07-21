@@ -12,7 +12,6 @@ public:
     }
 };
 
-// OR
 // O(NlogK)
 class Solution {
 public:
