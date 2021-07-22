@@ -10,7 +10,8 @@ int solve(vector<vector<int>>& coordinates) {
     for (int i = 2; i < coordinates.size(); i++) {
         int x = coordinates[i][0];
         int y = coordinates[i][1];
-        if ((y2 - y1) * (x1 - x) != (x2 - x1) * (y1 - y)) return false;
+        if ((y2 - y1) * (x1 - x) != (x2 - x1) * (y1 - y))
+            return false;
     }
     return true;
 }
