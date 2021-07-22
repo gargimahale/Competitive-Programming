@@ -1,5 +1,4 @@
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 int solve(vector<vector<int>>& coordinates) {
@@ -16,13 +15,7 @@ int solve(vector<vector<int>>& coordinates) {
     return true;
 }
 
-int main() {
-    int t = 1;
-    // cin >> t;
+int main(void) {
     vector<vector<int>> coordinates = {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}};
-    while (t--) {
-        cout << solve(coordinates) << "\n";
-    }
-
-    return 0;
+    cout << solve(coordinates) << "\n";
 }
