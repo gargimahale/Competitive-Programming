@@ -3,7 +3,6 @@ using namespace std;
 
 class Solution {
 public:
-
     int countCharacters(vector<string>& words, string chars) {
         string cnt;
         vector<int> cnt1(26);
