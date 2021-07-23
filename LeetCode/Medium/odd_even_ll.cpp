@@ -1,26 +1,31 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
-
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
-    public:
-    ListNode * oddevenList(ListNode *head){
-        if(!head) return head;
-        ListNode *a = head, *b = head->next, *temp = b;
-        while(a && b && a->next && b->next){
-            a->next = b->next;
-            a=a->next;
-            b->next=a->next;
-            b=b->next;
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (!head) return NULL;
+
+        ListNode* odd = head, *even = head->next, *evenHead = even;
+
+        while (even && even->next) {
+            odd->next = odd->next->next;
+            even->next = even->next->next;
+            odd = odd->next;
+            even = even->next;
         }
-        a->next = temp;
+
+        odd->next = evenHead;
         return head;
     }
 };
