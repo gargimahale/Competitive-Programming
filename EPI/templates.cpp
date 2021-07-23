@@ -13,6 +13,6 @@ T myMax(T x, T y) {
 }
 
 int main(void) {
-    cout << myMax(3, 4) << "\n";
-    cout << myMax('c', 'd') << "\n";
+    cout << myMax<int>(3, 4) << "\n";
+    cout << myMax<char>('c', 'd') << "\n";
 }
