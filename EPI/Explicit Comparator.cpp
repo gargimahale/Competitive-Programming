@@ -10,23 +10,24 @@ struct Student {
 
 class Test {
 public:
-    void display(vector<Student>& stud) {
+    void display(list<Student>& stud) {
         for (auto x : stud) {
             cout << x.name << " " << x.grade_point << "\n";
         }
     }
 
-    void sortByGPA(vector<Student>& students) {
-        sort(students.begin(), students.end(), [](const Student & a, const Student & b) {
-            return a.grade_point >= b.grade_point;
-        });
-        cout << "Sorting by GPA:\n";
-        display(students);
-        cout << "\n";
-    }
+    // void sortByGPA(vector<Student>& students) {
+    //     sort(students.begin(), students.end(), [](const Student & a, const Student & b) {
+    //         return a.grade_point >= b.grade_point;
+    //     });
+    //     cout << "Sorting by GPA:\n";
+    //     display(students);
+    //     cout << "\n";
+    // }
 
-    void sortByName(vector<Student>& students) {
-        sort(students.begin(), students.end());
+    void sortByName(list<Student>& students) {
+        // sort(students.begin(), students.end());
+        students.sort();
         cout << "Sorting by Name:\n";
         display(students);
         cout << "\n";
@@ -35,15 +36,12 @@ public:
 
 int main(void) {
     Test t;
-    vector<Student> arr;
-    for (int i = 0; i < 5; ++i) {
-        string n;
-        int g;
-        cin >> n >> g;
-        Student ss(n, g);
-        arr.emplace_back(ss);
-    }
-    cout << "\n";
-    t.sortByGPA(arr);
+    list<Student> arr = { Student("Sid", 22),
+                          Student("Laura", 3),
+                          Student("Riti", 43),
+                          Student("Angel", 30),
+                          Student("Laura", 2),
+                        };
+    // t.sortByGPA(arr);
     t.sortByName(arr);
 }
