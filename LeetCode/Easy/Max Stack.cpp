@@ -10,8 +10,6 @@ public:
     list<int> dll;
     map<int, vector<list<int>::iterator>>m;
 
-
-
     MaxStack() {
         dll.clear();
         m.clear();
