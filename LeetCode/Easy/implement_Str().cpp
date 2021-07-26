@@ -29,7 +29,7 @@ public:
         if (n > h) return -1;
 
         const int kBase = 3;
-        unsigned long long h_hash = 0, n_hash = 0, power_str = 1;
+        unsigned int h_hash = 0, n_hash = 0, power_str = 1;
         for (int i = 0; i < n; ++i) {
             power_str = i ? power_str * kBase : 1;
             h_hash = h_hash * kBase + haystack[i];
