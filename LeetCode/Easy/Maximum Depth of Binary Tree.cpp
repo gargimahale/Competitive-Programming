@@ -22,3 +22,34 @@ public:
 };
 
 // TC: O(n), SC: O(n)
+
+
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        int height = 0;
+        if (!root) return height;
+
+        queue<TreeNode*> Q;
+        Q.push(root);
+
+        while (!Q.empty()) {
+            int n = Q.size();
+            ++height;
+            for (int i = 0; i < n; ++i) {
+                auto curr = Q.front(); Q.pop();
+
+                if (curr->left) {
+                    Q.push(curr->left);
+                }
+
+                if (curr->right) {
+                    Q.push(curr->right);
+                }
+            }
+        }
+        return height;
+    }
+};
+
+// TC: O(N), SC: O(N)
