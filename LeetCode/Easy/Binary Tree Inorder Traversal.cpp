@@ -40,4 +40,24 @@ public:
     }
 };
 
-// Improvement on this is Morris Traversal
+// OR
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> stk;
+        TreeNode* curr = root;
+
+        while (!stk.empty() || curr) {
+            if (curr) {
+                stk.push(curr);
+                curr = curr->left;
+            } else {
+                curr = stk.top(); stk.pop();
+                ans.push_back(curr->val);
+                curr = curr->right;
+            }
+        }
+        return ans;
+    }
+};
