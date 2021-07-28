@@ -14,22 +14,19 @@ using namespace std;
  */
 class Solution {
 
-    bool dfs(TreeNode* root, int currSum) {
+    bool hasPathSum(TreeNode* root, const int& targetSum, int currSum) {
         if (!root) return false;
-        bool isLeaf = (root->left == NULL && root->right == NULL);
         int sum = currSum + root->val;
-        if (isLeaf) {
-            if (sum == targetSum) {
-                return true;
-            }
+        bool isLeaf = !root->left && !root->right;
+
+        if (isLeaf && sum == targetSum) {
+            return true;
         }
-        return dfs(root->left, sum) || dfs(root->right, sum);
+        return hasPathSum(root->left, targetSum, sum) || hasPathSum(root->right, targetSum, sum);
     }
 
 public:
-    int targetSum;
     bool hasPathSum(TreeNode* root, int targetSum) {
-        this->targetSum = targetSum;
-        return dfs(root, 0);
+        return hasPathSum(root, targetSum, 0);
     }
 };

@@ -12,7 +12,7 @@ using namespace std;
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution{
+class Solution {
 public:
     void findPaths(TreeNode *root, vector<vector<int>> &paths, int sum, vector<int> &path)
     {
