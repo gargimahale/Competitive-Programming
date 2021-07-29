@@ -22,14 +22,12 @@ public:
             }
             return node;
         }
-
         while (node->parent) {
             if (node->parent->left == node) {
                 return node->parent;
             }
             node = node->parent;
         }
-
         return nullptr;
     }
 };
