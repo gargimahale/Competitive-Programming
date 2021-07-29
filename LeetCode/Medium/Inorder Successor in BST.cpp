@@ -10,28 +10,13 @@ using namespace std;
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution{
+class Solution {
 public:
-    TreeNode* inorderSuccessor(TreeNode *root, TreeNode *p){
-        TreeNode *successor = NULL;
-        if (p->right){
-            successor = p->right;
-            while (successor->left)
-            {
-                successor = successor->left;
-            }
-            return successor;
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        TreeNode* sucessor = nullptr;
+        while (root) {
+            root = root->val > p->val ? (sucessor = root)->left : root->right;
         }
-        while (root){
-            if (p->val < root->val){
-                successor = root;
-                root = root->left;
-            }
-            else if (p->val > root->val){
-                root = root->right;
-            }
-            else break;
-        }
-        return successor;
+        return sucessor;
     }
 };
