@@ -5,15 +5,14 @@ using namespace std;
 class Solution {
 public:
     int jump(vector<int>& nums) {
-        int n = nums.size(), jumps = 0, currEnd = 0, currFarthest = 0;
-
-        if (n <= 1) {
+        int n = nums.size();
+        if (n < 2) {
             return 0;
         }
 
-        for (int i = 0; i < n; ++i) {
-            currFarthest = max(currFarthest, i + nums[i]);
-            if (i == currEnd) {
+        int jumps = 1, currEnd = nums[0], currFarthest = nums[0];
+        for (int i = 1; i < n; ++i) {
+            if (i > currEnd) {
                 ++jumps;
                 currEnd = currFarthest;
 
@@ -21,8 +20,11 @@ public:
                     break;
                 }
             }
+            currFarthest = max(currFarthest, i + nums[i]);
         }
         return jumps;
     }
 };
 
+
+// TC: O(N), SC: O(1)
