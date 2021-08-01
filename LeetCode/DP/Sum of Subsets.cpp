@@ -8,11 +8,6 @@ public:
 
         vector<vector<bool>> dp(n + 1, vector<bool>(sum + 1));
 
-        // If sum is not 0 and set is empty
-        for (int i = 1; i <= sum; ++i) {
-            dp[0][i] =  false;
-        }
-
         // sum is 0
         for (int i = 0; i <= n; ++i) {
             dp[i][0] = true;
@@ -20,13 +15,13 @@ public:
 
         for (int i = 1; i <= n; ++i) {
             for (int j = 1; j <= sum; ++j) {
-                if (j < arr[i]) {
+                if (j < arr[i - 1]) {
                     // take the value above
                     dp[i][j] = dp[i - 1][j];
                 }
                 else {
 
-                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - arr[i]];
+                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - arr[i - 1]];
                 }
             }
         }
