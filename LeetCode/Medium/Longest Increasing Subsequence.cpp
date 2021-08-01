@@ -13,7 +13,7 @@ public:
             }
             else {
                 *it = nums[i];
-                cout << "change: " << *it << "\n";
+                // cout << "change: " << *it << "\n";
             }
         }
 
@@ -29,3 +29,27 @@ int main() {
     cout << s.lengthOfLIS(a) << "\n";
     return 0;
 }
+
+// TC: O(N^2)
+// SC: O(N)
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+
+        if (n <= 1) return n;
+
+        vector<int> dp(n, 1);
+
+        for (int i = 1; i < n; ++i) {
+            for (int j = 0; j < i; ++j) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = max(dp[i], 1 + dp[j]);
+                }
+            }
+        }
+
+        return *max_element(begin(dp), end(dp));
+    }
+};
