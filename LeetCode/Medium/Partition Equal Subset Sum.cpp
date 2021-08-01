@@ -30,3 +30,30 @@ public:
         return dp[n][sum];
     }
 };
+
+// TC and SC: O(N*M)
+
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int sum = 0;
+
+        for (int& a : nums) sum += a;
+
+        if (sum % 2 != 0) return false;
+        sum /= 2;
+
+        vector<bool> dp(sum + 1, false);
+        dp[0] = true;
+
+        for (auto& ele : nums) {
+            for (int j = sum; j >= ele; --j) {
+                dp[j] = dp[j] || dp[j - ele];
+            }
+        }
+        return dp[sum];
+    }
+};
+
+// TC: O(N*M), SC: O(Sum)
