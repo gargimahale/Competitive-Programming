@@ -3,7 +3,7 @@ using namespace std;
 
 class Solution {
 public:
-    int map(char c) {
+    int map(const char& c) {
         switch (c) {
         case 'M':
             return 1000;
@@ -19,9 +19,8 @@ public:
             return 1;
         case 'V':
             return 5;
-        default:
-            return 0;
         }
+        return 0;
     }
     int romanToInt(string s) {
         int result = 0;
