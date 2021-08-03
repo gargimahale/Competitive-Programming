@@ -20,7 +20,7 @@ int solve() {
     cin >> n >> b;
     vector<int> houses(n, 0);
     for (int i = 0; i < n; ++i) cin >> houses[i];
-    sort(begin(houses), end(houses));
+    sortall(houses);
 
     int cnt = 0;
     for (int i = 0; i < n && b - houses[i] >= 0; ++i) {

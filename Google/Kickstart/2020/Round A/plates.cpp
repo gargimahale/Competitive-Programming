@@ -15,34 +15,47 @@ using namespace std;
 #define tr(it, a) for(auto it = a.begin(); it != a.end(); it++)
 const int MOD = 1e9 + 7;
 
+
+void display(vector<vector<int>>& stk) {
+	for (auto vec : stk) {
+		for (auto ele : vec) {
+			cout << ele << " ";
+		}
+		cout << endl;
+	}
+}
+
 int solve() {
-	int n, k, p;
+	int n, k, p, inp, sum;
 	cin >> n >> k >> p;
 
-	vector<vector<int>> stk(n);
+	vector<vector<int>> pre_sum(n);
 	vector<int> plates;
 
 	for (int i = 0; i < n; ++i) {
+
+		sum = 0;
 		for (int j = 0; j < k; ++j) {
-			cin >> plates[j];
+			cin >> inp;
+			plates.push_back(sum + inp);
+			sum += inp;
 		}
-		stk.push_back(plates)
+		pre_sum.push_back(plates);
+		plates.clear();
 	}
+
+	// display(stk);
 
 	vector<vector<int>> dp(n + 1, vector<int>(p + 1));
 
+	for (int i = 1; i <= n; ++i) {
+		for (int j = 1; j <= p; ++j) {
 
+		}
+	}
 
-	// for (int i = 1; i<= n; ++i){
-	// 	for (int j = 1; j<= k; ++j){
-	// 		for (int l = 1; l <= p; ++l){
-	// 			dp[i][j] = max(dp[i-1][j], )
-	// 		}
-	// 	}
-	// }
-
-	// return dp[n][p];
-	return -1;
+	return dp[n][p];
+	// return -1;
 }
 
 int32_t main() {
@@ -51,7 +64,7 @@ int32_t main() {
 	cin >> t;
 	for (int i = 0; i < t; ++i) {
 		int ans = solve();
-		cout << "Case #" << i + 1 << ": " << ans << endl;
+		cout << "\nCase #" << i + 1 << ": " << ans << endl;
 	}
 	return 0;
 }
