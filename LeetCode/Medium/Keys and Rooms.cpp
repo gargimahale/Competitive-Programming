@@ -1,24 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution{
+class Solution {
 public:
-    bool canVisitAllRooms(vector<vector<int>> &rooms){
-        stack<int> room;
-        room.push(0);
-        unordered_set<int> seen = {0};
-        while (!room.empty()){
-            int i = room.top();
-            room.pop();
-            for (int r : rooms[i]){
-                if (seen.count(r) == 0){
-                    room.push(r);
-                    seen.insert(r);
-                    if (rooms.size() == seen.size())
-                        return true;
+    bool canVisitAllRooms(const vector<vector<int>>& rooms) {
+        unordered_set<int> S;
+        queue<int> Q;
+        Q.emplace(0);
+        S.emplace(0);
+
+        while (!Q.empty()) {
+            int no = Q.front(); Q.pop();
+            for (const int& key : rooms[no]) {
+                if (!S.count(key)) {
+                    S.emplace(key);
+                    Q.emplace(key);
                 }
             }
         }
-        return rooms.size() == seen.size();
+        return S.size() == rooms.size();
     }
 };
