@@ -11,7 +11,7 @@ public:
         curr_snap = 0;
     }
 
-    void set(int index, int val) {
+    void set(int& index, int& val) {
         if (data[index].empty() || data[index].back().first != curr_snap)
             data[index].push_back({curr_snap, val});
         else {
