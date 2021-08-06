@@ -31,7 +31,7 @@ public:
                     }
                     break;
                 }
-                if (j == len-1 and cur.size() > nex.size()) return "";
+                if (j == len - 1 and cur.size() > nex.size()) return "";
             }
         }
 
@@ -43,7 +43,7 @@ public:
                 q.push(e.first);
             }
         }
-        while(!q.empty()) {
+        while (!q.empty()) {
             char cur = q.front();
             q.pop();
             ans += cur;
