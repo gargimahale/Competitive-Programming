@@ -6,22 +6,22 @@ public:
     unordered_map<string, int> mp;
     WordFilter(vector<string>& words) {
         int n = words.size();
-        for (int i = 0; i<n; ++i){
+        for (int i = 0; i < n; ++i) {
             string word = words[i];
             int wordSize = word.size();
-            for (int j = 1; j<=wordSize; ++j){
+            for (int j = 1; j <= wordSize; ++j) {
                 string p = word.substr(0, j);
-                for (int k = 0; k<wordSize; ++k){
+                for (int k = 0; k < wordSize; ++k) {
                     string s = word.substr(k, wordSize);
-                    mp[p + '|' + s] = i+1;
+                    mp[p + '|' + s] = i + 1;
                 }
             }
         }
     }
-    
+
     int f(string prefix, string suffix) {
         string s = prefix + '|' + suffix;
-        return mp[s]-1;
+        return mp[s] - 1;
     }
 };
 
