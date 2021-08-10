@@ -1,0 +1,112 @@
+//unordered_map and unordered_multimap are used to implement Hash Table
+//template <class T> class hash { } is provided by C++ system, where T can be any primitive data type, such as int, double, string, etc. 
+
+#include <iostream>
+#include <map>
+#include <unordered_map>
+#include <string>
+#include <algorithm>//for_each
+
+using namespace std;
+template <class T> class ThreeD {
+public:
+	T ht;
+	T wid;
+	T dep;
+	ThreeD() :ht(0), wid(0), dep(0) {}
+	ThreeD(T i, T j, T k) : ht(i), wid(j), dep(k) {}
+	T getVol() const { return ht * wid * dep; }
+	T getSurface() const { return 2 * (ht * wid + wid * dep + dep * ht); }
+
+
+};
+
+template <class T> class my_compare {
+public:
+	bool operator()(const ThreeD<T>& t1, const ThreeD<T>& t2) const { return t1.getSurface() < t2.getSurface(); }
+
+
+};
+
+template <class T> class my_equal_to {
+public:
+	bool operator()(const ThreeD<T>& t1, const ThreeD<T>& t2) const { return t1.getSurface() == t2.getSurface(); }
+
+
+};
+
+template <class T> class my_hash {
+public:
+
+	size_t operator() (const ThreeD<T>& t1) const {
+		hash<int> h;
+		return h(t1.getSurface() * t1.getVol());
+	}
+
+};
+
+
+
+
+
+class my_equal_to1 {
+public:
+	bool operator()(const ThreeD<int>& t1, const ThreeD<int>& t2) const { return t1.getSurface() == t2.getSurface(); }
+
+
+};
+class my_hash1 {
+public:
+
+	size_t operator() (const ThreeD<int>& t1) const {
+		hash<int> h;
+		return h(t1.getSurface() * t1.getVol());
+	}
+
+};
+
+template <class T> ostream& operator<<(ostream& str, const ThreeD<T>& t) {
+
+	str << "(" << t.ht << ", " << t.wid << ", " << t.dep << ")";
+	return str;
+}
+
+
+int main() {
+
+	map<int, int> M1{ {5, 20}, {4, 100}, {3, 40}, {6, 100}, {5, 1000} };
+	for (auto i : M1) { cout << i.first << " " << i.second << "   "; }
+	cout << endl;
+	unordered_map<int, int> M2{ {5, 20}, {4, 100}, {3, 40}, {6, 100}, {5, 1000} };
+	M2.insert({ 5,111 });
+	M2[5] = 111;
+	for (auto i : M2) { cout << i.first << " " << i.second << "   "; }
+	cout << endl;
+//hash funciton used is hash<int>
+//eqaulity function used is  equal_to<int>
+
+
+	ThreeD<int> t1(6, 4, 3), t2(9, 8, 4), t3(1, 2, 3);
+	map<ThreeD<int>, int, my_compare<int>> M3{ {t1, 11},{t2, 12},{t3, 13},{t1, 111} };
+	for (auto i : M3) { cout << i.first << " " << i.second << "   "; }
+	cout << endl;
+
+	unordered_map<ThreeD<int>, int, my_hash<int>, my_equal_to<int>> M4{ {t1, 11},{t2, 12},{t3, 13},{t1, 111} };
+	for (auto i : M4) { cout << i.first << " " << i.second << "   "; }
+	cout << endl;
+
+	unordered_multimap<ThreeD<int>, int, my_hash<int>, my_equal_to<int>> M5{ {t1, 11},{t2, 12},{t3, 13},{t1, 111} };
+	for (auto i : M5) { cout << i.first << " " << i.second << "   "; }
+	cout << endl;
+
+	auto ret = M5.equal_range(t1);
+	for_each(ret.first, ret.second, [](auto i) {cout << i.first<<" "<<i.second << " "; });
+
+	unordered_map<ThreeD<int>, int, my_hash1, my_equal_to1> M6{ {t1, 11},{t2, 12},{t3, 13},{t1, 111} };
+	for (auto i : M6) { cout << i.first << " " << i.second << "   "; }
+	cout << endl;
+
+
+
+	return 0;
+}

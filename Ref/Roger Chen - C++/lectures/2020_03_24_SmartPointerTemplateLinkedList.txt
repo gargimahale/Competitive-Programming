@@ -1,0 +1,184 @@
+
+
+//Shallow and Deep copy and assignment
+//copy constructor, destructor, operator assignment (or operator=)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+template <class T> class Node {
+public:
+	T value;
+	//Node<T>* next;
+	shared_ptr<Node<T>> next;
+	Node() { value = 0;}
+	Node(T i) { value = i;}
+};
+
+template <typename T> class LinkedList {
+public:
+	//Node<T>* head;
+	shared_ptr<Node<T>> head;
+	LinkedList() { }
+	LinkedList(const initializer_list<T>& I);
+	LinkedList(const LinkedList<T>& L);//copy constructor
+	/*
+	In three cases, copy constructor will be called:
+	(1) When an object is declared and in the same statement initialized to another object
+	(2) pass by value
+	(3) return by value
+
+	*/
+
+
+	void operator=(const LinkedList<T>& L);//overloaded operator=
+	LinkedList<T> ThreeTimes();//Value of every node is three times of the current LinkedList
+	~LinkedList();//destructor
+	/*
+	In two cases destructor will be called:
+	(1) When an object goes out of scope
+	(2) Node * p = new LinkedList();
+	....
+
+	delete p;
+	*/
+
+	LinkedList(LinkedList<T>&& L) noexcept;//Move constructor -- R value version of copy constructor
+	void operator=(LinkedList<T>&& L) noexcept; //R-value version of operator=
+
+
+
+};
+
+template <class T> void LinkedList<T>::operator=(LinkedList<T>&& L) noexcept {
+	while (head) {
+		//Node<T>* p = head->next;
+		shared_ptr<Node<T>> p = head->next;
+		head.reset();
+		head = p;
+	}
+	head = L.head;
+	L.head.reset();
+	cout << "R-value operator=" << endl;
+}
+
+
+template <class T> LinkedList<T>::LinkedList(LinkedList<T>&& L) noexcept {
+	head = L.head;
+	L.head.reset(); 
+	cout << "Move constructor" << endl;
+}
+
+template <class T> LinkedList<T>::~LinkedList() {
+	while (head) {
+		//Node<T>* p = head->next;
+		shared_ptr<Node<T>> p = head->next;
+		head.reset();
+		head = p;
+	}
+	cout << "Destructor" << endl;
+}
+
+
+template <class T> LinkedList<T> LinkedList<T>::ThreeTimes() {
+	LinkedList temp(*this);
+	//Node<T>* p = temp.head;
+	shared_ptr<Node<T>> p = temp.head;
+	while (p) { p->value *= 3; p = p->next; }
+	return temp;
+	//compiler will automatically change it into "return move(temp);"
+	//move(i) will change i into R value
+}
+
+
+template <class T> void LinkedList<T>::operator=(const LinkedList<T>& L) {
+	while (head) {
+		//Node<T>* p = head->next;
+		shared_ptr<Node<T>> p = head->next;
+		head.reset();
+		head = p;
+	}
+	//Node<T>* p1 = L.head;
+	shared_ptr<Node<T>> p1 = L.head;
+	while (p1) {
+		//Node<T>* p = new Node<T>();
+		shared_ptr<Node<T>> p = make_shared<Node<T>>();
+		p->next = head;
+		head = p;
+		p1 = p1->next;
+	}
+	p1 = head;
+	//Node<T>* p2 = L.head;
+	shared_ptr<Node<T>> p2 = L.head;
+	while (p1 && p2) {
+		p1->value = p2->value;
+		p1 = p1->next;
+		p2 = p2->next;
+	}
+
+	cout << "L value Operator=" << endl;
+}
+
+
+template <class T> LinkedList<T>::LinkedList(const LinkedList<T>& L) : LinkedList() {
+	//Node<T>* p1 = L.head;
+	shared_ptr<Node<T>> p1 = L.head;
+	while (p1) {
+		//Node<T>* p = new Node<T>();
+		shared_ptr<Node<T>> p = make_shared<Node<T>>();
+		p->next = head;
+		head = p;
+		p1 = p1->next;
+	}
+	p1 = head;
+	//Node<T>* p2 = L.head;
+	shared_ptr<Node<T>> p2 = L.head;
+	while (p1 && p2) {
+		p1->value = p2->value;
+		p1 = p1->next;
+		p2 = p2->next;
+	}
+	cout << "Copy Constructor" << endl;
+}
+template <class T> LinkedList<T>::LinkedList(const initializer_list<T>& I) {
+	//head = nullptr;
+	auto p1 = I.end() - 1;//const int * p1 = I.end()-1;
+	while (p1 != I.begin() - 1) {
+		//Node<T>* p = new Node<T>(*p1);
+		shared_ptr<Node<T>> p = make_shared<Node<T>>(*p1);
+		p->next = head;
+		head = p;
+		p1--;
+	}
+	cout << "Initializer_list" << endl;
+}
+
+template <class T> ostream& operator<<(ostream& str, const LinkedList<T>& L) {
+	//Node<T>* p = L.head;
+	shared_ptr<Node<T>> p = L.head;
+	while (p) { str << p->value << " "; p = p->next; }
+	return str;
+}
+
+int main() {
+	LinkedList<int> L1{ 3,6,9,12,15 };
+	cout << L1 << endl;
+	LinkedList<int> L2{ L1 };//will call default copy constructor
+	//You can also write it as
+	//LinkedList L2 = L1; //call copy constructor
+	//L2.head->value = 100;
+	cout << L1 << endl;
+	LinkedList<int> L3;
+	L3 = L1; //call L-value operator=
+//complier will change it into L3.operator=(L1);
+	//L3.head->value = 200;
+	cout << L1 << endl;
+	LinkedList<int> L4;
+	L4 = L1.ThreeTimes();
+	//L4.operator=(L1.ThreeTimes());
+	cout << L4 << endl;
+	return 0;
+}
+
+

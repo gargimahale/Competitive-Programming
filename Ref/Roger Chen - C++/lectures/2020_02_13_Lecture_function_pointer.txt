@@ -1,0 +1,40 @@
+//Function pointer
+#include <iostream>
+#include <algorithm>
+#include <list>
+using namespace std;
+
+bool f1(int a, int b) { return a < b; }
+bool f2(int a, int b) { return a > b; }
+bool f3(int a, int b) { return a % 2 < b % 2; }
+
+int Max(int a, int b, bool (*F)(int i, int j)) {
+	//F is a pointer to a function which returns bool and takes 2 int arguments
+	return F(a, b) ? a : b;
+}
+/*
+Funciton name without argument(s) is the address of the funciton
+*/
+
+int main() {
+	list<int> L10{ 5,3,1,2,6 };
+	//L10.sort();
+	//L10.sort(f1);
+	//L10.sort(f2);
+	L10.sort(f3);
+	for (auto i : L10) { cout << i << " "; }
+	cout << endl;
+	cout << Max(2, 5, f2) << endl;
+
+	bool (*p) (int m, int n);//P is a function pointer
+	p = f1;//&f, *f, **f, *******f all work
+	cout << f1(2,8) << " " <<p(2, 8) << endl;
+
+	list<int> L11{ 4,2,11,5,8 };
+	L11.sort([](int m, int n) {return m % 5 < n % 5; });
+	for (auto i : L11) { cout << i << " "; }
+
+
+	return 0;
+}
+

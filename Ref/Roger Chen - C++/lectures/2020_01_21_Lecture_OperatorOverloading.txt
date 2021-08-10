@@ -1,0 +1,121 @@
+//Operator Overloading
+#include <iostream> //console cin cout
+#include <fstream> //i/o for file
+
+using namespace std;
+
+class ThreeD {
+public:
+	int ht;
+	int wid;
+	int dep;
+	ThreeD() { ht = wid = dep = 0; }//default
+	ThreeD(int i, int j, int k) : ht(i), wid(j), dep(k) {}
+	int getVol() { return ht * wid * dep; }
+	ThreeD operator+(ThreeD t);
+	ThreeD operator*(ThreeD t);
+	ThreeD operator++();//prefix
+	ThreeD operator++(int neverUsed); //postfix
+	int& operator[](int k);
+	friend ostream& operator<<(ostream& str, const ThreeD t);
+	friend istream& operator>>(istream& str, ThreeD& t);
+};
+ThreeD ThreeD::operator++() {//prefix
+	++ht;
+	++wid;
+	++dep;
+	return *this;//this is a pointer pointing to the current object
+}
+
+ThreeD ThreeD::operator++(int neverUsed) {//postfix
+	//return by value
+	ThreeD temp = *this;
+	ht++;
+	wid++;
+	dep++;
+	return temp;
+}
+
+int& ThreeD::operator[](int k) {//return by ref
+	//The origianl object will be returned to the calling function.
+	//No extra copying effort is needed.  It is faster than return by value,
+	//which requires an extra copy to be created and returned to the calling function.
+	//Because an object is returned, rather than a value, the function can appear
+	//on the left side of an statement.
+	switch (k) {
+	case 0: return ht; //ht will be directly used in calling function
+	case 1:return wid;
+	case 2:return dep;
+	}
+}
+
+
+
+ThreeD ThreeD::operator+(ThreeD t) {
+	ThreeD temp;
+	temp.ht = ht;
+	temp.wid = t.wid;
+	temp.dep = dep + t.dep;
+	return temp;
+}
+ThreeD ThreeD::operator*(ThreeD t) {
+	ThreeD temp;
+	temp.ht = ht * t.ht;
+	temp.wid = wid * t.wid;
+	temp.dep = dep * t.dep;
+	return temp;
+}
+
+
+ostream& operator<<(ostream& str, const ThreeD t) {
+	str << "[" << t.ht << ", " << t.wid << ", " << t.dep << "]";
+	return str;
+}
+
+istream& operator>>(istream& str, ThreeD& t) {
+	str >> t.ht >> t.wid >> t.dep;
+	return str;
+
+}
+
+ofstream& operator<<(ofstream& str, const ThreeD& t) {
+	str << t.ht << " " << t.wid << " " << t.dep;
+	return str;
+}
+
+ifstream& operator>>(ifstream& str, ThreeD& t) {
+	str >> t.ht >> t.wid >> t.dep;
+	return str;
+}
+
+
+
+int main() {
+	ThreeD t1(3, 4, 5), t2(10, 11, 12), t3, t4, t5, t6;
+	int i1{ 10 }, i2{ 20 }, i3;
+	i3 = i1 + i2;
+	t3 = t1 + t2; //Will be converted to
+	//t3 = t1.operator+(t2);
+	t4 = t1 * t2;
+	t5 = ++t2;//prefix
+	t6 = t1++;//postfix
+
+	t1[2] = 100;//return by reference allows the function
+	//to appear on the left side of a statement.
+	cout << t1[2] << endl;
+	cout << t1 << endl;
+
+	cin >> t4;
+	cout << t4 << endl;
+
+	ofstream out("data1.txt");
+	out << t1 << endl;
+	out.close();
+
+	ifstream in("data1.txt");
+	in >> t1;
+	cout << t1 << endl;
+	in.close();
+
+	return 0;
+}

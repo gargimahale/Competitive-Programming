@@ -1,0 +1,290 @@
+//HW3
+//Due: 11:59PM, February 21 (Friday)
+
+#include <iostream>
+#include <list>
+#include <map>
+#include <string>
+#include <tuple>
+#include <iomanip>
+using namespace std;
+
+class course {
+public:
+	string name;
+	int section;
+	int credits;
+	string grade;
+	course() {}
+	course(string n, int s, int c, string g) { name = n; section = s; credits = c; grade = g; }
+
+	bool operator==(const course& c) const { return name == c.name; }
+	bool operator<(const course& c) const { return name < c.name; }
+
+	float num_grade() const;
+
+
+	//You might need to implement some overloaded operators here.
+
+};
+float course::num_grade() const {
+	map<string, float> Grade{ {"A", 4.0}, {"A-", 3.66},
+	{"B+", 3.33}, {"B", 3.0}, {"B-", 2.66}, {"C+", 2.33},
+	{"C", 2.0},{"C-", 1.66},{"D+", 1.33}, {"D", 1.0},{"D-", 0.66}, {"F", 0}
+	};
+	return Grade[grade];
+}
+bool comp(course* p1, course* p2) { return *p1 < *p2; }
+
+ostream& operator<<(ostream& str, const course& c);
+
+ostream& operator<<(ostream& str, const list<course*>& L);
+
+ostream& operator<< (ostream& str, const tuple<int, float, list<course*>*>& T);
+
+ostream& operator<<(ostream& str, const map<int, tuple<int, float, list<course*>*> >& M);
+
+ostream& operator<< (ostream& str, const tuple<int, float, const map<int, tuple<int, float, list<course*>*> >*>& T);
+
+
+ostream& operator<< (ostream& str, const map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB);
+
+
+
+//Implement the following functions.
+//When adding a student, if the student is already in DB, then ignore the operation.
+//When adding a course, if the course is already in DB, then ignore the operation.
+//When dropping a course, if the course does not exist, then ignore the operation.
+//When removing a student, if the student does not exist, then ignore the operation.
+//All courses in a semester need to be sorted.
+//When dropping or adding a course, overall GPA, semester GPA, overall credits and semester credits all need to be updated.
+
+//Semeser numbers:  Spring 2019: 20191; Fall 2019: 20192, etc. 
+
+void add_student(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int id);
+void remove_student(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int id);
+void add_course(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int semester, int id, course c); //20171 Spring semester of 2017; 20172: Fall semester of 2017
+																//All courses in the list should be sorted according to name (increasing order)
+void drop_course(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int semester, int id, course c);
+void print_student_semester_courses(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int semester, int id);
+void print_student_all_courses(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int id);
+
+//Implement additional functions such that you can do
+//cout << DB << endl;
+
+//You might need to implement some overloaded operators in the course class.
+
+int main() {
+	map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>  DB;
+
+	add_student(DB, 11111);
+	course C1("CIS554", 1, 3, "A-"), C2("CSE674", 1, 3, "B+"), C3("MAT296", 8, 4, "A"), C4("WRT205", 5, 3, "A");
+
+	add_course(DB, 20171, 11111, C1);
+	add_course(DB, 20171, 11111, C4);
+	add_course(DB, 20171, 11111, C3);
+	add_course(DB, 20171, 11111, C2);
+	print_student_semester_courses(DB, 20171, 11111);
+	cout << endl;
+	drop_course(DB, 20171, 11111, C1);
+	print_student_semester_courses(DB, 20171, 11111); //sorted according to course name
+	cout << endl;
+	course C5("CIS351", 2, 3, "A-"), C6("PSY205", 5, 3, "B+"), C7("MAT331", 2, 3, "A"), C8("ECN203", 4, 3, "A");
+	add_course(DB, 20172, 11111, C5);
+	add_course(DB, 20172, 11111, C6);
+	add_course(DB, 20172, 11111, C7);
+	add_course(DB, 20172, 11111, C8);
+	add_course(DB, 20172, 11111, C3);
+	print_student_all_courses(DB, 11111);//ID GPA
+	cout << endl;
+	add_student(DB, 11112);
+	add_course(DB, 20171, 11112, C2);
+	add_course(DB, 20171, 11112, C5);
+	add_course(DB, 20171, 11112, C7);
+	add_course(DB, 20171, 11112, C4);
+	print_student_semester_courses(DB, 20171, 11112);
+	cout << endl;
+	add_course(DB, 20172, 11112, C8);
+	add_course(DB, 20172, 11112, C3);
+	add_course(DB, 20172, 11112, C5);
+	add_course(DB, 20172, 11112, C1);
+	print_student_semester_courses(DB, 20172, 11112);
+	cout << endl;
+	print_student_all_courses(DB, 11112);
+	cout << endl;
+	cout << DB << endl;
+	remove_student(DB, 11111);
+	cout << endl;
+	cout << DB << endl;
+	return 0;
+}
+
+ostream& operator<< (ostream& str, const tuple<int, float, list<course*>*>& T) {
+	cout << "GPA: " << setprecision(2) << fixed << get<1>(T) << endl;
+	cout << "Credits: " << get<0>(T) << endl;
+	cout << *(get<2>(T)) << endl;
+	return str;
+}
+ostream& operator<<(ostream& str, const map<int, tuple<int, float, list<course*>*> >& M) {
+	for (auto i : M) {
+		cout << "Semester: " << i.first << endl;
+		cout << i.second;// << endl;
+	}
+	return str;
+}
+
+
+ostream& operator<< (ostream& str,
+	const tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>
+	& T) {
+	str << "Overall GPA: " << setprecision(2) << fixed << get<1>(T) << endl;
+	str << "Overall Credits: " << get<0>(T) << endl;
+	str << *get<2>(T);// << endl;
+	return str;
+}
+
+ostream& operator<< (ostream& str, const map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB) {
+	cout << "DB: " << endl;
+	for (auto i : DB) {
+		cout << "ID: " << i.first << endl;
+		cout << *(i.second);// << endl;
+	}
+	return str;
+}
+
+ostream& operator<<(ostream& str, const list<course*>& L) {
+	for (auto i : L) {
+		str << *i << " ";
+	}
+	return str;
+}
+
+ostream& operator<<(ostream& str, const course& c) {
+	str << "(" << c.name << " " << c.section << " " << c.credits << " " << c.grade << ")";
+	return str;
+}
+
+
+
+void add_student(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int id) {
+	if (DB.find(id) != DB.end()) return;
+	DB[id] = new tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>;
+	get<0>(*DB[id]) = 0;
+	get<1>(*DB[id]) = 0.0;
+	get<2>(*DB[id]) = new map<int, tuple<int, float, list<course*>*> >;
+
+}
+void remove_student(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int id) {
+	if (DB.find(id) == DB.end()) return;
+	if (get<2>(*DB[id])->size() == 0) return;
+	for (auto i : *get<2>(*DB[id])) {
+		for (auto j : *get<2>(i.second)) {
+			delete j;
+		}
+		delete get<2>(i.second);
+	}
+	delete get<2>(*DB[id]);
+	DB.erase(id);
+}
+
+
+void add_course(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int semester, int id, course c) {
+	if (DB.find(id) == DB.end()) return;
+	auto& m = *get<2>(*DB[id]);
+	for (auto i : m) {
+		for (auto j : *get<2>(i.second)) {
+			if (*j == c) return;
+		}
+	}
+	if (m.find(semester) == m.end()) m.insert({ semester, { 0, 0.0, new list<course*> } });
+
+	if (get<2>(*DB[id])->find(semester) == get<2>(*DB[id])->end()) {
+		get<2>(*DB[id])->insert({ semester, { 0, 0.0, new list<course*> } });
+		get<2>(m[semester])->push_back(new course(c));
+		get<0>(m[semester]) = c.credits;
+		get<1>(m[semester]) = c.num_grade();
+		get<1>(*DB[id]) = (float(get<0>(*DB[id])) * get<1>(*DB[id]) + float(c.credits) * c.num_grade()) / (float(get<0>(*DB[id])) + float(c.credits));
+		get<0>(*DB[id]) += c.credits;
+		return;
+	}
+
+	auto it1 = get<2>(m[semester])->begin();
+	while (it1 != get<2>(m[semester])->end() && **it1 < c) { it1++; }
+
+	get<2>(m[semester])->insert(it1, new course(c));
+
+	auto& T = m[semester];
+	get<1>(T) = (float(get<0>(T)) * get<1>(T) + float(c.credits) * c.num_grade()) / float(get<0>(T) + c.credits);
+	get<0>(T) += c.credits;
+	get<1>(*DB[id]) = (float(get<0>(*DB[id])) * get<1>(*DB[id]) + float(c.credits) * c.num_grade()) / (float(get<0>(*DB[id])) + float(c.credits));
+	get<0>(*DB[id]) += c.credits;
+
+}
+
+void drop_course(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int semester, int id, course c) {
+	if (DB.find(id) == DB.end()) return;
+	if (get<0>(*DB[id]) == 0) return;
+	if (get<2>(*DB[id])->find(semester) == (get<2>(*DB[id])->end())) return;
+
+	auto& M = *get<2>(*DB[id]);
+	if (get<0>(M[semester]) == 0) return;
+
+	auto& L = *get <2>(M[semester]);
+	auto it1 = find_if(L.begin(), L.end(), [c](course* p) {return *p == c; });
+	delete *it1;
+	L.erase(it1);
+	
+
+	
+
+
+		/*get<0>(M[semester]) -= c.credits;
+		if (get<0>(M[semester]) == 0) get<1>(M[semester]) = 0.0;*/
+		//else {
+		if (get<0>(M[semester]) == c.credits) get<1>(M[semester]) = 0.0;
+		else {
+				get<1>(M[semester]) = (float(get<0>(M[semester])) * get<1>(M[semester]) - float(c.credits) * c.num_grade()) /
+					float(get<0>(M[semester]) - c.credits);
+			}
+		get<0>(M[semester]) -= c.credits;
+
+	
+	if (get<0>(*DB[id]) == c.credits) get<1>(*DB[id]) = 0.0;
+	else {
+		get<1>(*DB[id]) = (float(get<0>(*DB[id])) * get<1>(*DB[id]) - float(c.credits) * c.num_grade()) /
+			float(get<0>(*DB[id]) - c.credits);
+	}
+	get<0>(*DB[id]) -= c.credits;
+}
+
+void print_student_semester_courses(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int semester, int id) {
+	
+	if (DB.find(id) == DB.end()) return;
+	if (get<2>(*DB[id])->size() == 0) return;
+
+	auto it2 = get<2>(*DB[id])->find(semester);
+
+	if (it2 == get<2>(*DB[id])->end()) return;
+	cout << "ID: " << id << endl;
+	cout << "Semester: " << semester << endl;
+	cout << "GPA: " << setprecision(2) << fixed << get<1>(it2->second) << endl;
+	cout << "Credits: " << get<0>(it2->second) << endl;
+	cout << *get<2>(it2->second) << endl;
+
+}
+void print_student_all_courses(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int id) {
+	if (DB.find(id) == DB.end()) return;
+	if (get<2>(*DB[id])->size() == 0) return;
+	cout << "ID: " << id << endl;
+	cout << "Overall GPA: " << setprecision(2) << fixed << get<1>(*DB[id]) << endl;
+	cout << "Overall Credits: " << get<0>(*DB[id]) << endl;
+	for (auto i : *get<2>(*DB[id])) {
+		cout << "Semester: " << i.first << endl;
+		cout << "GPA: " << setprecision(2) << fixed << get<1>(i.second) << endl;
+		cout << "Credits: " << get<0>(i.second) << endl;
+		cout << *get<2>(i.second) << endl;
+	}
+}
+
+
+

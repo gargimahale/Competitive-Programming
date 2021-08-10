@@ -1,0 +1,125 @@
+//initializing objects of a class
+//default< constructor < initializer_list
+//operator< for sorting
+//operator== for find
+//initializer_list examples for LinkedList
+#include <iostream>
+#include <list>
+#include <vector>
+#include <map>
+#include <string>
+
+using namespace std;
+
+class ThreeD {
+public:
+	int ht;
+	int wid;
+	int dep;
+	ThreeD(){}
+	ThreeD(int i, int j, int k): ht(10*i), wid(10*j), dep(10*k){}
+	ThreeD(const initializer_list<int>& I);
+
+
+	int getVol() const { return ht * wid * dep; }
+
+	bool operator<(const ThreeD& t) const { return getVol() < t.getVol(); }  //for sort in list and map
+	bool operator==(const ThreeD& t)  const { return getVol() == t.getVol(); } //for find
+	
+};
+ThreeD::ThreeD(const initializer_list<int>& I) {
+
+	auto it = I.begin();
+	ht = *it *100;
+	it++;
+	wid = *it *100;
+	it++;
+	dep = *it *100;
+
+
+}
+
+class Node {
+public:
+	int value;
+	Node* next;
+	Node() { next = nullptr; }
+	Node(int i) { value = i; next = nullptr; }
+
+};
+
+class LinkedList {
+public:
+	Node* head;
+	LinkedList() { head = nullptr; }
+	LinkedList(const initializer_list<int>& I);
+	void printList();
+};
+
+LinkedList::LinkedList(const initializer_list<int>& I) {
+	head = nullptr;
+	auto it = I.end() - 1;
+	while (it != I.begin() - 1) {
+		Node* p = new Node(*it);
+		p->next = head;
+		head = p;
+		it--;
+	}
+}
+
+void LinkedList::printList() {
+	Node* p = head;
+	while (p) {
+		cout << p->value << " ";
+		p = p->next;
+	}
+}
+
+ostream& operator<<(ostream& str, const ThreeD& t) {
+	str << "[" << t.ht << ", " << t.wid << ", " << t.dep << "]";
+	return str;
+}
+
+int main() {
+
+	int A[5]{ 1,2 };//{1,2,0,0,0}  //When partially initialized, the rest will automatically
+				       //be initialized to default int value, i.e., 0
+
+
+	ThreeD t1{ 3, 4, 5 }, t2{ 10, 20, 30 }, t3{ 1, 2, 6 };
+	cout << t1 << " " << t2 << " " << t3 << endl;
+	list<int> L1{ 7,4,3,5,1 };
+
+	auto it11 = find(L1.begin(), L1.end(), 5);
+
+
+	L1.sort();
+	for (auto i : L1) { cout << i << " "; }
+	cout << endl;
+	list<ThreeD> L2{ t1, t2, t3 };
+
+	auto it12 = find(L2.begin(), L2.end(), t2);//need to overload operator==
+
+
+
+	L2.sort();
+	for (auto i : L2) { cout << i << " "; }
+	cout << endl;
+
+	map<int, string> M1{ {25, "Dave"}, {11, "Nancy"}, {14, "Mary"} };
+
+	auto it13 = M1.find(25);//find is a member function for map, but not for list or vector
+				
+
+
+
+	for (auto i : M1) { cout << i.first << " " << i.second << "   "; }
+	map<ThreeD, string> M2{ {t1, "Dave"}, { t2, "Nancy" }, { t3, "Mary" } };
+	for (auto i : M2) { cout << i.first << " " << i.second << "   "; }
+	cout << endl;
+	LinkedList L5{ 4,5,6,7,8 }; //initilaizer_list
+	L5.printList();
+
+
+	return 0;
+}

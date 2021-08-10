@@ -1,0 +1,50 @@
+//Tree
+#include <iostream>
+
+using namespace std;
+int m = 50;
+class Node {
+public:
+	int value;
+	Node* parent;
+	Node* l_child;
+	Node* r_child;
+	Node(): parent(nullptr), l_child(nullptr), r_child(nullptr){}
+	Node(int i):value(i), parent(nullptr), l_child(nullptr), r_child(nullptr) {}
+};
+
+class Tree { //an n-level full binary tree of 2^n - 1 nodes
+public:
+	Node* root;
+	int level;
+	Tree(): root(nullptr), level (0) {}
+	Node* makeTree(int n);
+	void printTree(Node * p);
+};
+Node* Tree::makeTree(int n) { //Create an n-level full binary tree with 
+							  //with random values between 0 ... m-1
+							  //and returns a pointer to the root.
+
+ Node * p = new Node(rand() % m);
+ if (n == 1) return p;
+ p->l_child = makeTree(n - 1);
+ p->l_child->parent = p;
+ p->r_child = makeTree( n - 1);
+ p->r_child->parent = p;
+ return p;
+}
+
+void Tree::printTree(Node * p) { //in-order printing
+	if (p == nullptr) return;
+	printTree(p->l_child);
+	cout << p -> value << " ";
+	printTree(p->r_child);
+}
+
+
+int main() {
+	Tree T1;
+	T1.root = T1.makeTree(4);
+	T1.printTree(T1.root);
+	return 0;
+}

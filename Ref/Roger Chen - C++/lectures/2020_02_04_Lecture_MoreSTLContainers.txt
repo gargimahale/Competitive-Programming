@@ -1,0 +1,107 @@
+//More STL containers: multimap, set, multiset, stack, queue, priority_queue
+#include <iostream>
+#include <list>
+#include <vector>
+#include <map>//also allows multimap
+#include <set>
+#include <stack>
+#include <queue>
+#include <string>
+
+using namespace std;
+
+template <typename T1, typename T2>  ostream& operator<<(ostream& str, const map<T1, T2>& M) {
+	str << "{ ";
+	for (auto i : M) { str << "(" << i.first << " " << i.second << ") "; }
+	str << "}";
+	return str;
+}
+template <typename T1, typename T2>  ostream& operator<<(ostream& str, const multimap<T1, T2>& M) {
+	str << "{ ";
+	for (auto i : M) { str << "(" << i.first << " " << i.second << ") "; }
+	str << "}";
+	return str;
+}
+
+template <class T> ostream& operator<<(ostream& str, const set<T>& S) {
+	str << "( ";
+	for (auto i : S) { str << i << " "; }
+	str << ")";
+	return str;
+}
+
+template <class T> ostream& operator<<(ostream& str, const multiset<T>& S) {
+	str << "( ";
+	for (auto i : S) { str << i << " "; }
+	str << ")";
+	return str;
+}
+int main() {
+	map<int, string> M1{ {7, "Dan"}, {11, "Sanjay"}, {8, "Mary"} };
+	cout << M1 << endl;//map will always sort elements based on key (first) value
+	M1[10] = "Nancy"; 
+	M1.insert({ 5, "John" });
+	cout << M1 << endl;
+	M1[8] = "Bob";//will override {8, "Mary"}
+	//map does not allow multiple elements with the same key value
+	cout << M1 << endl;
+	M1.insert({ 8, "Ben" });//{8, "Ben"} will be ignored; will not override
+	multimap<int, string> M2{ {7, "Dan"}, {11, "Sanjay"}, {8, "Mary"} };
+	//M2[8] = "Nancy"; Compile time Error!
+	M2.insert({ 8, "Nancy" });//will be added; will not override
+	cout << M2 << endl;
+	//multimap allows multiple elements with the same key value
+	//Elements will agian be sorted based on key values
+
+	//M1.clear(); clear will set the size of container to zero
+	set<int> S1{ 3,2,11,6, 2, 5,3 };
+	cout << S1 << endl;
+	
+	//No duplicates allowed.
+	//elements will be automatically sorted
+	S1.insert(25);
+	S1.insert(6);
+	cout << S1 << endl;
+
+	multiset<int> S2{ 3,2,11,6, 2, 5,3 };
+	cout << S2 << endl;
+
+	stack<int> S3;//stack does not support initializer_list { 1, 2, 3, 4 };
+	S3.push(1);
+	S3.push(2);
+	S3.push(3);
+	S3.push(4);
+	while (!S3.empty()) {
+		cout << S3.top() << " ";
+		S3.pop();
+	}
+	//First in last out
+
+	queue<int> Q1;//queue does not support initializer_list { 1, 2, 3, 4 };
+	cout << endl;
+	Q1.push(1);
+	Q1.push(2);
+	Q1.push(3);
+	Q1.push(4);
+	while (!Q1.empty()) {
+		cout << Q1.front() << " ";
+		Q1.pop();
+	}
+	//Queue: first in first out
+
+	priority_queue<int> P1;// Does not support initializer_list { 1, 2, 3, 4 };
+	cout << endl;
+	P1.push(1);
+	P1.push(5);
+	P1.push(4);
+	P1.push(3);
+	while (!P1.empty()) {
+		cout << P1.top() << " ";
+		P1.pop();
+	}
+	//it is max heap!!
+
+	//unordeded_map -- Hash Table
+	return 0;
+}
+

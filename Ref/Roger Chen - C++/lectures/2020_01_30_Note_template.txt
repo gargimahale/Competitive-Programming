@@ -1,0 +1,103 @@
+#include <iostream>
+#include <list>
+#include <vector>
+#include <map>
+#include <string>
+
+using namespace std;
+
+class myClass1 {
+public:
+	int A;
+	int B;
+	int C;
+	int* p;
+	myClass1(){}
+	myClass1(int i, int j): A(i*10), B(j*10){}
+	myClass1(const initializer_list<int>& I);
+};
+myClass1::myClass1(const initializer_list<int>& I) {
+	auto it = I.begin();
+	A = *it *100;
+
+}
+
+class ThreeD1 {
+public:
+	int ht;
+	int wid;
+	int dep;
+
+};
+class ThreeD2 {
+public:
+	double ht;
+	double wid;
+	double dep;
+
+};
+
+template <class T> class ThreeD {
+public:
+	T ht;
+	T wid;
+	T dep;
+	ThreeD() { ht = wid = dep = (T)0; }
+	ThreeD(T i, T j, T k): ht(i), wid(j), dep(k){}
+	T getVol() { return ht * wid * dep; }
+	ThreeD(const initializer_list<T>& T);
+};
+template <class T> ThreeD<T>::ThreeD(const initializer_list<T>& T) {
+	auto it{ T.begin() };
+	ht = *it;
+	it++;
+	wid = *it;
+	it++;
+	dep = *it;
+
+}
+
+
+
+
+template <class T> ostream& operator<<(ostream& str, const ThreeD<T>& t) {
+	str << "[" << t.ht << ", " << t.wid << ", " << t.dep << "]";
+	return str;
+}
+
+template <class T> ostream& operator<<(ostream& str, const vector<T>& v) {
+	str << "< ";
+	for (auto i : v) {str << i << " "; }
+	str << ">";
+	return str;
+}
+
+template <class T> ostream& operator<<(ostream& str, const list<T>& v) {
+	str << "{ ";
+	for (auto i : v) { str << i << " "; }
+	str << "}";
+	return str;
+}
+
+int main() {
+	myClass1 m1 { 1};
+	cout << m1.A << m1.B << m1.C << endl;
+
+	int A[5]{ 3,5 };
+	for (auto i : A) { cout << i << " "; }
+	cout << endl;
+	ThreeD<int> T1{ 3,4,5 };
+	cout << T1.getVol() << endl;
+	cout << T1 << endl;
+	ThreeD<double> T2{ 1.2,2.2,3.3 };
+	cout << T2.getVol() << endl;
+	cout << T2 << endl;
+	vector<int> V1{ 12,2,5,7,15 };
+	cout << V1 << endl;
+	vector<ThreeD<int>> V2 { {1,2,3},{7,8,9},{4,2,8,5,10} };
+	cout << V2 << endl;
+	list<vector<ThreeD<int>>> L1{ {{1,2,3},{4,5,6},{7,8,9}  }, {{2,2,2},{3,3,3}} };
+	cout << L1 << endl;
+	return 0;
+
+}

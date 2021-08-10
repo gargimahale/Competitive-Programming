@@ -1,0 +1,28 @@
+//Partial Initialization
+#include <iostream>
+
+using namespace std;
+
+class myClass {
+public:
+	int A;
+	int B;
+	int C;
+	int* p;
+	myClass(int a):A(a*10){}
+	myClass(const initializer_list<int>& I);
+};
+myClass::myClass(const initializer_list<int>& I) {
+	auto it = I.begin();
+	A = *it * 100;
+}
+
+int main() {
+	myClass m1{2};//partial initialization will initialize the rest to default values
+	//for all three ways of initialization
+	cout << m1.A << " " << m1.B << " " << m1.C << " " << m1.p << endl;
+
+	return 0;
+}
+
+

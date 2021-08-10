@@ -1,0 +1,66 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int x{ 1000 };
+int w{ 3 };
+
+
+
+namespace one {
+
+	int x{ 1 };
+	int z{ 100 };
+	namespace one_one {
+
+		int x_x{ 11 };
+		
+
+	}
+
+
+}
+namespace two {
+	int x{ 2 };
+	int y{ 22 };
+	int w{ 33 };
+}
+
+class ThreeD {
+public:
+	int ht;
+	int wid;
+	int dep;
+	int vol() { return ht * wid * dep; }
+
+
+};
+
+int f3(int& i) { cout << i * i << endl; }
+
+int main() {
+
+	
+
+	int w{ 333 };
+	//using namespace one;
+	using namespace one::one_one;
+	namespace NEW = one::one_one;
+	using namespace NEW;
+	using namespace two;
+	cout << w << endl;
+#if  1
+	cout << x_x << endl;
+	cout << one::z << endl;
+	cout << ::x << endl;
+#endif
+	typedef vector<vector<vector<int>>> V3;
+	using v4 = vector<vector<vector<vector<int>>>>;
+
+	cout << ThreeD{ 3,4,5 }.vol() << endl;
+
+	cout << int{ 75 } << endl;
+
+
+	return 0;
+}

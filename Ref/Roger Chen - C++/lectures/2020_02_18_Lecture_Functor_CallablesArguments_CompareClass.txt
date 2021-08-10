@@ -1,0 +1,103 @@
+//Functor -- function object
+//Callable arguments
+//Compare Class
+#include <iostream>
+#include <map>
+#include <list>
+#include <set>
+#include <functional>//to use the keyword function
+
+using namespace std;
+
+class ThreeD {
+public:
+	int ht;
+	int wid;
+	int dep;
+	ThreeD():ht(0), wid(0), dep(0){}
+	ThreeD(int i, int j, int k):ht(i), wid(j), dep(k){}
+	int getVol() const { return ht * wid * dep; }
+	bool operator<(const ThreeD& t) const { return getVol() < t.getVol(); }
+
+};
+
+
+class my_compare {
+public:
+	bool operator()(int a, int b) { return a < b; }
+	bool operator()(const ThreeD &t1, const ThreeD &t2) const { return t1.getVol() > t2.getVol(); }
+};
+
+ostream& operator<<(ostream& str, const ThreeD& t) {
+	str << "(" << t.ht << ", " << t.wid << ", " << t.dep << ")";
+	return str;
+}
+
+
+int min(int a, int b, function< bool(int, int )> F){ 
+//the function can be any of the three callables
+
+	return F(a, b) ? a : b;
+
+}
+
+//Another approach: This approach is more popular than the one using "function".
+template <typename T> int Min(int a, int b, T F) {
+//the function can be any of the three callables
+
+	return F(a, b)? a : b;
+}
+
+
+bool f1(int a, int b) { return a < b; }
+int main() {
+
+	my_compare f2;
+	cout << f2(5, 4) << endl;
+
+	cout << f1(5, 4) << endl;
+
+	cout << [] (int a, int b) {return a < b; }(5, 4) << endl;
+	//function, lambda, functor are callables
+
+
+	cout << min(5, 4, f1) << endl;
+	cout << min(5, 4, f2) << endl;
+	cout << min(5, 4, [](int a, int b) {return a < b; })<<endl;
+
+	cout << Min(5, 4, f1) << endl;
+	cout << Min(5, 4, f2) << endl;
+	cout << Min(5, 4, [](int a, int b) {return a < b; }) << endl;
+
+	list<int> L1{ 4,5,3,1,7 };
+	L1.sort();
+	L1.sort(f1);
+	for (auto i : L1) { cout << i << " "; }
+	cout << endl;
+	L1.sort(f2);
+	for (auto i : L1) { cout << i << " "; }
+	cout << endl;
+	L1.sort([](int a, int b) {return a > b; });
+	for (auto i : L1) { cout << i << " "; }
+	cout << endl;
+
+
+	ThreeD t1(3, 4, 5), t2(2, 5, 7), t3(1, 10, 3);
+	map<ThreeD, int> M1{ {t1,100},{t2,200},{t3,300} };
+	for (auto i : M1) { cout << i.first << " " << i.second << "  "; }
+	cout << endl;
+	map<ThreeD, int, my_compare> M2{ {t1,100},{t2,200},{t3,300} };
+	//The optional third argument is a class which contains an overloaded
+	//member function operator() to compare the keys.
+
+	for (auto i : M2) { cout << i.first << " " << i.second << "  "; }
+	cout << endl;
+	set<ThreeD, my_compare> S1{ t1,t2,t3 };
+	for (auto i : S1) { cout << i << " "; }
+	cout << endl;
+
+	set<int, greater<int>> S2{ 5,3,1,7,6 };  //defualt comparator is less<int>
+	for (auto i : S2) { cout << i << " "; }
+	
+	return 0;
+}

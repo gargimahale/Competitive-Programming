@@ -1,0 +1,43 @@
+
+//L-value , R-value, Move Constructor, R-value operator=
+/*
+Anything that can be placed on the left side of an assignment statement is an L value entity.
+If not L value, it will be R vlaue.
+
+i = 10; //i: L value; 10: R value
+i = j+1;//i: L value
+t4 = t1.ThreeTimes(); //t4: L value.
+
+
+Another definiton:
+Any entity with an assigned memery address is an L value; otherwise, an R value.
+
+i = 5; //i: L value; 5: R value;
+i = j+1;
+
+*/
+
+#include <iostream>
+using namespace std;
+
+void f1(int& i) {
+
+	cout << "L value" << endl;
+}
+
+void f1(int&& i) {
+	cout << "R value" << endl;
+}
+
+
+int main() {
+
+	int i = 10;
+	f1(i); //L value
+	f1(i + 1); //R value
+	f1(5); //R value
+
+	return 0;
+}
+
+
