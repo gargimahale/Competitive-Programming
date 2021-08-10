@@ -1,1 +1,0 @@
-### Kattis Problems (Including contests)
