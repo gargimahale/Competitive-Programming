@@ -25,19 +25,15 @@ int numDecodings(string s) {
 		if (isValid(s[i]) && isValid(s[i - 1], s[i])) {
 			cnt += f1 + f2;
 		}
-
 		if (!isValid(s[i]) && isValid(s[i - 1], s[i])) {
 			cnt += f2;
 		}
-
 		if (isValid(s[i]) && !isValid(s[i - 1], s[i])) {
 			cnt += f1;
 		}
-
 		if (!isValid(s[i]) && !isValid(s[i - 1], s[i])) {
 			return 0;
 		}
-
 		f1 = cnt;
 		f2 = temp;
 		cnt = 0;
