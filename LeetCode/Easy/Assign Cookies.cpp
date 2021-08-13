@@ -9,14 +9,13 @@ public:
         sort(begin(g), end(g));
         sort(begin(s), end(s));
 
-        int max_count = 0, i = 0, j = 0;
+        int i = 0, j = 0;
         while (i < len_g && j < len_s) {
             if (g[i] <= s[j]) {
-                ++max_count;
                 ++i;
             }
             ++j;
         }
-        return max_count;
+        return i;
     }
 };

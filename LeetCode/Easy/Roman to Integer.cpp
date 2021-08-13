@@ -3,33 +3,21 @@ using namespace std;
 
 class Solution {
 public:
-    int map(const char& c) {
-        switch (c) {
-        case 'M':
-            return 1000;
-        case 'D':
-            return 500;
-        case 'C':
-            return 100;
-        case 'L':
-            return 50;
-        case 'X':
-            return 10;
-        case 'I':
-            return 1;
-        case 'V':
-            return 5;
-        }
-        return 0;
-    }
     int romanToInt(string s) {
-        int result = 0;
-        for (size_t i = 0; i < s.size() - 1; ++i) {
-            if (map(s[i]) >= map(s[i + 1])) {
-                result += map(s[i]);
-            } else {result -= map(s[i]);}
+        unordered_map<char, int> mapping = {{'I', 1}, {'V', 5}, {'X', 10},
+            {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}
+        };
+
+        int answer = mapping[s.back()];
+
+        for (int i = s.size() - 2; i >= 0; --i) {
+            if (mapping[s[i]] < mapping[s[i + 1]]) {
+                answer -= mapping[s[i]];
+            }
+            else {
+                answer += mapping[s[i]];
+            }
         }
-        result += map(s[s.size() - 1]);
-        return result;
+        return answer;
     }
 };
