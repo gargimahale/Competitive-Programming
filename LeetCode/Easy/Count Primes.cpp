@@ -3,23 +3,28 @@ using namespace std;
 
 class Solution {
 public:
-    int countPrimes(int n) {
+    int countPrimes(int n, int res = 0) {
         if (n <= 2) {
             return 0;
         }
-        vector<bool> prime(n, true);
-        prime[0] = false, prime[1] = false;
+        vector<bool> sieve(n, true);
+        sieve[0] = false, sieve[1] = false;
+        int count = n - 2;
+
         for (int i = 2; i < sqrt(n); ++i) {
-            if (prime[i]) {
+            if (sieve[i]) {
                 for (int j = i * i; j < n; j += i) {
-                    prime[j] = false;
+                    if (sieve[j]) {
+                        sieve[j] = false;
+                        --count;
+                    }
                 }
             }
         }
-        for (bool x : prime) cout << x << "\n";
-        return count(begin(prime), end(prime), true);
+        return count;
     }
 };
+
 
 
 // Efficient Method:- Half Sieve Of Eratosthenes
