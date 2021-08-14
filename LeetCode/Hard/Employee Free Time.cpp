@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*
 // Definition for an Interval.
 class Interval {
 public:
@@ -15,7 +14,6 @@ public:
         end = _end;
     }
 };
-*/
 
 class Solution {
 public:
