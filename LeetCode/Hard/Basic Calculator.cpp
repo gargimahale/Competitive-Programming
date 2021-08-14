@@ -8,7 +8,6 @@ public:
     int calculate(string s) {
         int n = s.size(), result = 0, sign = 1;
         stack<int> stk;
-
         for (int i = 0; i < n; ++i) {
             if (isdigit(s[i])) {
                 int num = s[i] - '0';

@@ -1,16 +1,20 @@
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int getSum(int a, int b){
-    if(b == 0){
-        return a;
+class Solution{
+public:
+    int getSum(int a, int b){
+        int sum = a;
+        while(b){
+            sum = a ^ b;
+            b = (a & b) << 1;
+            a = sum;
+        }
+        return sum;
     }
-    int sum = a^b;
-    int carry = (unsigned int) (a & b) << 1;
-    return getSum(sum, carry);
-}
+};
 
-int main(void){
-    cout << getSum(2, 3) << "\n";
+int32_t main(void){
+    Solution S;
+    cout << S.getSum(25, 30) << "\n";
 }
