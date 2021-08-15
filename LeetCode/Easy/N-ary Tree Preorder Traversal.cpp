@@ -41,3 +41,33 @@ public:
         return res;
     }
 };
+
+// OR
+
+class Solution {
+public:
+    vector<int> preorder(Node* root) {
+        vector<int> res;
+        
+        if (!root){
+            return res;
+        }
+        
+        stack<Node*> nodesProcessed;
+        nodesProcessed.push(root);
+        
+        while(!nodesProcessed.empty()){
+            auto currNode = nodesProcessed.top();
+            nodesProcessed.pop();
+            
+            if (currNode){
+                res.push_back(currNode->val);
+                for (int i = currNode->children.size()-1; i >= 0; --i){
+                    nodesProcessed.push(currNode->children[i]);
+                }
+            }
+        }
+        
+        return res;
+    }
+};
