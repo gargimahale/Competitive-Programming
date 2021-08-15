@@ -14,8 +14,8 @@ public:
     void reverseWords(string& s, int& n) {
         int i = 0, j = 0;
         while (j < n) {
-            while (i < j || i < n && s[i] == ' ') ++i;
-            while (j < i || j < n && s[j] != ' ') ++j;
+            while (i < j || (i < n && s[i] == ' ')) ++i;
+            while (j < i || (j < n && s[j] != ' ')) ++j;
             reverseStr(s, i, j - 1);
         }
     }
@@ -40,3 +40,9 @@ public:
         return formattedStr(s, n); // O(N)
     }
 };
+
+int32_t main(){
+    Solution S;
+    cout << S.reverseWords("A man, a lake, a ball look what that is!!!");
+    return 0;
+}
