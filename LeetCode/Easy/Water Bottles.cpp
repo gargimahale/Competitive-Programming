@@ -15,3 +15,11 @@ public:
         return ans;
     }
 };
+
+int32_t main(){
+    Solution sol;
+    int bottles, numExchange;
+    cin >> bottles >> numExchange;
+    cout << sol.numWaterBottles(bottles, numExchange);
+    return 0;
+}
