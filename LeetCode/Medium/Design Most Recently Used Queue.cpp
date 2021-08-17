@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
+#include <vector>
 using namespace std;
 
 // TC: O(n), SC: O(n)
