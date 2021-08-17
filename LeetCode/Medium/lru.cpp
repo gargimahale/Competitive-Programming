@@ -1,45 +1,52 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 class LRUCache {
 public:
-
-    int capacity;
+    int capacity = 0;
+    unordered_map<int, pair<int, list<int>::iterator>> log;
     list<int> cache;
-    unordered_map<int, pair<list<int>::iterator, int>> mp;
-
-
+    
     LRUCache(int capacity) {
         this->capacity = capacity;
     }
-
+    
     int get(int key) {
-        if (mp.find(key) != mp.end()){
-            cache.erase(mp[key].first);
+        if (log.find(key) != log.end()){
+            // key exists
+            cache.erase(log[key].second);
             cache.push_front(key);
-            mp[key].first = cache.begin();
-            return mp[key].second;
+            log[key].second = cache.begin();
+            return log[key].first;
         }
+        // key does not exist
         return -1;
     }
-
+    
     void put(int key, int value) {
-        if (mp.find(key) == mp.end()){
+        if (log.find(key) == log.end()){
+            // key not found
             if (cache.size() == capacity){
-                // evict
-                int last_key = cache.back();
+                // cap full
+                auto last = cache.back();
                 cache.pop_back();
-                mp.erase(last_key);
+                log.erase(last);
             }
         }
         else{
-            cache.erase(mp[key].first);
+            cache.erase(log[key].second);
         }
         cache.push_front(key);
-        mp[key] = {cache.begin(), value};
+        log[key] = {value, cache.begin()};
     }
 };
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
 
 /**
  * Your LRUCache object will be instantiated and called as such:
