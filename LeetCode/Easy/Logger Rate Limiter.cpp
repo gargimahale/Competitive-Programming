@@ -24,38 +24,29 @@ public:
 class Logger {
 public:
     /** Initialize your data structure here. */
-    unordered_set<string> S;
-    deque<pair<int, string>> Q;
-
-
+    unordered_set<string> temp_log;
+    deque<pair<int, string>> message_log;
     Logger() {}
-
+    
     /** Returns true if the message should be printed in the given timestamp, otherwise returns false.
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity. */
     bool shouldPrintMessage(int timestamp, string message) {
-        while (!Q.empty() && Q.front().first <= timestamp) {
-            S.erase(Q.front().second);
-            Q.pop_front();
+        while(!message_log.empty() && message_log.front().first <= timestamp){
+            temp_log.erase(message_log.front().second);
+            message_log.pop_front();
         }
-
-        if (S.count(message)) return false;
-
-        Q.push_back({timestamp + 10, message});
-        S.insert(message);
-
+        
+        if (temp_log.find(message) != temp_log.end()) return false;
+        
+        temp_log.insert(message);
+        message_log.push_back({timestamp+10, message});
         return true;
     }
 };
 
-// TC: O(1), amortized
-// SC: O(k) where k is the #messages printed in last 10 sec
-
-/**
- * Your Logger object will be instantiated and called as such:
- * Logger* obj = new Logger();
- * bool param_1 = obj->shouldPrintMessage(timestamp,message);
- */
+// TC: O(N)
+// SC: O(N) where k is the #messages printed in last 10 sec
 
 int main() {
     Logger s;
