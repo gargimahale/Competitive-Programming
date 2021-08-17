@@ -1,19 +1,35 @@
-#include<bits/stdc++.h>
+#include <climits>
+#include <vector>
+#include <stdio.h>
+#include <iostream>
 using namespace std;
 
 class Solution {
 public:
-    int coinChange(vector<int>& coins, int amt) {
+    int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<int> dp(amt+1, amt+1);
+        vector<int> dp(amount+1, INT_MAX-1);
+        sort(begin(coins), end(coins));
         dp[0] = 0;
-        for (int i=1; i<=amt; ++i){
-            for(int j = 0; j<n; ++j){
-                if (coins[j] <= i){
-                    dp[i] = min(dp[i], dp[i-coins[j]]+1);
+        for (int i = 1; i<= amount; ++i){
+            for (int j = 0; j<n; ++j){
+                if (i >= coins[j]){
+                    dp[i] = min(dp[i], 1 + dp[i-coins[j]]);
+                }
+                else{
+                    break;
                 }
             }
         }
-        return dp[amt] > amt ? -1: dp[amt]; 
+        return dp[amount] == INT_MAX-1 ? -1: dp[amount];
     }
 };
+
+int32_t main(){
+    Solution sol;
+    vector<int> coins = {1, 2, 4, 5};
+    int amount;
+    cin >> amount;
+    cout << sol.coinChange(coins, amount) << "\n";
+    return 0;
+}
