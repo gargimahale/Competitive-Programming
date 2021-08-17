@@ -61,29 +61,33 @@ public:
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
-        int r = grid.size(), c = grid[0].size();
-        int islands = 0, offset[] = {0, 1, 0, -1, 0};
-        for (int i = 0; i < r; ++i) {
-            for (int j = 0; j < c; ++j) {
-                if (grid[i][j] == '1') {
-                    ++islands;
-                    grid[i][j] = 0;
-                    queue<pair<int, int>> Q;
-                    Q.push({i, j});
-                    while (!Q.empty()) {
-                        pair<int, int> p = Q.front(); Q.pop();
-                        for (int k = 0; k < 4; ++k) {
-                            int row = p.first + offset[k];
-                            int col = p.second + offset[k + 1];
-                            if (row >= 0 && row < r && col >= 0 && col < c && grid[row][col] == '1') {
-                                grid[row][col] = '0';
-                                Q.push({row, col});
+        deque<pair<int, int>> canReach;
+        vector<int> dir = {0, 1, 0, -1, 0};
+        int numIslands = 0, rows = grid.size(), cols = grid[0].size();
+        
+        for (int i = 0; i<rows; ++i){
+            for (int j = 0; j<cols; ++j){
+                if (grid[i][j] == '1'){
+                    ++numIslands;
+                    
+                    grid[i][j] = '0';
+                    canReach.push_back({i, j});
+                    while(!canReach.empty()){
+                        auto current = canReach.front();
+                        canReach.pop_front();
+                        
+                        int r = current.first, c = current.second;
+                        for (int i = 0; i < 4; ++i){
+                            int new_row = r + dir[i], new_col = c + dir[i+1];
+                            if (new_row >= 0 && new_row < rows && new_col >= 0 && new_col < cols && grid[new_row][new_col] == '1'){
+                                canReach.push_back({new_row, new_col});
+                                grid[new_row][new_col] = '0';
                             }
                         }
                     }
                 }
             }
         }
-        return islands;
+        return numIslands;
     }
 };
