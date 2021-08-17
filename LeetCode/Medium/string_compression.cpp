@@ -5,21 +5,19 @@ using namespace std;
 class Solution {
 public:
     int compress(vector<char>& chars) {
-        int idx = 0, i = 0;
-        while (i < chars.size()) {
-            int j = i;
-            while (j < chars.size() && chars[i] == chars[j]) {
-                j++;
-            }
-            chars[idx++] = chars[i];
-            if (j - i > 1) {
-                string count = to_string(j - i);
-                for (char ch : count) {
-                    chars[idx++] = ch;
+        int start = 0, end = chars.size(), index = 0, temp = 0;
+        while(start < end){
+            temp = start;
+            while(temp < end && chars[start] == chars[temp]) ++temp;
+            chars[index++] = chars[start];
+            if (temp - start > 1){
+                string new_count = to_string(temp-start);
+                for (char ch: new_count){
+                    chars[index++] = ch;
                 }
             }
-            i = j;
+            start = temp;
         }
-        return idx;
+        return index;
     }
 };
