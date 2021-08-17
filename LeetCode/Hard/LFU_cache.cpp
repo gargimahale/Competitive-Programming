@@ -1,4 +1,7 @@
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
+#include <algorithm>
+#include <unordered_map>
+#include <queue>
 
 using namespace std;
 
@@ -34,43 +37,40 @@ times the cache request has been used in its eviction algorithm.
 
 class LFUCache {
 public:
-
-    priority_queue<pair<int, pi>, vector<pair<int, pi>>, greater<pair<int, pi>>> pq;
-    unordered_map<int, int> mostRecentVal, frequency;
-    int cap, time = 0;
-
+    int cap = 0, time = 0;
+    priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> cache;
+    unordered_map<int, int> freq, values;
+    
     LFUCache(int capacity) {
         cap = capacity;
     }
-
+    
     int get(int key) {
-        if (mostRecentVal.find(key) == mostRecentVal.end()) {
-            // Element not found
-            return -1;
+        if (values.find(key) != values.end()){
+            put(key, values[key]);
+            return values[key];
         }
-        put(key, mostRecentVal[key]);
-        return mostRecentVal[key];
+        return -1;
     }
-
+    
     void put(int key, int value) {
-        if (cap == 0) {
-            return;
-        }
-        if (mostRecentVal.find(key) == mostRecentVal.end() && mostRecentVal.size() == cap) {
-            // Capacity Full
-            while (mostRecentVal.size() == cap) {
-                // remove elment from map
-                auto x = pq.top(); pq.pop();
-                if (frequency[x.second.second] == x.first) {
-                    mostRecentVal.erase(x.second.second);
-                    frequency.erase(x.second.second);
+        if (cap == 0) return;
+        
+        if (values.find(key) == values.end() && values.size() == cap){
+            while (values.size() == cap){
+                // evict
+                auto evict = cache.top();
+                cache.pop();
+                
+                if (freq[evict.second.second] == evict.first){
+                    freq.erase(evict.second.second);
+                    values.erase(evict.second.second);
                 }
             }
         }
-        // Fill Queue and increase time
-        mostRecentVal[key] = value;
-        frequency[key]++;
-        pq.push({frequency[key], {time++, key}});
+        freq[key]++;
+        values[key] = value;
+        cache.push({freq[key], {time++, key}});
     }
 };
 
