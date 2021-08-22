@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <vector>
 using namespace std;
 
 class Solution {
@@ -10,5 +10,17 @@ public:
             dp[i] = dp[i - 1] + dp[i - 2];
         }
         return dp[n];
+    }
+
+    int climbStairs1(int n) {
+        vector<int> dp(2, 1);
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i <= n; ++i){
+            int count = dp[0]+dp[1];
+            dp[0] = dp[1];
+            dp[1] = count;
+        }
+        return dp[1];
     }
 };
