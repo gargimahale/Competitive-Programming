@@ -19,11 +19,9 @@ public:
                 dp[i][j] = max(maxVal, dp[i][j - 1]);
             }
         }
-
         return dp[k][n - 1];
     }
 };
-
 // TC: O(days^2 * k)
 // SC: O(days * k)
 
