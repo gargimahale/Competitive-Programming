@@ -53,3 +53,33 @@ public:
 };
 
 // TC: O(N), SC: O(N)
+// faster implementation as queue uses deque as its container
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        int depth = 0;
+        if (!root){
+            return depth;
+        }
+        deque<TreeNode*> Q;
+        Q.push_back(root);
+        
+        while(!Q.empty()){
+            int size = Q.size();
+            ++depth;
+            for (int i = 0; i<size; ++i){
+                TreeNode* curr = Q.front();
+                Q.pop_front();
+                
+                if (curr->left){
+                    Q.push_back(curr->left);
+                }
+                
+                if (curr->right){
+                    Q.push_back(curr->right);
+                }
+            }
+        }
+        return depth;
+    }
+};
