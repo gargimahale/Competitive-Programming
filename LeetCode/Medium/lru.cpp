@@ -1,4 +1,7 @@
-#include <bits/stdc++.h>
+#include <list>
+#include <unordered_map>
+#include <iostream>
+
 using namespace std;
 
 class LRUCache {
@@ -41,16 +44,15 @@ public:
     }
 };
 
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache* obj = new LRUCache(capacity);
- * int param_1 = obj->get(key);
- * obj->put(key,value);
- */
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache* obj = new LRUCache(capacity);
- * int param_1 = obj->get(key);
- * obj->put(key,value);
- */
+int32_t main(){
+    LRUCache* lru = new LRUCache(2);
+    lru->put(1, 1);
+    lru->put(2, 2);
+    cout << lru->get(1) << "\n";
+    lru->put(3, 3);
+    cout << lru->get(2) << "\n";
+    lru->put(4, 4);
+    cout << lru->get(1) << "\n";
+    cout << lru->get(3) << "\n";
+    cout << lru->get(4) << "\n";
+}

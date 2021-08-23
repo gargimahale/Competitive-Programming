@@ -1,6 +1,36 @@
-#include <bits/stdc++.h>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
+/*
+
+Explanation:
+https://labuladong.gitbook.io/algo-en/iii.-algorithmic-thinking/prefix_sum
+ */
+
+// Brute force - O(N^2)
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<int> prefSum(n+1, 0);
+        int count = 0;
+        for (int i = 0; i<n; ++i){
+            prefSum[i+1] = prefSum[i] + nums[i];
+        }
+        
+        for (int i = 1; i <= n; ++i){
+            for (int j = 0; j < i; ++j){
+                if (prefSum[i] - prefSum[j] == k){
+                    ++count;
+                }
+            }
+        }
+        return count;
+    }
+};
+
+// O(N)
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {

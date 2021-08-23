@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-
+#include <vector>
 using namespace std;
 
 class Solution {
@@ -11,7 +10,6 @@ public:
         }
 
         sort(intervals.begin(), intervals.end());
-
         int start = intervals[0][0], end = intervals[0][1];
 
         for (int i=1; i<intervals.size(); ++i){
