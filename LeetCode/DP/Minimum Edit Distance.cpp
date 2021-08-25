@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+#include <vector>
+#include <iostream>
 using namespace std;
 
 class Solution {
@@ -25,6 +26,12 @@ public:
             }
         }
         return dp[n][m];
+    }
+
+    int minDistanceOptimized(string& word1, string& word2){
+        int n = word1.size(), m = word2.size();
+
+        
     }
 };
 
