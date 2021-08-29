@@ -1,28 +1,32 @@
-#include <bits/stdc++.h>
-
+#include <vector>
+#include <queue>
+#include <map>
 using namespace std;
 
 class Solution {
 public:
 
+    // Time: O(NlogN), Space: O(N)
     int minMeetingRooms(vector<vector<int>>& intervals) {
-        if (intervals.empty()) return 0;
-        priority_queue<int, vector<int>, greater<int>> pq;
-        sort(intervals.begin(), intervals.end());
-        pq.push(intervals[0][1]);
-        for (int i = 1; i < intervals.size(); i++) {
-            if (pq.top() <= intervals[i][0]) pq.pop();
-            pq.push(intervals[i][1]);
+        int n = intervals.size();
+        if (n <= 1){
+            return n;
         }
-        return pq.size();
+        
+        sort(begin(intervals), end(intervals));
+        priority_queue<int, vector<int>, greater<int>> min_heap;
+        
+        for (auto& interval: intervals){
+            if (!min_heap.empty() && min_heap.top() <= interval[0]){
+                min_heap.pop();
+            }
+            min_heap.push(interval[1]);
+        }
+        return min_heap.size();
     }
-};
 
-// OR
-
-class Solution {
-public:
-    int minMeetingRooms(vector<vector<int>>& intervals) {
+    // Time: O(NlogN), Space: O(N)
+    int minMeetingRooms_1(vector<vector<int>>& intervals) {
         map<int, int> mp;
         for (auto& t : intervals) {
             mp[t[0]]++, mp[t[1]]--;
