@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <string>
+#include <unordered_set>
+#include <queue>
 using namespace std;
 
 // Use this https://leetcode.com/problems/word-ladder/discuss/40707/C%2B%2B-BFS
@@ -6,40 +8,37 @@ using namespace std;
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-        unordered_set<string> map;
-        bool found = false;
-        for (auto w : wordList) {
-            if (w == endWord) {
-                found = true;
-            }
-            map.insert(w);
-        }
-        if (!found) {
+        unordered_set<string> S(begin(wordList), end(wordList));
+        
+        if (!S.count(endWord)){
             return 0;
         }
-
-        queue<string> pendingNodes;
-        pendingNodes.push(beginWord);
-        int lvl = 0;
-        while (pendingNodes.size() != 0) {
-            lvl++;
-            int size = pendingNodes.size();
-            for (int i = 0; i < size; ++i) {
-                string current = pendingNodes.front();
-                pendingNodes.pop();
-                for (int j = 0; j < current.size(); ++j) {
-                    string temp = current;
-                    for (char c = 'a'; c <= 'z'; ++c) {
-                        temp[j] = c;
-                        if (temp == current) {
-                            continue;
+        
+        deque<string> Q;
+        Q.push_back(beginWord);
+        int steps = 0;
+        
+        while(!Q.empty()){
+            int size = Q.size();
+            ++steps;
+            for (int i = 0; i<size; ++i){
+                string curr = Q.front();
+                Q.pop_front();
+                
+                for (int j = 0; j<curr.size(); ++j){
+                    string temp = curr;
+                    for (char ch = 'a'; ch <= 'z'; ++ch){
+                        temp[j] = ch;
+                        
+                        if (temp == curr) continue;
+                        
+                        if (temp == endWord){
+                            return ++steps;
                         }
-                        else if (endWord == temp) {
-                            return lvl + 1;
-                        }
-                        else if (map.find(temp) != map.end()) {
-                            pendingNodes.push(temp);
-                            map.erase(temp);
+                        
+                        if (S.find(temp) != S.end()){
+                            Q.push_back(temp);
+                            S.erase(temp);
                         }
                     }
                 }

@@ -1,22 +1,20 @@
-#include <bits/stdc++.h>
-
+#include <vector>
+#include <queue>
 using namespace std;
 
 
-// O(NLogN)
+
 class Solution {
 public:
+
+    // O(NLogN)
     int findKthLargest(vector<int>& nums, int k) {
         sort(begin(nums), end(nums));
         return nums[nums.size() - k];
     }
-};
 
-// O(NlogK)
-class Solution {
-public:
-    int findKthLargest(vector<int> &nums, int k) {
-        // Min Heap
+    // O(NlogK)
+    int findKthLargest_1(vector<int> &nums, int k) {
         priority_queue<int, vector<int>, greater<int>> pq;
         for (auto &x : nums) {
             pq.push(x);
@@ -25,12 +23,9 @@ public:
         }
         return pq.top();
     }
-};
 
-// Avg Case: O(N), Worst Case cause of pivot selection is O(N^2)
-class Solution {
-public:
 
+    // Avg Case: O(N), Worst Case cause of pivot selection is O(N^2)
     int partition(vector<int>& nums, int left, int right) {
         int pivot = nums[left];
         swap(nums[left], nums[right]);
@@ -44,7 +39,7 @@ public:
         return new_pivot;
     }
 
-    int findKthLargest(vector<int>& nums, int k) {
+    int findKthLargest_2(vector<int>& nums, int k) {
         int left = 0, right = nums.size() - 1, kth;
         while (left <= right) {
             int new_pivot = partition(nums, left, right);
@@ -62,4 +57,5 @@ public:
         }
         return kth;
     }
+
 };
