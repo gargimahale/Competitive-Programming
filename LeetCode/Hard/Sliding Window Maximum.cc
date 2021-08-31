@@ -25,7 +25,7 @@ vector<int> maxSlidingWindow_queue(vector<int>& nums, int k) {
 }
 
 
-vector<int> maxSlidingWindow_dll(vector<int>& nums, int k) {
+vector<int> maxSlidingWindow_dq(vector<int>& nums, int k) {
     vector<int> res;
     deque<pair<int, int>> dq;
 

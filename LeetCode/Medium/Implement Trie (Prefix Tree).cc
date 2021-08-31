@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <iostream>
 using namespace std;
 
 class Trie {
@@ -15,10 +16,10 @@ public:
         Trie* node = this;
         for(char& ch: word){
         	ch -= 'a';
-        	if (!node->next[ch]){
-        		node->next[ch] = new Trie();
+        	if (!node->next[(int)ch]){
+        		node->next[(int)ch] = new Trie();
         	}
-        	node = node->next[ch];
+        	node = node->next[(int)ch];
         }
         node->isWord = true;
     }
@@ -28,10 +29,10 @@ public:
         Trie* node = this;
         for (char& ch: word){
         	ch -= 'a';
-        	if (!node->next[ch]){
+        	if (!node->next[(int)ch]){
         		return false;
         	}
-        	node = node->next[ch];
+        	node = node->next[(int)ch];
         }
         return node->isWord;
     }
@@ -41,15 +42,24 @@ public:
         Trie* node = this;
         for (char& ch: prefix){
         	ch -= 'a';
-        	if (!node->next[ch]){
+        	if (!node->next[(int)ch]){
         		return false;
         	}
-        	node = node->next[ch];
+        	node = node->next[(int)ch];
         }
         return true;
     }
 };
 
+int main(void){
+    Trie* obj = new Trie();
+    obj->insert("apple");
+    obj->insert("ape");
+    obj->insert("ale");
+    cout << obj->search("ant") << "\n";
+    cout << obj->search("ape") << "\n";
+    cout << obj->startsWith("ap") << "\n";
+}
 /**
  * Your Trie object will be instantiated and called as such:
  * Trie* obj = new Trie();
