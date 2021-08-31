@@ -1,1 +1,1 @@
-### 💻 My random competitive programming solutions (and other stuff)
+### 💻 My random programming solutions (and other stuff)
