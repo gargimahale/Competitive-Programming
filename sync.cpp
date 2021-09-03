@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <thread>
+#include <mutex>
+#include <iostream>
 using namespace std;
 
 class Restaurant {

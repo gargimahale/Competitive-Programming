@@ -1,8 +1,11 @@
-#include <bits/stdc++.h>
+#include <string>
+#include <mutex>
+#include <iostream>
+#include <thread>
 using namespace std;
 
-std::mutex muA;
-std::mutex muB;
+mutex muA;
+mutex muB;
 
 void CallHome_AB(string message) {
   muA.lock();
