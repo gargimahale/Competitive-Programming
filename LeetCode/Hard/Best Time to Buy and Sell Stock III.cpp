@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <vector>
 using namespace std;
 
 class Solution {
@@ -20,7 +20,6 @@ public:
         }
 
         int ans = 0;
-
         for (int i = 0; i < n; ++i) {
             ans = max(ans, profit1[i] + profit2[i]);
         }

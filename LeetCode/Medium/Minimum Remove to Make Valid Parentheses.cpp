@@ -1,26 +1,26 @@
-#include<bits/stdc++.h>
-
+#include <string>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
-        stack<int> st;
-        for (int i=0; i<s.size(); ++i){
+        vector<int> vec;
+        for (int i = 0; i<s.size(); ++i){
             if (s[i] == '('){
-                st.push(i);
+                vec.push_back(i);
             }
             if (s[i] == ')'){
-                if (!st.empty()) st.pop();
-                else{
+                if (!vec.empty())
+                    vec.pop_back();
+                else
                     s[i] = '*';
-                }
             }
         }
         
-        while(!st.empty()){
-            s[st.top()] = '*';
-            st.pop();
+        while(!vec.empty()){
+            s[vec.back()] = '*';
+            vec.pop_back();
         }
         
         s.erase(remove(begin(s), end(s), '*'), end(s));
