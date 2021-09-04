@@ -3,29 +3,27 @@ using namespace std;
 
 class Solution {
 public:
-    vector<vector<int>> kClosest(vector<vector<int>> &points, int K) {
-        // struct mycomp {
-        //     bool operator()(const pair<double, int> &a, const pair<double, int> &b) {
-        //         return a.first > b.first;
-        //     }
-        // };
+    // TC: O(Nlogk)
+    // SC: O(1)
 
-        // distance, index
-        priority_queue<pair<double, int>, vector<pair<double, int>>, mycomp> m;
-
-        for (int i = 0; i < points.size(); i++) {
-            double calc = sqrt(pow(points[i][0], 2) + pow(points[i][1], 2));
-            m.push(make_pair(calc, i));
+    vector<vector<int>> kClosest_2(vector<vector<int>>& points, int k) {
+        priority_queue<pair<double, int>> pq;
+        int n = points.size();
+        
+        for (int i = 0; i<n; ++i){
+            pq.push({(pow(points[i][0], 2) + (pow(points[i][1], 2))), i});
+            
+            if (pq.size() > k){
+                pq.pop();
+            }
         }
-
+        
         vector<vector<int>> ans;
-        for (int i = 0; i < K; i++) {
-            ans.push_back(points[m.top().second]);
-            m.pop();
+        for (int i = 0; i< min(n, k); ++i){
+            ans.push_back(points[pq.top().second]);
+            pq.pop();
         }
+        
         return ans;
     }
 };
-
-// TC: O(n + klogN)
-// SC: O(n^2)
