@@ -1,29 +1,32 @@
-#include <bits/stdc++.h>
-
+#include <string>
 using namespace std;
 
 class Solution {
 public:
-
-    bool isPalindrome(string& s, int start, int end) {
-        while (start <= end) {
-            if (s[start] != s[end]) {
+    bool isPalindrome(const string& s, int start, int end){
+        while(start <= end){
+            if (s[start] != s[end]){
                 return false;
             }
-            start++, end--;
+            ++start, --end;
         }
         return true;
     }
-
+    
     bool validPalindrome(string s) {
-        int i = 0, j = s.size() - 1;
-        if (s.size() <= 1) return true;
-        while (i <= j) {
-            if (s[i] != s[j]) {
-                return isPalindrome(s, i + 1, j) || isPalindrome(s, i, j - 1);
-            }
-            i++, j--;
+        const int n = s.size();
+        if (n <= 1){
+            return true;
         }
+        
+        int start = 0, end = n-1;
+        while(start <= end){
+            if (s[start] != s[end]){
+                return isPalindrome(s, start+1, end) || isPalindrome(s, start, end-1);
+            }
+            ++start, --end;
+        }
+        
         return true;
     }
 };
