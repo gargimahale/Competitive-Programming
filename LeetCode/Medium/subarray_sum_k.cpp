@@ -1,5 +1,4 @@
-#include <unordered_map>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 /*
@@ -21,6 +20,7 @@ public:
         
         for (int i = 1; i <= n; ++i){
             for (int j = 0; j < i; ++j){
+                // sum: nums[j..i-1]
                 if (prefSum[i] - prefSum[j] == k){
                     ++count;
                 }

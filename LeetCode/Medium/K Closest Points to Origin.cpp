@@ -6,7 +6,22 @@ public:
     // TC: O(Nlogk)
     // SC: O(1)
 
-    vector<vector<int>> kClosest_2(vector<vector<int>>& points, int k) {
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+
+        // Partial Sort---------
+        // partial_sort(points.begin(), points.begin() + K, points.end(), [](vector<int>& p, vector<int>& q) {
+        //     return p[0] * p[0] + p[1] * p[1] < q[0] * q[0] + q[1] * q[1];
+        // });
+        // return vector<vector<int>>(points.begin(), points.begin() + K);
+        
+
+        // n-th element---------
+        // nth_element(points.begin(), points.begin() + K - 1, points.end(), [](vector<int>& p, vector<int>& q) {
+        //     return p[0] * p[0] + p[1] * p[1] < q[0] * q[0] + q[1] * q[1];
+        // });
+        // return vector<vector<int>>(points.begin(), points.begin() + K); 
+
+
         priority_queue<pair<double, int>> pq;
         int n = points.size();
         
