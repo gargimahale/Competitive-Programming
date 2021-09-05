@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*
 // Definition for a Node.
 class Node {
 public:
@@ -10,7 +9,6 @@ public:
     Node* right;
     Node* parent;
 };
-*/
 
 class Solution {
 public:
@@ -24,6 +22,4 @@ public:
         return a;
     }
 };
-
-
 // TC: O(H), SC: O(1)
