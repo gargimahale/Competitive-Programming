@@ -7,6 +7,8 @@ public:
         int low = 0, high = arr.size() - 1;
         while (low <= high) {
             int mid = low + (high - low) / 2;
+
+            // #elements missing before the pivot
             if (arr[mid] - 1 - mid < k) {
                 low = mid + 1;
             }
