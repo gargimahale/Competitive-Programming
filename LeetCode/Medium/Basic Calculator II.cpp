@@ -7,36 +7,37 @@ class Solution {
 public:
     int calculate(string s) {
         stack<int> stk;
-        istringstream iss(s);
         char op = '+';
-        int a;
-        while (iss >> a) {
-            if (op == '+') {
-                stk.push(a);
+        int num;
+        istringstream iss(s);
+        
+        while(iss >> num){
+            if (op == '+'){
+                stk.push(num);
             }
-            else if (op == '-') {
-                stk.push(-a);
+            else if (op == '-'){
+                stk.push(-num);
             }
-            else {
+            else{
                 int last = stk.top();
                 stk.pop();
-                if (op == '*') {
-                    last *= a;
+                if (op == '*'){
+                    last *= num;
                 }
-                else {
-                    last /= a;
+                if (op == '/'){
+                    last /= num;
                 }
                 stk.push(last);
             }
             iss >> op;
         }
-
-        int ans = 0;
-        while (!stk.empty()) {
-            ans += stk.top();
+        
+        num = 0;
+        while(!stk.empty()){
+            num += stk.top();
             stk.pop();
         }
-        return ans;
+        return num;
     }
 };
 
