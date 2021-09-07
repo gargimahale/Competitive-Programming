@@ -4,44 +4,61 @@ using namespace std;
 // TC: O(NlogN), SC: O(N)
 
 class Solution {
-
-    int find(vector<int> &union_find, int ind) {
-        while (union_find[ind] != ind)
-            ind = union_find[ind];
-        return ind;
+    int findParents(int x, vector<int>& parents){
+        int id = x;
+        
+        // To get the root - path compression
+        while(id != parents[id]) {
+            id = parents[id];
+        }
+        
+        while(x != parents[x]){
+            int temp = parents[x];
+            parents[x] = id;
+            x = temp;
+        }
+        return x;
     }
-
 public:
-
     vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
-        unordered_map<string, int> m;
-        vector<int> union_find(accounts.size(), 0);
-        unordered_map<int, vector<string>> res_map;
-
-        for (int i = 0; i < accounts.size(); i++) {
-            union_find[i] = i;
-            for (int j = 1; j < accounts[i].size(); j++) {
-                if (m.find(accounts[i][j]) != m.end()) {
-                    int root1 = find(union_find, i);
-                    int root2 = find(union_find, m[accounts[i][j]]);
-                    union_find[root1] = root2;
+        const int n = accounts.size();
+        if (n == 0){
+            return {};
+        }
+        
+        vector<vector<string>> res;
+        unordered_map<string, int> mp;
+        vector<int> parents(n, 0);
+        
+        for (int i = 0; i<n; ++i){
+            parents[i] = i;
+            
+            for (int j = 1; j<accounts[i].size(); ++j){
+                if (mp.find(accounts[i][j]) != mp.end()){
+                    int a = findParents(i, parents);
+                    int b = findParents(mp[accounts[i][j]], parents);
+                    
+                    if (a != b){
+                        parents[a] = b;
+                    }
+                }else{
+                    mp[accounts[i][j]] = parents[i];
                 }
-                else
-                    m[accounts[i][j]] = union_find[i];
             }
         }
-
-        for (auto it : m) {
-            int ind = find(union_find, it.second);
-            res_map[ind].push_back(it.first);
+        
+        unordered_map<int, vector<string>> res_mp;
+        
+        for (auto ele: mp){
+            int idx = findParents(ele.second, parents);
+            res_mp[parents[ele.second]].push_back(ele.first);
         }
-
-        vector<vector<string>> res;
-        for (auto it : res_map) {
-            vector<string> email = it.second;
-            sort(email.begin(), email.end());
-            email.insert(email.begin(), accounts[it.first][0]);
-            res.push_back(email);
+        
+        for (auto vec: res_mp){
+            vector<string> emails = vec.second;
+            sort(begin(emails), end(emails));
+            emails.insert(begin(emails), accounts[vec.first][0]);
+            res.push_back(emails);
         }
         return res;
     }
