@@ -5,27 +5,30 @@ using namespace std;
 class Solution {
 public:
     string simplifyPath(string path) {
-        string res, s;
-        vector<string> a;
-        stringstream ss(path);
-
-        while (getline(ss, s, '/')) {
-            if (s == "" || s == ".") {
+        int n = path.size();
+        if (!n){
+            return "/";
+        }
+        string res, inp;
+        istringstream iss(path);
+        vector<string> temp;
+        
+        while(getline(iss, inp, '/')){
+            if (inp == "" || inp == "."){
                 continue;
             }
-
-            if (s == ".." && !a.empty()) {
-                a.pop_back();
+            if (inp == ".." && !temp.empty()){
+                temp.pop_back();
             }
-
-            if (s != "..") {
-                a.push_back(s);
+            if (inp != ".."){
+                temp.push_back(inp);
             }
-
         }
-        for (string it : a) {
-            res += "/" + it;
+        
+        for (string& x: temp){
+            res += "/" + x;
         }
-        return res.empty() ? "/" : res;
+        
+        return res.empty() ? "/": res;
     }
 };
