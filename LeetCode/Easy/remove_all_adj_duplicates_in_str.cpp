@@ -1,19 +1,23 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 class Solution {
 public:
-    string removeDuplicates(string S) {
-        string ans;
-        for (int i = 0; i < S.size(); ++i) {
-            if (ans.back() == S[i]) {
-                ans.pop_back();
+    string removeDuplicates(string s) {
+        int n = s.size();
+        if (!n){
+            return "";
+        }
+        
+        string res;
+        for (int i = 0; i<n; ++i){
+            if (res.back() == s[i]){
+                res.pop_back();
             }
-            else {
-                ans.push_back(S[i]);
+            else{
+                res.push_back(s[i]);
             }
         }
-        return ans;
+        return res;
     }
 };
