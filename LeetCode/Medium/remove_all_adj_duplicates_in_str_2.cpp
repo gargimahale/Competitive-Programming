@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Time: O(N), Space: O(N)
 string removeDuplicates(string s, int k) {
     stack<int> count;
     for (int i = 0; i < s.size(); ++i) {
