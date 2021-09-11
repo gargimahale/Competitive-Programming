@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*
 // Definition for a Node.
 class Node {
 public:
@@ -19,42 +18,40 @@ public:
         children = _children;
     }
 };
-*/
-
-// TC: O(N), SC: O(N)
 
 class Codec {
+    void encode_dfs(Node* root, string* s){
+        if (!root){
+            return;
+        }
+        (*s) += " " + to_string(root->val) + " " + to_string(root->children.size());
+        for (auto child: root->children) encode_dfs(child, s);
+    }
+    
+    Node* decode_dfs(istringstream* iss){
+        int val, child_size;
+        if ((*iss) >> val >> child_size){
+            Node* root = new Node(val);
+            for (int i = 0; i<child_size; ++i){
+                root->children.push_back(decode_dfs(iss));
+            }
+            return root;
+        }
+        return nullptr;
+    }
 public:
-
-	string serialize(Node* root) {
-		string s;
-		encode_dfs(root, s);
-		return s;
-	}
-
-	void encode_dfs(Node* root, string& s) {
-		if (!root) return;
-		s += " " + to_string(root->val) + " " + to_string(root->children.size());
-		for (auto p : root->children) encode_dfs(p, s);
-	}
-
-	// Decodes your encoded data to tree.
-	Node* deserialize(string data) {
-		stringstream ss(data);
-		return decode(ss);
-	}
-
-	Node* decode(stringstream& ss) {
-		int val, child_size;
-		if (ss >> val >> child_size) {
-			auto root = new Node();
-			root->val = val;
-			for (int i = 0; i < child_size; i++)
-				root->children.push_back(decode(ss));
-			return root;
-		}
-		return nullptr;
-	}
+    // Encodes a tree to a single string.
+    string serialize(Node* root) {
+        string s;
+        encode_dfs(root, &s);
+        return s;
+    }
+	
+    // Decodes your encoded data to tree.
+    Node* deserialize(string data) {
+        istringstream iss(data);
+        return decode_dfs(&iss);
+    }
 };
 
 // Your Codec object will be instantiated and called as such:
