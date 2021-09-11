@@ -7,23 +7,24 @@ using namespace std;
 class Solution {
 public:
     int findCelebrity(int n) {
-        int i = 0;
-
-        // finding i who does not know j
-        for (int j = 1; j < n; ++j) {
-            if (knows(i, j)) i = j;
+        int celebrity = 0;
+        for (int person = 1; person < n; ++person){
+            if (knows(celebrity, person)){
+                celebrity = person;
+            }
         }
-
-        // check if i does not know j
-        for (int j = 0; j < i; ++j) {
-            if (knows(i, j)) return -1;
+        
+        for (int person = 0; person < celebrity; ++person){
+            if (knows(celebrity, person)){
+                return -1;
+            }
         }
-
-        // check if each person knows i and i != j
-        for (int j = 0; j < n; ++j) {
-            if (i != j && !knows(j, i)) return -1;
+        
+        for (int person = 0; person < n; ++person){
+            if (person != celebrity && !knows(person, celebrity)){
+                return -1;
+            }
         }
-
-        return i;
+        return celebrity;
     }
 };
