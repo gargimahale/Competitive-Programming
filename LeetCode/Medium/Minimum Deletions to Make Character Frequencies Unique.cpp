@@ -2,10 +2,14 @@
 using namespace std;
 
 // TC: O(n), SC: O(n)
-
 class Solution {
 public:
     int minDeletions(string s) {
+        int n = s.size();
+        if (n <= 1){
+            return 0;
+        }
+
         int cnt[26] = {0};
         for (char ch : s) cnt[ch - 'a']++;
         unordered_set<int> used;
