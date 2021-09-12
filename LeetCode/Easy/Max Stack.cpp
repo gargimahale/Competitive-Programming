@@ -3,7 +3,6 @@
 using namespace std;
 
 // Can also be implemented using two stacks like min stack question
-
 class MaxStack {
 public:
     /** initialize your data structure here. */
@@ -62,7 +61,6 @@ public:
 
 
 // OR
-
 class MaxStack {
 public:
     /** initialize your data structure here. */
@@ -116,5 +114,65 @@ public:
         }
 
         return val;
+    }
+};
+
+
+
+class MaxStack {
+public:
+    /** initialize your data structure here. */
+    vector<int> stk, my_stk;
+    MaxStack() {
+        stk.clear();
+        my_stk.clear();
+    }
+    
+    void addMax(int& x){
+        if (my_stk.empty() || my_stk.back() <= x){
+            my_stk.push_back(x);
+        }
+    }
+    
+    void push(int x) {
+        stk.push_back(x);
+        addMax(x);
+    }
+    
+    int pop() {
+        int ele = stk.back();
+        stk.pop_back();
+        
+        if (my_stk.back() == ele){
+            my_stk.pop_back();
+        }
+        return ele;
+    }
+    
+    int top() {
+        return stk.back();
+    }
+    
+    int peekMax() {
+        return my_stk.back();
+    }
+    
+    int popMax() {
+        vector<int> temp;
+        int ele = my_stk.back();
+        while(!stk.empty() && ele != stk.back()){
+            temp.push_back(stk.back());
+            stk.pop_back();
+        }
+        
+        stk.pop_back();
+        my_stk.pop_back();
+        
+        while(!temp.empty()){
+            stk.push_back(temp.back());
+            addMax(temp.back());
+            temp.pop_back();
+        }
+        return ele;
     }
 };
