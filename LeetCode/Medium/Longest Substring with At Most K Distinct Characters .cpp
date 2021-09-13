@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+// Time: O(N), Space: O(128) -> O(1)
 class Solution {
 public:
     int lengthOfLongestSubstringKDistinct(string s, int k) {
