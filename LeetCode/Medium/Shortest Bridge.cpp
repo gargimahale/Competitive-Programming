@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+// DFS(Finding the islands) + BFS(shortest path)
 class Solution {
     void dfs(vector<vector<int>>& grid, int i, int j, int& m, int& n){
         grid[i][j] = 2;
