@@ -1,43 +1,50 @@
 #include <string>
-#include <stack>
 #include <sstream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
     int calculate(string s) {
-        stack<int> stk;
+        vector<int> stk;
+        int n = s.size();
+        if (n == 0){
+            return n;
+        }
+        
         char op = '+';
-        int num;
+        int a;
         istringstream iss(s);
         
-        while(iss >> num){
+        while(iss >> a){
             if (op == '+'){
-                stk.push(num);
+                stk.push_back(+a);
             }
             else if (op == '-'){
-                stk.push(-num);
+                stk.push_back(-a);
             }
             else{
-                int last = stk.top();
-                stk.pop();
+                int last = stk.back();
+                stk.pop_back();
+                
                 if (op == '*'){
-                    last *= num;
+                    last *= a;
                 }
+                
                 if (op == '/'){
-                    last /= num;
+                    last /= a;
                 }
-                stk.push(last);
+                stk.push_back(last);
             }
             iss >> op;
         }
         
-        num = 0;
+        int res = 0;
         while(!stk.empty()){
-            num += stk.top();
-            stk.pop();
+            res += stk.back();
+            stk.pop_back();
         }
-        return num;
+        return res;
     }
 };
 
