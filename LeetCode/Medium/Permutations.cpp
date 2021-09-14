@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace  std;
 
-class Solution {
+class Solution_1 {
     int fact(int& n){
         int f = 1;
         for (int i = 1; i<=n; ++i){
@@ -42,6 +42,32 @@ public:
             res.push_back(nums);
             next_permutation(nums);
         }
+        return res;
+    }
+};
+
+class Solution_2 {
+    void helperPermutation(vector<int> nums, int i){
+        if (i >= nums.size()){
+            res.push_back(nums);
+            return;
+        }
+        
+        for (int start = i; start < nums.size(); ++start){
+            swap(nums[start], nums[i]);
+            helperPermutation(nums, i+1);
+            swap(nums[start], nums[i]);
+        }
+        
+    }
+public:
+    vector<vector<int>> res;
+    vector<vector<int>> permute(vector<int>& nums) {
+        if (nums.empty()){
+            return res;
+        }
+        
+        helperPermutation(nums, 0);
         return res;
     }
 };
