@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// todo: DLL and hash table implementation
+
 class LRUCache {
 public:
     int capacity = 0;
