@@ -39,7 +39,7 @@ public:
 
         // topoligical sort
         string ans;
-        queue<char> q;
+        queue <char> q;
         for (auto& e : indegree) {
             if (e.second == 0) {
                 q.push(e.first);
