@@ -6,10 +6,10 @@ using namespace std;
 
 class Solution {
 public:
-    string alienOrder(vector<string>& words) {
+    string alienOrder(vector <string>& words) {
         if (words.size() == 0) return "";
-        unordered_map<char, int> indegree;
-        unordered_map<char, unordered_set<char>> graph;
+        unordered_map <char, int> indegree;
+        unordered_map <char, unordered_set<char>> graph;
 
         // initialize
         for (int i = 0; i < words.size(); i++) {
