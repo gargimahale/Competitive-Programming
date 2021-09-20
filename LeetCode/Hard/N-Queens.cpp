@@ -6,7 +6,6 @@ class Solution {
 public:
 
     vector<vector<string>> ans;
-
     bool isSafe(const vector<string>& board, int row, int col) {
         // column check
         for (int i = 0; i < board.size(); ++i) {
