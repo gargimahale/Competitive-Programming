@@ -27,7 +27,7 @@ public:
 
 
 // OR
-class Solution {
+class Solution_1 {
 public:
     int maxProfit(int k, vector<int>& prices) {
         int n = prices.size();
