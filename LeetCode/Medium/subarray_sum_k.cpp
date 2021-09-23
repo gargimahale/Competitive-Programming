@@ -31,7 +31,7 @@ public:
 };
 
 // O(N)
-class Solution {
+class Solution_1 {
 public:
     int subarraySum(vector<int>& nums, int k) {
         int n = nums.size();

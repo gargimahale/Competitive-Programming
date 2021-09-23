@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <vector>
 #include <queue>
 using namespace std;
@@ -58,8 +59,15 @@ public:
         return kth;
     }
 
+    // O(N)
     int findKthLargest_3(vector<int>& nums, int k) {
         nth_element(nums.begin(), nums.begin()+k-1, nums.end(), greater<int>());
+        return nums[k-1];
+    }
+
+    // O(N)
+    int findKthLargest_4(vector<int>& nums, int k){
+        partial_sort(begin(nums), begin(nums)+k, end(nums), greater<int>());
         return nums[k-1];
     }
 
