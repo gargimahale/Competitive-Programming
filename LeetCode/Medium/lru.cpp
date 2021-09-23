@@ -1,18 +1,97 @@
-#include <list>
-#include <unordered_map>
-#include <iostream>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-// todo: DLL and hash table implementation
+class LRUCache_DLL {
+public:
+    
+    class Node{
+    public:
+        int key, val;
+        Node* prev, *next;
+        Node () {}
+        Node(int key_, int val_) {
+            key = key_;
+            val = val_;
+        }
+    };
+    
+    Node* head = new Node();
+    Node* tail = new Node();
+    int cap;
+    unordered_map<int, Node*> log;
+    
+    
+    LRUCache_DLL(int capacity) {
+        cap = capacity;
+        head->next = tail;
+        tail->prev = head;
+    }
+    
+    void addNode(Node* newNode){
+        Node* temp = head->next;
+        newNode->next = temp;
+        newNode->prev = head;
+        head->next = newNode;
+        temp->prev = newNode;
+    }
+    
+    void deleteNode(Node* node){
+        Node* delprev = node->prev;
+        Node* delnext = node->next;
+        delprev->next = delnext;
+        delnext->prev = delprev;
+    }
+    
+    int get(int key) {
+        int res = -1;
+        if (log.find(key) != log.end()){
+            Node* resnode = log[key];
+            res = resnode->val;
+            deleteNode(resnode);
+            log.erase(key);
+            addNode(resnode);
+            log[key] = head->next;
+        }
+        return res;
+    }
+    
+    void put(int key, int value) {
+        if (log.find(key) != log.end()){
+            Node* existingNode = log[key];
+            if (existingNode->val != value){
+                existingNode->val = value;
+            }
+            deleteNode(existingNode);
+            addNode(existingNode);
+            log.erase(key);
+            log[key] = head->next;
+        }
+        else {
+            if (log.size() == cap){
+                Node* delNode = tail->prev;
+                int delKey = delNode->key;
+                deleteNode(delNode);
+                Node* newNode = new Node(key, value);
+                addNode(newNode);
+                log.erase(delKey);
+                log[key] = newNode;
+            }
+            else if (log.size() < cap){
+                Node* newNode = new Node(key, value);
+                addNode(newNode);
+                log[key] = newNode;
+            }
+        }
+    }
+};
 
-class LRUCache {
+class LRUCache_STL {
 public:
     int capacity = 0;
     unordered_map<int, pair<int, list<int>::iterator>> log;
     list<int> cache;
     
-    LRUCache(int capacity) {
+    LRUCache_STL(int capacity) {
         this->capacity = capacity;
     }
     
@@ -47,7 +126,7 @@ public:
 };
 
 int32_t main(){
-    LRUCache* lru = new LRUCache(2);
+    LRUCache_DLL* lru = new LRUCache_DLL(2);
     lru->put(1, 1);
     lru->put(2, 2);
     cout << lru->get(1) << "\n";
