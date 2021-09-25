@@ -62,12 +62,18 @@ public:
 class Solution_3 {
 public:
     int rob(vector<int>& nums) {
-        int p = 0, c = 0;
-        for (int i=0; i<nums.size(); ++i){
-            int temp = max(p+nums[i], c);
-            p = c;
-            c = temp;
+        int n = nums.size();
+        if (n < 1){
+            return 0;
         }
-        return c;
+        
+        int prev = 0, curr = 0;
+        for (int i = 0; i<n; ++i){
+            int temp = max(prev+nums[i], curr);
+            prev = curr;
+            curr = temp;
+        }
+        
+        return curr;
     }
 };
