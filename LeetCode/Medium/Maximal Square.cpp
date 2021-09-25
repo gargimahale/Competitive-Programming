@@ -25,6 +25,28 @@ public:
     }
 
 
+    int maximalSquare_1d_1(vector<vector<char>>& matrix) {
+        int n = matrix.size(), m = matrix[0].size(), sz = 0;
+        vector<int> prev(m, 0), curr(m, 0);
+        
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < m; ++j){
+                if (!i || !j || matrix[i][j] == '0'){
+                    curr[j] = matrix[i][j] - '0';
+                }
+                else{
+                    curr[j] = min({prev[j-1], prev[j], curr[j-1]}) + 1;
+                }
+                
+                sz = max(curr[j], sz);
+            }
+            fill(prev.begin(), prev.end(), 0);
+            swap(prev, curr);
+        }
+        return sz*sz;
+    }
+
+
     int maximalSquare_1d(vector<vector<char>>& matrix) {
         if (matrix.empty()) return 0;
         int m = matrix.size(), n = matrix[0].size();
