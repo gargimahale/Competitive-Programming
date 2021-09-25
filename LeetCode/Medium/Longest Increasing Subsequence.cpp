@@ -33,7 +33,7 @@ int main() {
 // TC: O(N^2)
 // SC: O(N)
 
-class Solution {
+class Solution_1 {
 public:
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();

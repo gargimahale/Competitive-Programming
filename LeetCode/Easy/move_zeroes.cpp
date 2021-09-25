@@ -19,3 +19,23 @@ public:
         return sol;
     }
 };
+
+
+// OR
+
+class Solution_1 {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int st = 0, n = nums.size();
+        if (n < 2){
+            return;
+        }
+        int i = 0; 
+        while(i < n){
+            if (nums[i] != 0){
+                swap(nums[st++], nums[i]);
+            }
+            i++;
+        }
+    }
+};
