@@ -16,7 +16,6 @@ public:
         for (int j = i; j < len; ++j) {
             nums[j] = 0;
         }
-        return sol;
     }
 };
 
