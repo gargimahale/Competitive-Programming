@@ -22,7 +22,7 @@ public:
 
 // TC: O(N^2), SC: O(N)
 
-class Solution {
+class Solution_1 {
 public:
     int jump(vector<int>& nums) {
         int n = nums.size();
