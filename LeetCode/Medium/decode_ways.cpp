@@ -1,38 +1,70 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-bool isValid(char a) {
-    return a != '0';
-}
-
-bool isValid(char a, char b) {
-    return a == '1' || (a == '2' && b <= '6');
-}
-
-int solve(string s) {
-    int n = s.size();
-    if (n == 0 || s[0] == '0') return 0;
-    if (n == 1) return 1;
-    int f1 = 1, f2 = 1, count = 0;
-    for (int i = 1; i < n; ++i) {
-        int temp = f1;
-        if (isValid(s[i]) && isValid(s[i - 1], s[i])) count += f1 + f2;
-        if (!isValid(s[i]) && isValid(s[i - 1], s[i])) count += f2;
-        if (isValid(s[i]) && !isValid(s[i - 1], s[i])) count += f1;
-        if (!isValid(s[i]) && !isValid(s[i - 1], s[i])) return 0;
-        f1 = count;
-        f2 = temp;
-        count = 0;
+// Top down DP - Time: O(N), Space: O(N)
+/*
+    For a character s[i], we have 2 ways to decode:
+    Single digit: Require s[i] != '0' (decoded to 1..9)
+    Two digits: Require i + 1 < len(s) and (s[i] == 1 (decoded to 10..19) 
+        or s[i] == 2 and s[i+1] <= '6') (decoded to 20..26).
+ */ 
+class Solution { // 12 ms, faster than 9.19%
+public:
+    int memo[100] = {};
+    int numDecodings(const string& s) {
+        return dp(s, 0);
     }
-    return f1;
-}
+    int dp(const string& s, int i) {
+        if (i == s.size()) return 1;
+        if (memo[i] != 0) return memo[i];
+        int ans = 0;
+        if (s[i] != '0') // Single digit
+            ans += dp(s, i+1);
+        if (i+1 < s.size() && (s[i] == '1' || s[i] == '2' && s[i+1] <= '6')) // Two digits
+            ans += dp(s, i+2);
+        return memo[i] = ans;
+    }
+};
 
-int main() {
-    ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    srand(chrono::high_resolution_clock::now().time_since_epoch().count());
-    string s = "1234";
-    cout << s << "\n";
-    cout << solve(s);
-    return 0;
-}
+
+// Bottom-up DP - Time: O(N), Space: O(N)
+class Solution_1 { // 0 ms, faster than 100.00%
+public:
+    int numDecodings(const string& s) {
+        int n = s.size();
+        vector<int> dp(n+1, 0);
+        dp[n] = 1;
+        for (int i = n - 1; i >= 0; --i) {
+            if (s[i] != '0') // Single digit
+                dp[i] += dp[i+1];
+            if (i+1 < s.size() && (s[i] == '1' || s[i] == '2' && s[i+1] <= '6')) // Two digits
+                dp[i] += dp[i+2];
+        }
+        return dp[0];
+    }
+};
+
+// Bottom-up DP (Space Optimized) - Time: O(N), Space: O(1)
+/*
+Since our dp only need to keep up to 3 following states:
+Current state, let name dp corresponding to dp[i]
+Last state, let name dp1 corresponding to dp[i+1]
+Last twice state, let name dp2 corresponding to dp[i+2]
+So we can achieve O(1) in space.
+ */
+class Solution_2 { // 0 ms, faster than 100.00%
+public:
+    int numDecodings(const string& s) {
+        int n = s.size(), dp = 0, dp1 = 1, dp2 = 0;
+        for (int i = n - 1; i >= 0; --i) {
+            if (s[i] != '0') // Single digit
+                dp += dp1;
+            if (i+1 < s.size() && (s[i] == '1' || s[i] == '2' && s[i+1] <= '6')) // Two digits
+                dp += dp2;
+            dp2 = dp1;
+            dp1 = dp;
+            dp = 0;
+        }
+        return dp1;
+    }
+};
