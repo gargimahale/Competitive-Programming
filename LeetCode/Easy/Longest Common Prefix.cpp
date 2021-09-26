@@ -1,5 +1,4 @@
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 class Solution {
@@ -21,5 +20,52 @@ public:
                 }
             }
         }
+    }
+};
+
+// OR
+
+class Trie{
+public:
+    unordered_map<char, Trie*> child;
+    bool isWord = false;
+    
+    void insert(string& word){
+        Trie* node = this;
+        for (char& ch: word){
+            if (node->child.find(ch) == node->child.end()){
+                node->child[ch] = new Trie();
+            }
+            node = node->child[ch];
+        }
+        node->isWord = true;
+    }
+};
+
+
+class Solution_1 {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        int n = strs.size();
+        if (!n){
+            return "";
+        }
+        
+        if (n == 1){
+            return strs[0];
+        }
+        
+        Trie* trie = new Trie();
+        for (string& word: strs){
+            trie->insert(word);
+        }
+        
+        string res = "";
+        while(trie && !trie->isWord && (trie->child.size() == 1)){
+            auto it = trie->child.begin();
+            res += it->first;
+            trie = it->second;
+        }
+        return res;
     }
 };
