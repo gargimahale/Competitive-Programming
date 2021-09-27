@@ -62,13 +62,6 @@ public:
                 }
             }
         }
-        
-        for (auto d: indegree){
-            if (d.second > 0){
-                return "";
-            }
-        }
-        
-        return ans;
+        return indegree.size() == ans.size() ? ans: "";
     }
 };
