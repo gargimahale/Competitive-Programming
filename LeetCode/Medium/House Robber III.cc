@@ -1,4 +1,4 @@
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 struct TreeNode{
@@ -9,22 +9,30 @@ struct TreeNode{
 	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+class RobbedRoot{
+public:
+    int robbedRoot;
+    int skippedRoot;
+};
+
 class Solution {
-    int tryRob(TreeNode* root, int& l, int& r){
+    RobbedRoot dfs(TreeNode* root){
         if (!root){
-            return 0;
+            return RobbedRoot {0, 0};
         }
         
-        int ll = 0, lr = 0, rl = 0, rr = 0;
-        l = tryRob(root->left, ll, lr);
-        r = tryRob(root->right, rl, rr);
+        RobbedRoot left = dfs(root->left);
+        RobbedRoot right = dfs(root->right);
         
-        return max(l+r, root->val+ll+lr+rl+rr);  
+        int robThisNode = root->val + left.skippedRoot + right.skippedRoot;
+        int skipThisNode = max(left.robbedRoot, left.skippedRoot) + max(right.robbedRoot, right.skippedRoot);
+        
+        return RobbedRoot {robThisNode, skipThisNode};
     }
 public:
     int rob(TreeNode* root) {
-        int l, r;
-        return tryRob(root, l, r);
+        RobbedRoot rob = dfs(root);
+        return max(rob.robbedRoot, rob.skippedRoot);
     }
 };
 
