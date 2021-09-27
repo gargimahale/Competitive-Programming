@@ -5,7 +5,7 @@ class Solution {
     bool buildGraph(vector<string>& words, vector<vector<int>>& graph, unordered_map<char, int>& indegree){
         for (auto word: words){
             for (auto ch: word){
-                indegree[ch-'a'] = 0;
+                indegree[ch] = 0;
             }
         }
         
@@ -22,7 +22,7 @@ class Solution {
             if (j < pre_sz && j == curr_sz) return false;
             if (j < curr_sz && j < pre_sz){
                 graph[pre[j]-'a'].push_back(curr[j]-'a');
-                indegree[curr[j]-'a']++;
+                indegree[curr[j]]++;
             }
         }
         return true;
@@ -46,7 +46,7 @@ public:
         deque<int> Q;
         for (auto& e: indegree){
             if (e.second == 0){
-                Q.push_back(e.first);
+                Q.push_back(e.first-'a');
             }
         }
         
@@ -57,7 +57,7 @@ public:
             ans.push_back(curr + 'a');
             
             for (auto v: graph[curr]){
-                if (--indegree[v] == 0){
+                if (--indegree[v+'a'] == 0){
                     Q.push_back(v);
                 }
             }
