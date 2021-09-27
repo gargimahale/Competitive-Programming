@@ -5,7 +5,6 @@ using namespace std;
 
 // Time: O(N*M*M), Space: O(W*L)
 // where w: len(wordList), l = len(longestWord)
-
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
