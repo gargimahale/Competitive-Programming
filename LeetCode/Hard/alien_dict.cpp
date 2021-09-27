@@ -1,65 +1,74 @@
-#include <string>
-#include <unordered_set>
-#include <unordered_map>
-#include <queue>
+#include <bits/stdc++.h>
 using namespace std;
 
 class Solution {
-public:
-    string alienOrder(vector <string>& words) {
-        if (words.size() == 0) return "";
-        unordered_map <char, int> indegree;
-        unordered_map <char, unordered_set<char>> graph;
-
-        // initialize
-        for (int i = 0; i < words.size(); i++) {
-            for (int j = 0; j < words[i].size(); j++) {
-                char c = words[i][j];
-                indegree[c] = 0;
+    bool buildGraph(vector<string>& words, vector<vector<int>>& graph, unordered_map<char, int>& indegree){
+        for (auto word: words){
+            for (auto ch: word){
+                indegree[ch-'a'] = 0;
             }
         }
-
-        // build graph and record indegree
-        for (int i = 0; i < words.size() - 1; i++) {
-            string cur = words[i];
-            string nex = words[i + 1];
-            int len = min(cur.size(), nex.size());
-            for (int j = 0; j < len; j++) {
-                if (cur[j] != nex[j]) {
-                    unordered_set<char> set = graph[cur[j]];
-                    if (set.find(nex[j]) == set.end()) {
-                        graph[cur[j]].insert(nex[j]); // build graph
-                        indegree[nex[j]]++; // add indegree
-                    }
-                    break;
-                }
-                if (j == len - 1 and cur.size() > nex.size()) return "";
+        
+        for (int i = 1; i < words.size(); ++i){
+            string pre = words[i-1], curr = words[i];
+            int pre_sz = pre.size(), curr_sz = curr.size();
+            
+            int j = 0;
+            
+            while(j < pre_sz && j < curr_sz && pre[j] == curr[j]){
+                ++j;
+            }
+            
+            if (j < pre_sz && j == curr_sz) return false;
+            if (j < curr_sz && j < pre_sz){
+                graph[pre[j]-'a'].push_back(curr[j]-'a');
+                indegree[curr[j]-'a']++;
             }
         }
-
-        // topoligical sort
+        return true;
+    }
+public:    
+    string alienOrder(vector<string>& words) {
         string ans;
-        queue <char> q;
-        for (auto& e : indegree) {
-            if (e.second == 0) {
-                q.push(e.first);
+        int n = words.size();
+        
+        if (n == 0){
+            return ans;
+        }
+        
+        vector<vector<int>> graph(26, vector<int>());
+        unordered_map<char, int> indegree;
+        
+        if (!buildGraph(words, graph, indegree)){
+            return ans;
+        }
+        
+        deque<int> Q;
+        for (auto& e: indegree){
+            if (e.second == 0){
+                Q.push_back(e.first);
             }
         }
-        while (!q.empty()) {
-            char cur = q.front();
-            q.pop();
-            ans += cur;
-
-            if (graph[cur].size() != 0) {
-                for (auto& e : graph[cur]) {
-                    indegree[e]--;
-                    if (indegree[e] == 0) {
-                        q.push(e);
-                    }
+        
+        while (!Q.empty()){
+            int curr = Q.front();
+            Q.pop_front();
+            
+            ans.push_back(curr + 'a');
+            
+            for (auto v: graph[curr]){
+                if (--indegree[v] == 0){
+                    Q.push_back(v);
                 }
             }
         }
-        // tell if it is cyclic
-        return ans.length() == indegree.size() ? ans : "";
+        
+        for (auto d: indegree){
+            if (d.second > 0){
+                return "";
+            }
+        }
+        
+        return ans;
     }
 };
