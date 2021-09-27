@@ -26,7 +26,6 @@ public:
     }
 };
 
-
 // Bottom-up DP - Time: O(N), Space: O(N)
 class Solution_1 { // 0 ms, faster than 100.00%
 public:
