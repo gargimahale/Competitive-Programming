@@ -57,8 +57,7 @@ public:
 
 // TC: O(n), SC: O(1)
 
-class Solution
-{
+class Solution_1{
 public:
     Node *connect(Node *root)
     {
