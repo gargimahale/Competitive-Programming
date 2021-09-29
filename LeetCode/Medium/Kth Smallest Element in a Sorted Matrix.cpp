@@ -14,7 +14,6 @@ public:
                 int pos = upper_bound(begin(m[i]), end(m[i]), mid) - m[i].begin();
                 num += pos;
             }
-            
             if (num < k){
                 l = mid+1;
             }

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
+// TC: O(N), SC: O(1)
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
@@ -21,6 +21,5 @@ public:
 int main(void) {
     Solution sol;
     vector<int> nums = {3, 3, 4};
-    cout << sol.solve(nums);
+    cout << sol.majorityElement(nums);
 }
-// TC: O(N), SC: O(1)
