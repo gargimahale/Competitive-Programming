@@ -4,17 +4,15 @@ using namespace std;
 class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
-        int n = temperatures.size(), top = -1;
-        if (n == 0) return {};
-
-        vector<int> res(n), s(n);
-
-        for (int i = 0; i < n; ++i) {
-            while (top > -1 && temperatures[s[top]] < temperatures[i]) {
-                int idx = s[top--];
-                res[idx] = i - idx;
+        int n = temperatures.size();
+        vector<int> res(n);
+        for (int i = n-1; i >= 0; --i) {
+            int j = i+1;
+            while (j < n && temperatures[j] <= temperatures[i]) {
+                if (res[j] > 0) j = res[j] + j;
+                else j = n;
             }
-            s[++top] = i;
+            if (j < n) res[i] = j - i;
         }
         return res;
     }

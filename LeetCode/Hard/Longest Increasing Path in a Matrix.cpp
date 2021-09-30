@@ -1,19 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution{
-public:
-    int dfs(vector<vector<int>> &m, int i, int j, int v, vector<vector<int>> &len){
-        if (i < 0 || j < 0 || i == m.size() || j == m[0].size() || m[i][j] <= v)
+class Solution {
+    int dfs(vector<vector<int>>& matrix, int i, int j, int val){
+        if (i < 0 || j < 0 || i >= matrix.size() || j >= matrix[0].size() || matrix[i][j] <= val){
             return 0;
-        return len[i][j] > 0 ? len[i][j] : len[i][j] = 1 + max(max(dfs(m, i - 1, j, m[i][j], len), dfs(m, i + 1, j, m[i][j], len)), max(dfs(m, i, j - 1, m[i][j], len), dfs(m, i, j + 1, m[i][j], len)));
+        }
+        
+        return len[i][j] > 0 ? len[i][j] : len[i][j] = 
+            1 + max(
+            max(
+                dfs(matrix, i - 1, j, matrix[i][j]), 
+                dfs(matrix, i + 1, j, matrix[i][j])
+            ),
+            max(
+                dfs(matrix, i, j - 1, matrix[i][j]), 
+                dfs(matrix, i, j + 1, matrix[i][j])
+            )
+        );
     }
-
-    int longestIncreasingPath(vector<vector<int>> &m, int res = 0){
-        vector<vector<int>> len(m.size(), vector<int>(m.size() == 0 ? 0 : m[0].size()));
-        for (auto i = 0; i < m.size(); ++i)
-            for (auto j = 0; j < m[0].size(); ++j)
-                res = max(res, dfs(m, i, j, m[i][j] - 1, len));
+public:
+    vector<vector<int>> len;
+    int longestIncreasingPath(vector<vector<int>>& matrix, int res = 0) {
+        int r = matrix.size(), c = matrix[0].size();
+        len = vector<vector<int>> (r, vector<int> (c));
+        
+        for (int i = 0; i < r; ++i){
+            for (int j = 0; j < c; ++j){
+                res = max(res, dfs(matrix, i, j, matrix[i][j] - 1));
+            }
+        }
         return res;
     }
 };
+
