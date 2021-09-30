@@ -9,7 +9,8 @@ public:
         }
         
         long dvd = labs(dividend), dvs = labs(divisor), ans = 0;
-        int sign = dividend > 0 ^ divisor > 0 ? -1:1;
+        int sign = (dividend > 0 ^ divisor > 0) ? -1: 1;
+        
         while(dvd >= dvs){
             long temp = dvs, m = 1;
             while(temp << 1 <= dvd){
