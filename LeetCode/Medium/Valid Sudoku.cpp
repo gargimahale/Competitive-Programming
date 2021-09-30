@@ -15,15 +15,13 @@ class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
         unordered_set<string> seen;
-        for (int i = 0; i<9; ++i){
-            for (int j = 0; j<9; ++j){
+        int rows = board.size(), cols = board[0].size();
+        
+        for (int i = 0; i < rows; ++i){
+            for (int j = 0; j < cols; ++j){
                 if (board[i][j] != '.'){
                     string temp = "(" + to_string(board[i][j]) + ")";
-                    // if (!seen.insert(temp+to_string(i)).second || !seen.insert(to_string(j)+temp).second || !seen.insert(to_string(i/3)+temp+to_string(j/3)).second){
-                    //     return false;
-                    // }
-
-                    if (!seen.insert(temp + " in row " + to_string(i)).second || !seen.insert(temp + " in column " + to_string(j)).second || !seen.insert(temp + " in block " + to_string(i/3) + "-" + to_string(j/3)).second){
+                    if (!seen.insert(temp + " in row " + to_string(i)).second || !seen.insert(temp + " in col " + to_string(j)).second || !seen.insert(temp + " in block " + to_string(i/3) + "-" + to_string(j/3)).second){
                         return false;
                     }
                 }
