@@ -65,8 +65,7 @@ public:
             }
         }
         else{
-            Node* existingNode = log[key];
-            deleteNode(existingNode);
+            deleteNode(log[key]);
             log.erase(key);
         }
         Node* newNode = new Node(key, value);
