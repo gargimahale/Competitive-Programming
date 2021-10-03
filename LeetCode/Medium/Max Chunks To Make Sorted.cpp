@@ -2,17 +2,23 @@
 using namespace std;
 
 // Similar to Partition label
+// It should be kept in mind that when a partition will be sorted 
+// element with value x will be at index x (Here nos. are from 0 to n-1 in the array)
+
+// So we can count the no. of end points of the partitions 
+// At the end point of a partition max_ele of that partition will be at index max_ele
+// So we take the max_ele untill it reaches index max_ele
 
 class Solution {
 public:
     int maxChunksToSorted(vector<int>& arr) {
-        int n = arr.size();
-        int cnt = 0, max_i = 0;
-        for(int i=0; i<n; ++i){
-            if (i == arr.size()) return cnt;
-            max_i = max(max_i, arr[i]);
-            if (max_i == i) ++cnt;
+        int ans = 0, n = arr.size();
+        for (int i = 0, maxn = 0; i < n; ++i){
+            maxn = max(maxn, arr[i]);
+            if (maxn == i){
+                ++ans;
+            }
         }
-        return cnt;
+        return ans;
     }
 };
