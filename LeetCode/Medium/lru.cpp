@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class LRUCache_DLL {
+class LRUCache {
 public:
     
     class Node{
@@ -21,7 +21,7 @@ public:
     unordered_map<int, Node*> log;
     
     
-    LRUCache_DLL(int capacity) {
+    LRUCache(int capacity) {
         cap = capacity;
         head->next = tail;
         tail->prev = head;
@@ -56,34 +56,25 @@ public:
     }
     
     void put(int key, int value) {
-        if (log.find(key) != log.end()){
-            Node* existingNode = log[key];
-            if (existingNode->val != value){
-                existingNode->val = value;
-            }
-            deleteNode(existingNode);
-            addNode(existingNode);
-            log.erase(key);
-            log[key] = head->next;
-        }
-        else {
+        if (log.find(key) == log.end()){
             if (log.size() == cap){
                 Node* delNode = tail->prev;
                 int delKey = delNode->key;
                 deleteNode(delNode);
-                Node* newNode = new Node(key, value);
-                addNode(newNode);
                 log.erase(delKey);
-                log[key] = newNode;
-            }
-            else if (log.size() < cap){
-                Node* newNode = new Node(key, value);
-                addNode(newNode);
-                log[key] = newNode;
             }
         }
+        else{
+            Node* existingNode = log[key];
+            deleteNode(existingNode);
+            log.erase(key);
+        }
+        Node* newNode = new Node(key, value);
+        addNode(newNode);
+        log[key] = newNode;
     }
 };
+
 
 class LRUCache_STL {
 public:
