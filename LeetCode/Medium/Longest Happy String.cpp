@@ -15,4 +15,3 @@ public:
             longestDiverseString(a - use_a, b - use_b, c, aa, bb, cc);
     }
 };
-
