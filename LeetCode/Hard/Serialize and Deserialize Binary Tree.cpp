@@ -20,11 +20,11 @@ public:
     // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
         if (data == "#") return NULL;
-        stringstream ss(data);
+        istringstream ss(data);
         return helperDeserialize(ss);
     }
     
-    TreeNode* helperDeserialize(stringstream& ss){
+    TreeNode* helperDeserialize(istringstream& ss){
         string str;
         getline(ss, str, ',');
         if (str == "#") return NULL;
