@@ -10,7 +10,6 @@ public:
         for(auto& road: roads){
             cnt[road[0]]++;
             cnt[road[1]]++;
-            
             adj[road[0]].insert(road[1]);
             adj[road[1]].insert(road[0]);
         }
