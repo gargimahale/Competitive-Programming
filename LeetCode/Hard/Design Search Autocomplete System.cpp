@@ -1,89 +1,65 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Node {
+public:
+    unordered_map<char, Node*> children;
+    unordered_map<string, int> counter;
+    Node() {};
+};
+
 class AutocompleteSystem {
 public:
-    struct TrieNode{
-        string str;
-        int count;
-        unordered_map<char, TrieNode*> next;
-        TrieNode(): str(""), count(0) {}
-    };
-    
-    void insert(string& s, TrieNode* root, int times){
-        TrieNode* curr = root;
-        for (int i = 0; i < s.size(); ++i){
-            if (!curr->next.count(s[i])){
-                curr->next[s[i]] = new TrieNode();
-            }
-            curr = curr->next[s[i]];
+    AutocompleteSystem(vector<string> sentences, vector<int> times) {
+        for (int i = 0; i < sentences.size(); i++) {
+            add(sentences[i], times[i]);
         }
-        curr->count += times;
-        curr->str = s;
-    }
-    
-    void dfs(TrieNode* temp){
-        if (temp->str != ""){
-            Q.push({temp->str, temp->count});
-        }
-        
-        for (auto& ele: temp->next){
-            dfs(ele.second);
-        }
-    }
-    
-    struct comp{
-        bool operator() (pair<string, int>& a, pair<string, int>& b){
-            return a.second < b.second || a.second == b.second && a.first > b.first;      
-        }
-    };
-    
-    priority_queue<pair<string, int>, vector<pair<string, int>>, comp> Q;
-    TrieNode* root, *curr;
-    string s;
-    
-    AutocompleteSystem(vector<string>& sentences, vector<int>& times) {
-        root = new TrieNode();
-        for (int i = 0; i < sentences.size(); ++i){
-            insert(sentences[i], root, times[i]);
-        }
-        curr = root;
     }
     
     vector<string> input(char c) {
-        Q = priority_queue<pair<string, int>, vector<pair<string, int>>, comp> ();
-        if (c == '#'){
-            insert(s, root, 1);
-            s = "";
-            // start searching from the beginning node for the next sentence
-            curr = root;
+        if (c == '#') {
+            add(prefix, 1);
+            prefix.clear();
             return {};
         }
-        
-        s += c;
-        if (curr && curr->next.count(c)){
-            curr = curr->next[c];
+        prefix += c;
+        Node* node = root;
+        for (char ch : prefix) {
+            if (!node -> children[ch]) {
+                return {};
+            }
+            node = node -> children[ch];
         }
-        else{
-            // curr node is null so empty result for any further characters in current input 
-            curr = NULL;
-            return {};
+        priority_queue<pair<int, string>, vector<pair<int, string>>, compare> pq;
+        for (auto p : node -> counter) {
+            pq.push({p.second, p.first});
         }
-        
-        if (curr->str != ""){
-            Q.push({curr->str, curr->count});
+        vector<string> autocomplete;
+        for (int i = 0; i < 3 && !pq.empty(); i++) {
+            autocomplete.push_back(pq.top().second);
+            pq.pop();
         }
-        
-        for (auto& ele: curr->next){
-            dfs(ele.second);
+        return autocomplete;
+    }
+private:
+    Node* root = new Node();
+    string prefix;
+    
+    struct compare {
+        bool operator()(pair<int, string>& l, pair<int, string>& r) {
+            return l.first < r.first || (l.first == r.first && l.second.compare(r.second) > 0);
         }
-        
-        vector<string> res;
-        while(!Q.empty() && res.size() < 3){
-            res.push_back(Q.top().first);
-            Q.pop();
+    };
+    
+    void add(string sentence, int time) {
+        Node* node = root;
+        for (char c : sentence) {
+            if (!node -> children[c]) {
+                node -> children[c] = new Node();
+            }
+            node = node -> children[c];
+            node -> counter[sentence] += time;
         }
-        return res;
     }
 };
 
