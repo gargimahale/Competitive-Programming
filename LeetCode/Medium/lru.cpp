@@ -2,7 +2,42 @@
 using namespace std;
 
 
-
+class LRUCache_STL {
+public:
+    list<int> cache;
+    unordered_map<int, pair<int, list<int>::iterator>> mp;
+    int capacity;
+    
+    LRUCache(int capacity) {
+        this->capacity = capacity;
+    }
+    
+    int get(int key) {
+        if (mp.find(key) != mp.end()){
+            auto ele = mp[key];
+            cache.erase(ele.second);
+            cache.push_front(key);
+            mp[key].second = cache.begin();
+            return ele.first;
+        }
+        return -1;
+    }
+    
+    void put(int key, int value) {
+        if (mp.find(key) == mp.end()){
+            if (mp.size() == capacity){
+                int ele = cache.back();
+                cache.pop_back();
+                mp.erase(ele);
+            }
+        }
+        else{
+            cache.erase(mp[key].second);
+        }
+        cache.push_front(key);
+        mp[key] = {value, cache.begin()};
+    }
+};
 
 
 class LRUCache {
