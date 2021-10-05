@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 class LRUCache_STL {
 public:
     list<int> cache;
