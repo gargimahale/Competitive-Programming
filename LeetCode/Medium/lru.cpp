@@ -1,25 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+
+
+
 class LRUCache {
 public:
-    
     class Node{
     public:
-        int key, val;
+        int val, key;
         Node* prev, *next;
-        Node () {}
-        Node(int key_, int val_) {
-            key = key_;
-            val = val_;
-        }
+        Node() {}
+        Node(int k, int v): key(k), val(v) {}
     };
     
     Node* head = new Node();
     Node* tail = new Node();
-    int cap;
-    unordered_map<int, Node*> log;
     
+    unordered_map<int, Node*> mp;
+    int cap;
     
     LRUCache(int capacity) {
         cap = capacity;
@@ -29,89 +29,46 @@ public:
     
     void addNode(Node* newNode){
         Node* temp = head->next;
+        head->next = newNode;
         newNode->next = temp;
         newNode->prev = head;
-        head->next = newNode;
         temp->prev = newNode;
     }
     
-    void deleteNode(Node* node){
-        Node* delprev = node->prev;
-        Node* delnext = node->next;
+    void delNode(Node* newNode){
+        Node* delprev = newNode->prev;
+        Node* delnext = newNode->next;
         delprev->next = delnext;
         delnext->prev = delprev;
     }
     
     int get(int key) {
-        int res = -1;
-        if (log.find(key) != log.end()){
-            Node* resnode = log[key];
-            res = resnode->val;
-            deleteNode(resnode);
-            log.erase(key);
-            addNode(resnode);
-            log[key] = head->next;
+        if (mp.find(key) != mp.end()){
+            Node* resNode = mp[key];
+            int res = resNode->val;
+            delNode(resNode);
+            addNode(resNode);
+            mp[key] = head->next;
+            return res;
         }
-        return res;
-    }
-    
-    void put(int key, int value) {
-        if (log.find(key) == log.end()){
-            if (log.size() == cap){
-                Node* delNode = tail->prev;
-                int delKey = delNode->key;
-                deleteNode(delNode);
-                log.erase(delKey);
-            }
-        }
-        else{
-            deleteNode(log[key]);
-            log.erase(key);
-        }
-        Node* newNode = new Node(key, value);
-        addNode(newNode);
-        log[key] = newNode;
-    }
-};
-
-
-class LRUCache_STL {
-public:
-    int capacity = 0;
-    unordered_map<int, pair<int, list<int>::iterator>> log;
-    list<int> cache;
-    
-    LRUCache_STL(int capacity) {
-        this->capacity = capacity;
-    }
-    
-    int get(int key) {
-        if (log.find(key) != log.end()){
-            // key exists
-            cache.erase(log[key].second);
-            cache.push_front(key);
-            log[key].second = cache.begin();
-            return log[key].first;
-        }
-        // key does not exist
         return -1;
     }
     
     void put(int key, int value) {
-        if (log.find(key) == log.end()){
-            // key not found
-            if (cache.size() == capacity){
-                // cap full
-                auto last = cache.back();
-                cache.pop_back();
-                log.erase(last);
+        if (mp.find(key) == mp.end()){
+            if (mp.size() == cap){
+                Node* delnode = tail->prev;
+                int delKey = delnode->key;
+                delNode(delnode);
+                mp.erase(delKey);
             }
         }
         else{
-            cache.erase(log[key].second);
+            delNode(mp[key]);
         }
-        cache.push_front(key);
-        log[key] = {value, cache.begin()};
+        Node* newNode = new Node(key, value);
+        addNode(newNode);
+        mp[key] = newNode;
     }
 };
 
