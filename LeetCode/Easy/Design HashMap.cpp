@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-class MyHashMap {
+class MyHashMap_Vector {
 public:
     /** Initialize your data structure here. */
     vector<int> map;
@@ -36,7 +35,7 @@ public:
  */
 
 
-class MyHashMap {
+class MyHashMap_Chaining_Vector {
 public:
     /** Initialize your data structure here. */
     vector<vector<pair<int, int>>> map;
@@ -85,3 +84,63 @@ public:
         }
     }
 };
+
+
+class MyHashMap_Chaining_LinkedList {
+public:
+    struct KVNode{
+        int key, val;
+        KVNode* next;
+        KVNode(int k, int v): key(k), val(v), next(nullptr) {}
+    };
+    
+    vector<KVNode*> buckets;
+    const int N = 10000;
+    MyHashMap() {
+       buckets = vector<KVNode*>(N, new KVNode(-1, -1));
+    }
+    
+    KVNode* find(int key){
+        KVNode* curr = buckets[key%N], *prev = NULL;
+        while(curr && curr->key != key){
+            prev = curr;
+            curr = curr->next;
+        }
+        return prev;
+    }
+    
+    void put(int key, int value) {
+        KVNode* prev = find(key);
+        if (prev->next){
+            prev->next->val = value;
+        }
+        else{
+            prev->next = new KVNode(key, value);
+        }
+    }
+    
+    int get(int key) {
+        KVNode* prev = find(key);
+        if (prev && prev->next){
+            return prev->next->val;
+        }
+        return -1;
+    }
+    
+    void remove(int key) {
+        KVNode* prev = find(key);
+        if (prev && prev->next){
+            KVNode* temp = prev->next;
+            prev->next = prev->next->next;
+            delete temp;
+        }
+    }
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap* obj = new MyHashMap();
+ * obj->put(key,value);
+ * int param_2 = obj->get(key);
+ * obj->remove(key);
+ */
