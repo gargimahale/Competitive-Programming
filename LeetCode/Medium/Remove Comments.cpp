@@ -3,7 +3,6 @@ using namespace std;
 
 // TC: O(N), SC: O(K)
 // Where K is the max length of the line
-
 class Solution {
 public:
 	vector<string> removeComments(vector<string>& source) {
