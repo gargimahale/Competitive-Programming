@@ -7,7 +7,7 @@ public:
     unordered_map<int, pair<int, list<int>::iterator>> mp;
     int capacity;
     
-    LRUCache(int capacity) {
+    LRUCache_STL(int capacity) {
         this->capacity = capacity;
     }
     
@@ -107,7 +107,7 @@ public:
 };
 
 int32_t main(){
-    LRUCache_DLL* lru = new LRUCache_DLL(2);
+    LRUCache* lru = new LRUCache(2);
     lru->put(1, 1);
     lru->put(2, 2);
     cout << lru->get(1) << "\n";
