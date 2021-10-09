@@ -23,4 +23,14 @@ public:
         }
         return dp[1];
     }
+
+    int climbStairs2(int n) {
+        int f = 1, s = 1;
+        for (int i = 2; i <= n; ++i){
+            int temp = f+s;
+            f = s;
+            s = temp;
+        }
+        return s;
+    }
 };
