@@ -11,13 +11,11 @@ public:
             for (int i=1; i<n-1; ++i){
                 res[i] = cells[i-1] == cells[i+1];
             }
-            
             if (v.empty()){
                 v = res;
             }else if (v == res){
                 N%=cycle;
             }
-            
             ++cycle;
             cells = res;
         }

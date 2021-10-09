@@ -15,3 +15,9 @@ public:
             longestDiverseString(a - use_a, b - use_b, c, aa, bb, cc);
     }
 };
+
+int32_t main(){
+    Solution sol;
+    cout << sol.longestDiverseString(2, 1, 2, 'a', 'b', 'c') << "\n";
+    return 0;
+}

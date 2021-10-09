@@ -32,8 +32,6 @@ public:
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> subs = {{}};
 
-        int len = nums.size();
-
         for (int num : nums) {
             int n = subs.size();
             for (int i = 0; i < n; ++i) {
@@ -41,7 +39,6 @@ public:
                 subs.back().push_back(num);
             }
         }
-
         return subs;
     }
 };
