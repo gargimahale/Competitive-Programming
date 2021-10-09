@@ -14,8 +14,7 @@ public:
 
     int climbStairs1(int n) {
         vector<int> dp(2, 1);
-        dp[0] = 1;
-        dp[1] = 1;
+        dp[0] = dp[1] = 1;
         for (int i = 2; i <= n; ++i){
             int count = dp[0]+dp[1];
             dp[0] = dp[1];
