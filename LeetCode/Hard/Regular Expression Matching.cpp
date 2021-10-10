@@ -8,6 +8,8 @@ public:
         if (n == 0) return (m == 0);
         
         vector<vector<bool>> dp(n+1, vector<bool>(m+1));
+
+        // Empty string matxhes empty pattern
         dp[0][0] = true;
         
         for (int j = 1; j <= m; ++j){
