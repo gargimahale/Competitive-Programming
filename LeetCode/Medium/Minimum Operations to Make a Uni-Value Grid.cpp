@@ -10,6 +10,8 @@ public:
         for (auto& row: grid){
             vec.insert(end(vec), begin(row), end(row));
         }
+        
+        // find the median
         nth_element(begin(vec), begin(vec) + vec.size()/2, end(vec));
         
         for (int i = 0; i < vec.size(); ++i){
