@@ -18,7 +18,7 @@ public:
             // or we buy new stock(empty - prices[i])
             hold = max(hold, empty-prices[i]);
             
-            // the max profit of enpty state is either we still keep our hand empty(empty)
+            // the max profit of empty state is either we still keep our hand empty(empty)
             // or we sell the stock we already hold(hold + prices[i] - fee)
             empty = max(empty, hold+prices[i]-fee);
         }
