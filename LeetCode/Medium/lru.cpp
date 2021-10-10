@@ -82,7 +82,6 @@ public:
             int res = resNode->val;
             delNode(resNode);
             addNode(resNode);
-            mp[key] = head->next;
             return res;
         }
         return -1;
