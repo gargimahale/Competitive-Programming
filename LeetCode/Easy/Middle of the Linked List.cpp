@@ -14,14 +14,16 @@ using namespace std;
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        if (!head) return NULL;
-        ListNode* slow = head, *fast = head->next;
-
-        while (fast && fast->next) {
+        if (!head){
+            return NULL;
+        }
+        
+        ListNode* slow = head, *fast = head;
+        while(fast && fast->next){
             slow = slow->next;
             fast = fast->next->next;
         }
-        return fast ? slow->next : slow;
+        return slow;
     }
 };
 
