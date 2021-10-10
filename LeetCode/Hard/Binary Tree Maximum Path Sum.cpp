@@ -25,9 +25,6 @@ public:
         int new_price = root->val + left + right;
         maxSum = max(maxSum, new_price);
 
-        return root->val + max(left, right);
-    }
-
     int maxPathSum(TreeNode* root) {
         dfs(root);
         return maxSum;
