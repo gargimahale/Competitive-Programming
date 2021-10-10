@@ -1,22 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/**
- * s0 = profit having no stock
- * s1 = profit having 1 stock
- * update s0 by selling the stock from s1, so s0 = max(s0, s1+p);
- * update s1 by buying the stock from s0, so s1 = max(s1, s0-p-fee);
- **/
-
 class Solution {
 public:
     int maxProfit(vector<int>& prices, int fee) {
-        int s0 = 0, s1 = INT_MIN;
-        for (int x : prices) {
-            int temp = s0;
-            s0 = max(s0, s1 + x);
-            s1 = max(s1, temp - x - fee);
+        // "hold" state: represent the max profit when we hold a stock at time i - 1.
+        // "empty" state: represent the max profit when we do not hold a stock at time i - 1.
+        
+        // initialization:
+        // for "hold" state, we hold one stock, so the profit is -prices[0]
+        // for "empty" state, we do not hold stock, so the profit is 0
+        int hold = -prices[0], empty = 0;
+        
+        for (int i = 1; i < prices.size(); ++i){
+            // on current time i
+            // the max profit of hold state is either we still hold the stock we hold at the i-1 time(hold)
+            // or we buy new stock(empty - prices[i])
+            hold = max(hold, empty-prices[i]);
+            
+            // the max profit of enpty state is either we still keep our hand empty(empty)
+            // or we sell the stock we already hold(hold + prices[i] - fee)
+            empty = max(empty, hold+prices[i]-fee);
         }
-        return s0;
+        
+        // return must be empty, because selling is better than holding one stock that has not been sold
+        return empty;
     }
 };
