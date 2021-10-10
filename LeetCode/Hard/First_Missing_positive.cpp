@@ -1,9 +1,7 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 // TC: O(n), SC: O(n)
-
 class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
@@ -34,7 +32,6 @@ public:
 };
 
 // TC: O(n), SC: O(1)
-
 class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
