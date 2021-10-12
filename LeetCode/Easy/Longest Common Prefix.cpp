@@ -25,6 +25,7 @@ public:
 
 // OR
 
+// Time: O(N), Space: O(S)
 class Trie{
 public:
     unordered_map<char, Trie*> child;
