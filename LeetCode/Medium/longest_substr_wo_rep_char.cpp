@@ -9,7 +9,7 @@ public:
             return n;
         }
         
-        vector<int> count(256, 0);
+        vector<int> count(128, 0);
         count[s[0]]++;
         
         int i = 0, j = 0, maxLen = 1;

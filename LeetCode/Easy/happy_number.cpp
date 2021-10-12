@@ -1,10 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*
-Using Floyd Cycle detection Algo
- */
-
+// Using Floyd Cycle detection Algo
 class Solution {
 public:
 
@@ -30,7 +27,6 @@ public:
 };
 
 // OR
-
 class Solution {
     int findSquare(int& n) {
         long ans = 0;

@@ -23,29 +23,26 @@ public:
     }
 };
 
-// OR
-
 // Time: O(N), Space: O(S)
-class Trie{
-public:
-    unordered_map<char, Trie*> child;
-    bool isWord = false;
-    
-    void insert(string& word){
-        Trie* node = this;
-        for (char& ch: word){
-            if (node->child.find(ch) == node->child.end()){
-                node->child[ch] = new Trie();
-            }
-            node = node->child[ch];
-        }
-        node->isWord = true;
-    }
-};
-
-
 class Solution_1 {
 public:
+    class Trie{
+    public:
+        unordered_map<char, Trie*> child;
+        bool isWord = false;
+        
+        void insert(string& word){
+            Trie* node = this;
+            for (char& ch: word){
+                if (node->child.find(ch) == node->child.end()){
+                    node->child[ch] = new Trie();
+                }
+                node = node->child[ch];
+            }
+            node->isWord = true;
+        }
+    };
+
     string longestCommonPrefix(vector<string>& strs) {
         int n = strs.size();
         if (!n){
