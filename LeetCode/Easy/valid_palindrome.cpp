@@ -4,22 +4,22 @@ using namespace std;
 class Solution {
 public:
     bool isPalindrome(string s) {
-        // Two pointer method
-        string temp;
-        for (char& ch : s) {
-            if (ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9') {
-                temp += ch;
-            }
-            else if (ch >= 'A' && ch <= 'Z') {
-                temp += (ch - 'A' + 'a');
-            }
+        int n = s.size();
+        if (n <= 1){
+            return true;
         }
-        int i = 0, j = temp.size() - 1;
-        while (i <= j) {
-            if (temp[i] != temp[j]) {
+        int start = 0, end = n-1;
+        while(start < end){
+            while(start < end && !isalnum(s[start])){
+                ++start;
+            }
+            while(start < end && !isalnum(s[end])){
+                --end;
+            }
+            if (tolower(s[start]) != tolower(s[end])){
                 return false;
             }
-            i++, j--;
+            ++start, --end;
         }
         return true;
     }
