@@ -5,24 +5,25 @@ using namespace std;
 
 class Solution {
 public:
-
+    
     // Time: O(NlogN), Space: O(N)
     int minMeetingRooms(vector<vector<int>>& intervals) {
         int n = intervals.size();
-        if (n <= 1){
+        if (n < 2){
             return n;
         }
-        
         sort(begin(intervals), end(intervals));
-        priority_queue<int, vector<int>, greater<int>> min_heap;
+        priority_queue<int> pq;
+        pq.push(-intervals[0][1]);
         
-        for (auto& interval: intervals){
-            if (!min_heap.empty() && min_heap.top() <= interval[0]){
-                min_heap.pop();
+        for (int i = 1; i < n; ++i){
+            if (intervals[i][0] >= -pq.top()){
+                pq.pop();
             }
-            min_heap.push(interval[1]);
+            
+            pq.push(-intervals[i][1]);
         }
-        return min_heap.size();
+        return pq.size();
     }
 
     // Time: O(NlogN), Space: O(N)
