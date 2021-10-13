@@ -1,5 +1,4 @@
-#include <vector>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 // TC: O(Nlogk) - N is the number of nodes, k is the number of linkedlists
@@ -50,3 +49,34 @@ public:
         return lists.front();
     }
 };
+
+// [[1,4,5],[1,3,4],[2,6]]
+
+int main(void){
+    Solution sol;
+    vector<ListNode*> lists;
+    ListNode* l1 = new ListNode(1);
+    ListNode* curr = l1;
+    curr->next = new ListNode(4);
+    curr->next->next = new ListNode(5);
+    lists.push_back(l1);
+
+    l1 = new ListNode(1);
+    curr = l1;
+    curr->next = new ListNode(3);
+    curr->next->next = new ListNode(4);
+    lists.push_back(l1);
+
+    l1 = new ListNode(2);
+    curr = l1;
+    curr->next = new ListNode(6);
+    lists.push_back(l1);
+
+    ListNode* res = sol.mergeKLists(lists);
+    ListNode* t = res;
+    while(t){
+        cout << t->val << " ";
+        t = t->next;
+    }
+    delete t;
+}
