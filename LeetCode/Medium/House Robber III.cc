@@ -9,31 +9,24 @@ struct TreeNode{
 	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-class RobbedRoot{
-public:
-    int robbedRoot;
-    int skippedRoot;
-};
-
 class Solution {
-    RobbedRoot dfs(TreeNode* root){
+    pair<int, int> dfs(TreeNode* root){
         if (!root){
-            return RobbedRoot {0, 0};
+            return {0, 0};
         }
         
-        RobbedRoot left = dfs(root->left);
-        RobbedRoot right = dfs(root->right);
+        pair<int, int> left = dfs(root->left);
+        pair<int, int> right = dfs(root->right);
         
-        int robThisNode = root->val + left.skippedRoot + right.skippedRoot;
-        int skipThisNode = max(left.robbedRoot, left.skippedRoot) + max(right.robbedRoot, right.skippedRoot);
-        
-        return RobbedRoot {robThisNode, skipThisNode};
+        return {
+            root->val + left.second + right.second,
+            max(left.first, left.second) + max(right.first, right.second)
+        };
     }
 public:
     int rob(TreeNode* root) {
-        RobbedRoot rob = dfs(root);
-        return max(rob.robbedRoot, rob.skippedRoot);
+        pair<int, int> p = dfs(root);
+        return max(p.first, p.second);
     }
 };
-
 	

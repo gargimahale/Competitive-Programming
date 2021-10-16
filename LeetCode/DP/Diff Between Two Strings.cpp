@@ -2,6 +2,8 @@
 using namespace std;
 
 // https://leetcode.com/discuss/interview-question/776648/dynamic-programming-question
+// https://cs.stanford.edu/people/eroberts/courses/soco/projects/computers-and-the-hgp/smith_waterman.html
+
 vector<string> diffBetweenTwoStrings(const string& source, const string& target){
 
     vector<string> ans;
