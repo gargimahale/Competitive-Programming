@@ -2,43 +2,43 @@
 using namespace std;
 
 class Solution {
-    void popAndCheck(){
-        tempH = hStack.back();
-        hStack.pop_back();
-        tempPos = pStack.back();
-        pStack.pop_back();
-        tempSize = tempH * (pos - tempPos);
-        maxSize = max(tempSize, maxSize);
+    void popAndFindArea(int pos){
+        tempH = log.back().first;
+        tempPos = log.back().second;
+        log.pop_back();
+        int area = tempH * (pos-tempPos);
+        maxArea = max(maxArea, area);
     }
 public:
-    int h, pos, tempH, tempPos, tempSize = 0, maxSize = INT_MIN;
-    vector<int> hStack, pStack;
+    vector<pair<int, int>> log;
+    int maxArea = INT_MIN, tempH = 0, tempPos = 0, pos = 0;
     
     int largestRectangleArea(vector<int>& heights) {
         int n = heights.size();
+        if (n == 0){
+            return 0;
+        }
+        
         if (n < 2){
-            return heights[0]; 
+            return heights[0];
         }
         
         for (pos = 0; pos < n; ++pos){
-            h = heights[pos];
-            
-            if (!hStack.size() || h > hStack.back()){
-                hStack.push_back(h);
-                pStack.push_back(pos);
+            if (log.empty() || heights[pos] > log.back().first){
+                log.push_back({heights[pos], pos});
             }
-            else if (h < hStack.back()){
-                while(hStack.size() && h < hStack.back()){
-                    popAndCheck();
+            else if (heights[pos] < log.back().first){
+                while(!log.empty() && heights[pos] < log.back().first){
+                    popAndFindArea(pos);
                 }
-                hStack.push_back(h);
-                pStack.push_back(tempPos);
+                log.push_back({heights[pos], tempPos});
             }
         }
         
-        while(hStack.size()){
-            popAndCheck();
+        while(!log.empty()){
+            popAndFindArea(pos);
         }
-        return maxSize;
+        
+        return maxArea;
     }
 };
