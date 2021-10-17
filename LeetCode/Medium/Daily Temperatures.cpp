@@ -3,16 +3,18 @@ using namespace std;
 
 class Solution {
 public:
-    vector<int> dailyTemperatures(vector<int>& temperatures) {
-        int n = temperatures.size();
-        vector<int> res(n);
-        for (int i = n-1; i >= 0; --i) {
-            int j = i+1;
-            while (j < n && temperatures[j] <= temperatures[i]) {
-                if (res[j] > 0) j = res[j] + j;
-                else j = n;
+    vector<int> dailyTemperatures(vector<int>& T) {
+        int n = T.size();
+        stack<int> S;
+        vector<int> res(n, 0);
+        
+        for (int i = 0; i < n; ++i){
+            while(!S.empty() && T[S.top()] < T[i]){
+                int j = S.top();
+                S.pop();
+                res[j] = i-j;
             }
-            if (j < n) res[i] = j - i;
+            S.push(i);
         }
         return res;
     }
