@@ -1,5 +1,5 @@
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
+using namespace std;
 
 // https://en.wikipedia.org/wiki/H-index
 
@@ -8,8 +8,6 @@
 // f(A)=10, f(B)=8, f(C)=5, f(D)=4, f(E)=3　→ h-index=4
 // f(A)=25, f(B)=8, f(C)=5, f(D)=3, f(E)=3　→ h-index=3
 
-
-using namespace std;
 
 bool f(int x, int y){
     return x>y;
