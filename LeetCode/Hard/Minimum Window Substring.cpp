@@ -5,6 +5,7 @@ class Solution {
 public:
     string minWindow(string s, string t) {
         vector<int> arr (126);
+        
         for (char ch: t) arr[ch]++;
         
         // counter: #chars of t to be found in s
