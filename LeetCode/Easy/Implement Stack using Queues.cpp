@@ -35,6 +35,36 @@ public:
     }
 };
 
+// OR
+
+class MyStack {
+public:
+    priority_queue<pair<int, int>> max_heap;
+    int time;
+    
+    MyStack() {
+        time = 0;
+    }
+    
+    void push(int x) {
+        max_heap.push({time++, x});
+    }
+    
+    int pop() {
+        auto entry = max_heap.top();
+        max_heap.pop();
+        return entry.second;
+    }
+    
+    int top() {
+        return max_heap.top().second;
+    }
+    
+    bool empty() {
+        return max_heap.empty();
+    }
+};
+
 /**
  * Your MyStack object will be instantiated and called as such:
  * MyStack* obj = new MyStack();
