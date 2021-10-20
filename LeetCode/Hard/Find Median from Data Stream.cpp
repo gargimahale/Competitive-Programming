@@ -22,7 +22,6 @@ public:
         return low.size() > high.size() ? low.top() : (low.top() - high.top()) * 0.5;
     }
 };
-
 /**
  * Your MedianFinder object will be instantiated and called as such:
  * MedianFinder* obj = new MedianFinder();
