@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// TC and SC: O(N*M)
 class Solution {
 public:
     bool canPartition(vector<int>& nums) {
@@ -31,29 +32,28 @@ public:
     }
 };
 
-// TC and SC: O(N*M)
-
+// TC: O(N*M), SC: O(Sum)
 class Solution {
 public:
     bool canPartition(vector<int>& nums) {
         int n = nums.size();
-        int sum = 0;
-
-        for (int& a : nums) sum += a;
-
-        if (sum % 2 != 0) return false;
+        int sum = accumulate(begin(nums), end(nums), 0);
+        
+        if (sum % 2){
+            return false;
+        }
+        
         sum /= 2;
-
-        vector<bool> dp(sum + 1, false);
+        vector<bool> dp(sum+1, false);
         dp[0] = true;
-
-        for (auto& ele : nums) {
-            for (int j = sum; j >= ele; --j) {
-                dp[j] = dp[j] || dp[j - ele];
+        
+        for (int num: nums){
+            for (int i = sum; i >= 0; --i){
+                if (i >= num){
+                    dp[i] = dp[i] || dp[i-num];
+                }
             }
         }
         return dp[sum];
     }
 };
-
-// TC: O(N*M), SC: O(Sum)
