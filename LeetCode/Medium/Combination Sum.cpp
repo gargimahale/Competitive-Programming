@@ -13,6 +13,8 @@ public:
 
         for (int i = start; i < candidates.size() && target >= candidates[i]; ++i) {
             combination.push_back(candidates[i]);
+            
+            // the helper function will be called with the same element idx as the number taken can be repeated
             countCombinations(candidates, target - candidates[i], combination, i);
             combination.pop_back();
         }
