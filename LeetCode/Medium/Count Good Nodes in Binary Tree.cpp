@@ -10,7 +10,6 @@ struct TreeNode{
 
 class Solution{
 public:
-
     int goodNodes(TreeNode *root, int maxVal = INT_MIN){
         if (!root){
             return 0;
