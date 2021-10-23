@@ -2,28 +2,27 @@
 using namespace std;
 
 class Solution_R {
-    void helperCombinations(string& s, string curr, int i){
-        if (i == s.size()){
-            res.push_back(curr);
+    void helper(string& digits, string builder, int index){
+        if (index == digits.size()){
+            res.push_back(builder);
             return;
         }
         
-        int d = s[i]-'0';
-        for (char ch: keyPad[d]){
-            helperCombinations(s, curr+ch, i+1);
+        for (char ch: keyPad[digits[index]-'0']){
+            builder.push_back(ch);
+            helper(digits, builder, index+1);
+            builder.pop_back();
         }
     }
 public:
-    vector<string> res;
-    const vector<string> keyPad = {"", "", "abc", "def", "ghi", "jkl", "mno",
-                                  "pqrs", "tuv", "wxyz"};
+    const vector<string> keyPad = {"", "", "abc", "def", "ghi", "jkl",
+                                      "mno", "pqrs", "tuv", "wxyz"};
     
+    vector<string> res;
     vector<string> letterCombinations(string digits) {
-        if (!digits.size()){
-            return res;
-        }
         string builder;
-        helperCombinations(digits, builder, 0);
+        if (digits.empty()) return res;
+        helper(digits, builder, 0);
         return res;
     }
 };
@@ -53,3 +52,6 @@ public:
         return result;
     }
 };
+
+// Time: O(N* 4^N)
+// Space: O(N)
