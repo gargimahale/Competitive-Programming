@@ -6,7 +6,7 @@ bool checkIfNice(const string& input){
     bool repeated_sep = false;
 
     for (int i = 0; i < input.size()-2; ++i){
-        if (input.substr(i+2).find(input.substr(i, 2))){
+        if (input.substr(i+2).find(input.substr(i, 2)) != string::npos){
             repeated_pair = true;
         }
         if (input[i] == input[i+2]){
