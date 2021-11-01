@@ -48,4 +48,37 @@ public:
 };
 
 // TC: O(N*M)
-// SC: O(N)
+// SC: O(N*M)
+
+class Solution {
+    int rot(vector<vector<int>>& grid, int i, int j, int d){
+        if (i < 0 || j < 0 || i >= R || j >= C || grid[i][j] != 1) return 0;
+        grid[i][j] = d+3;
+        return 1;
+    }
+public:
+    int R, C;
+    int orangesRotting(vector<vector<int>>& grid, int d = 0, int fresh = 0) {
+        R = grid.size(), C = R > 0 ? grid[0].size(): 0;
+        for (int i = 0; i < R; ++i){
+            fresh += count_if(begin(grid[i]), end(grid[i]), [](int j) { return j == 1; });
+        }
+        
+        for (int old_fresh = fresh; fresh > 0; ++d){
+            for (int i = 0; i < R; ++i){
+                for (int j = 0; j < C; ++j){
+                    if (grid[i][j] == d + 2){
+                        fresh -= rot(grid, i-1, j, d) + rot(grid, i+1, j, d) + rot(grid, i, j-1, d) + rot(grid, i, j+1, d);
+                    }
+                }
+            }
+            
+            if (fresh == exchange(old_fresh, fresh)) return -1;
+        }
+        
+        return d;
+    }
+};
+
+// TC: O(N*M)
+// SC: O(1)
