@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 class Solution {
@@ -11,12 +10,14 @@ public:
 				mp[ele]++;
 			}
 		}
+
 		int minVal = INT_MAX;
 		for (auto x : mp) {
 			if (x.second == mat.size()) {
 				minVal = min(x.first, minVal);
 			}
 		}
-		return minVal != INT_MAX ? minVal : -1;
+
+		return minVal == INT_MAX ? -1: minVal;
 	}
 };
