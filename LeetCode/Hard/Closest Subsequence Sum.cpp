@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 /*
 So, we pivot this problem into Two Sum Closest: generate all possible sums for the first half of the array and
 store it in a set h1. Then, generate possible sums for the second half in h2.
