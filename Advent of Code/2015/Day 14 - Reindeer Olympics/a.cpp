@@ -13,11 +13,16 @@ public:
     reindeer(int s, int d, int r) : curtime(0), stars(0), cdist(0), speed(s), duration(d), resttime(r) {}
 
     int calculate_distance(int time) {
-        int intervaltime = duration+resttime;
+        int intervaltime = duration + resttime;
         int cycles = time / intervaltime;
-        int rest   = time % intervaltime;
+        int rest = time % intervaltime;
         int movingtime = cycles * duration;
-        if (rest<duration) movingtime+=rest; else movingtime+=duration;
+
+        if (rest<duration) 
+        	movingtime += rest; 
+        else 
+        	movingtime += duration;
+
         return movingtime * speed;
     }
 
@@ -55,7 +60,7 @@ int simulate(int time, map<string,reindeer*> reindeers) {
 }
 
 int main() {
-	
+
     map<string,reindeer*> reindeers;
     string line;
     string name;
@@ -68,14 +73,14 @@ int main() {
     while (getline(iss,line)) {
         istringstream ss(line);
         ss >> name >> temp >> temp >> s >> temp >> temp >> d >> temp >> temp >> temp >> temp >> temp >> temp >> r;
-        reindeers[name] = new reindeer(s,d,r);
+        reindeers[name] = new reindeer(s, d, r);
     }
 
     int t = 2503;
     int maxdist = INT_MIN;
     for (auto r: reindeers) {
         int d = r.second->calculate_distance(t);
-        if (d>maxdist) maxdist=d;
+        if (d > maxdist) maxdist = d;
     }
 
     cout << "Part 1: " << maxdist << endl;
