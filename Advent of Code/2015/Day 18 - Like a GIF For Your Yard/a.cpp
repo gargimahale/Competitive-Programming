@@ -34,8 +34,7 @@ void processFile(const char *filename, const int steps, const bool forceCorners 
             state[0][inputSize - 1] = true;
             state[inputSize - 1][0] = true;
             state[inputSize - 1][inputSize - 1] = true;
-        }
-    };
+        }    };
 
     forceCornersFunc();
 
