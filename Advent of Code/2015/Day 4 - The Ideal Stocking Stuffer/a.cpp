@@ -7,19 +7,11 @@ void P2(const string& input);
 string md5string(const string& in);
 
 int main(void) {
-    // P1("abcdef"); // p1: 609043
-    // P1("pqrstuv"); // p1: 1048970
-
-    // ifstream infile("input.txt");
-    // string input;
-    // infile >> input;
-
     P1("iwrupvqb");
-    // P2(input);
+    P2("iwrupvqb");
 }
 
 void P1(const string& input) {
-
     uint32_t result = 0;
 
     for (uint32_t i = 1; ; i++) {
@@ -29,12 +21,10 @@ void P1(const string& input) {
             break;
         }
     }
-
     cout << "Number: " << result << endl;
 }
 
 void P2(const string& input) {
-
     uint32_t result = 0;
 
     for (uint32_t i = 1; ; i++) {
@@ -49,7 +39,6 @@ void P2(const string& input) {
 }
 
 string md5string(const string& in) {
-
     unsigned char result[MD5_DIGEST_LENGTH];
     MD5((unsigned char*)in.data(), in.length(), result);
 
