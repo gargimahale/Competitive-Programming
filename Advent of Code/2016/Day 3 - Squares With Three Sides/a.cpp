@@ -33,7 +33,7 @@ void process2(const string& filename){
 	sides.insert(sides.end(), third.begin(), third.end());
 	
 	for (int i = 0; i < sides.size()-2; i += 3){
-		a = sides[i], b = sides[i+1], c = sides[i+2];
+		a = sides[i]
 		int max = std::max({a, b, c});
 
 		if (a + b + c - max > max){
