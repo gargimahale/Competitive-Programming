@@ -3,9 +3,7 @@ using namespace std;
 
 class Solution {
 public:
-
     unordered_map<int, int> dp;
-
     int minDays(int n) {
         if (n <= 1) return n;
 
