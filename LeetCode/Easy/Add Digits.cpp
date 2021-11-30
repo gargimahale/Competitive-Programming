@@ -3,7 +3,6 @@ using namespace std;
 
 class Solution {
 public:
-
     int helper(int num) {
         int sum = 0;
         while (num) {
