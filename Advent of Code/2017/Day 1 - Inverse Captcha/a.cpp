@@ -50,7 +50,6 @@ int main(void) {
     string text;
     ifstream myFile("input.txt");
     myFile >> text;
-
     part1(text);
     part2(text);
 }
