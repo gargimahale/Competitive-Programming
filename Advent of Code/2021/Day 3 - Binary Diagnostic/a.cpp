@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<string> process1(const vector<string>& codes){
+void process1(const vector<string>& codes){
 	string gamma, epsilon;
 
 	for (int i = 0; i < 12; ++i){
@@ -13,42 +13,47 @@ vector<string> process1(const vector<string>& codes){
 		gamma += (ones > zeroes ? '1': '0');
 		epsilon += (ones < zeroes ? '1': '0');
 	}
-	cout << gamma << " " << epsilon << "\n";
+	// cout << gamma << " " << epsilon << "\n";
 	cout << "Part 1: " << (long long)stoi(gamma, 0, 2) * stoi(epsilon, 0, 2) << "\n";
-	return {gamma, epsilon};
 }
 
-void process2(const vector<string>& codes, const vector<string>& bits){
-	string gamma = bits[0];
-	string epsilon = bits[1];
+vector<string> getValue(const vector<string>& v, int idx, bool mostCommon){
+    int ones = 0;
+    vector<string> o;
+    vector<string> z;
+    for(string s : v){
+        switch(s[idx]){
+            case '1':
+                ones++;
+                o.push_back(s);
+                break;
+            case '0':
+                z.push_back(s);
+                break;
+        }
+    }
 
-	vector<string> oxygen, co2;
+    auto x = ceil(v.size()/2.0);
+    if(mostCommon) return ones >= x ? o : z;
+    return ones >= x ? z : o;
+}
 
-	for (int i = 0; i < 1; ++i){
-		for (int j = 0; j < codes.size(); ++j){
-			if (codes[j][i] == gamma[i]){
-				oxygen.push_back(codes[j]);
-			}
-			else{
-				co2.push_back(codes[j]);
-			}
-		}
-	}
-	// cout << oxygen.size() << "\n";
+void process2(const vector<string>& codes){
+	vector<string> curr = codes;
+    vector<string> curr2 = codes;
 
-	// oxygen
-	for (int i = 1; i < 9; ++i){
-		vector<string> temp;
-		for (int j = 0; j < oxygen.size(); ++j){
-			if (oxygen[j][i] == gamma[i]){
-				temp.push_back(oxygen[j]);
-			}
-		}
-		// cout << i << " " << oxygen.size() << "\n";
-		swap(temp, oxygen);
-	}
+    for(int i = 0; i < 12; i++){
+        if (curr.size() != 1)
+            curr = getValue(curr, i, true);
 
-	cout << oxygen[0] << " " << oxygen[1] << "\n";
+        if (curr2.size() != 1)
+            curr2 = getValue(curr2, i, false);
+    }
+
+    string o2 = curr[0], co2 = curr2[0];
+    int a = stoi(o2, nullptr, 2), b = stoi(co2, nullptr, 2);
+
+    cout << "Part 2: " << a * b << "\n";
 }
 
 int main(void){
@@ -60,6 +65,6 @@ int main(void){
 		codes.push_back(text);
 	}	
 	
-	vector<string> bits = process1(codes);
-	process2(codes, bits);
+	process1(codes);
+	process2(codes);
 }
