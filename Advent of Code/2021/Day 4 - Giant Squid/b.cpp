@@ -74,9 +74,7 @@ int main(void) {
     string line;
     ifstream infile("input.txt");
     getline(infile, line);
-
     vector<int> numbers = split(line, ",");
-
     getline(infile, line);
     vector<vector<vector<int>>> grids;
     vector<vector<int>> table;
@@ -95,14 +93,16 @@ int main(void) {
 
     }
     grids.push_back(table);
-    print_grid(grids);
     cout << grids.size() << " " << grids[0].size() << "\n";
 
     vector<vector<int>> best;
+    set<int> solved;
     bool flag = false;
     int last;
+    
     for (auto& n: numbers) {
         if (flag) break;
+        int index = 0;
         for (auto& table: grids) {
             for (auto& line: table) {
                 for (int i = 0; i < line.size(); i++) {
@@ -111,13 +111,18 @@ int main(void) {
                 }
             }
             if (check_table1(table) || check_table2(table)) {
-                best = table;
-                last = n;
-                flag = true;
-                break;
+                solved.insert(index);
+                if (solved.size() == grids.size()) {
+                    best = table;
+                    last = n;
+                    flag = true;
+                    break;
+                }
             }
+            index++;
         }
     }
+    print_table(best);
     int sum = sum_table(best);
     cout << sum << " " << last << " " << sum * last << "\n";
 }
