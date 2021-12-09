@@ -1,24 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(void){
+int Part2(vector<int> input){
+    unordered_map<int, int> frequency;
+    int sum = 0, index = -1;
+    while(true)
+    {
+        ++index %= input.size();
+        sum += input[index];
+        frequency[sum]++;
 
-	int num;
-	ifstream file("input.txt");
+        if(frequency[sum] == 2)
+        {
+            return sum;
+        }
+    }
+}
+int main (void){
+    ifstream cin("input.txt");
+    vector <int> input;
+    string inputLine;
+    while(getline (cin, inputLine))
+    {
+        input.push_back(stoi(inputLine));
+    }
 
-	int resultant = 0, ans;
-	bool found = false;
-
-	unordered_set<int> seen{0};
-
-	while(file >> num){
-		resultant += num;
-		if (seen.insert(resultant).second && !found){
-			found = true;
-			ans = resultant;
-		}
-	}
-	
-	cout << "Part 1: " << resultant << "\n";
-	cout << "Part 2: " << ans << "\n";
+    cout << "Part1: " << accumulate(input.begin(), input.end(), 0) << endl;
+    cout << "Part2: " << Part2(input) << endl;
 }
