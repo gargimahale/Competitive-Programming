@@ -8,10 +8,10 @@ public:
     bool isOperator;
     vector<Packet> sub_packets;
     Packet (int version, int type_id){
-        this-> version = version;
-        this-> type_id = type_id;
-        this-> isOperator = (this->type_id != 4);
-        this-> value  = 0;
+        this->version = version;
+        this->type_id = type_id;
+        this->isOperator = (this->type_id != 4);
+        this->value  = 0;
     }
 
     static pair<Packet,int> makePacket(string& binary, int pointer){
