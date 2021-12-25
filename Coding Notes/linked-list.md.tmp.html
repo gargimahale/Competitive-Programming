@@ -1,0 +1,599 @@
+<meta charset="UTF-8">
+<h1>Linked List</h1>
+
+<h3>Remove Dups</h3>
+
+<p>Write a code to remove duplicates from an unsorted linked list. <br />
+FOLLOW UP: How would you solve this problem if a temporary buffer is not allowed.</p>
+
+<p><code>text
+Using hashtable we can do in O(N)
+Follow up:
+We can do brute force O(N^2)
+We can sort the array then the consecutive ones will be dups a linear
+scan will do. O(NlogN)
+</code></p>
+
+<h3>Return Kth to Last</h3>
+
+<p>Implement an algorithm to find the Kth to last element of a singly linked list.</p>
+
+<p><code>text
+Take 2 points one at head, other at head+k. Keep incrementing both
+until j reaches end. Then i is kth last
+</code></p>
+
+<h3>Delete Middle Node</h3>
+
+<p>Implement an algorithm to delete a node in the middle (i.e. any node but the first and last node not necessarily the exact middle) of a singly linked list, given only access to that node.</p>
+
+<p><code>cpp
+bool deleteNode(Node *n)
+{
+    if (!n || !(n-&gt;next)) return false;
+    Node *nxt = n-&gt;next;
+    n-&gt;val = nxt-&gt;val;
+    n-&gt;nxt = nxt-&gt;nxt;
+    return true;
+}
+</code></p>
+
+<h3><a href="https://leetcode.com/problems/partition-list/">Partition</a></h3>
+
+<p>Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes greater than or equal to x. If x is contained within the list, the values of x only need to be after the elements less than x (see below). The partition element x can appear anywhere in the "right partition"; it does not need to appear between the left and right partitions.</p>
+
+<p>Input: 3 -&gt; 5 -&gt; 8 -&gt; 5 -&gt; 10 -&gt; 2 -&gt; 1 [partition = 5] <br />
+Output: 3 -&gt; 1 -&gt; 2 -&gt;10 -&gt; 5 -&gt; 5 -&gt; 8</p>
+
+<p><code>cpp
+ListNode* partition(ListNode* head, int x)
+{
+    ListNode *left = NULL, *right = NULL, *i = NULL, *j = NULL;
+    while (head)
+    {
+        if (head-&gt;val &lt; x)
+        {
+            if (!left) left = head, i = head;
+            else i-&gt;next = head, i = i-&gt;next;
+        }
+        else
+        {
+            if (!right) right = head, j = head;
+            else j-&gt;next = head, j = j-&gt;next;
+        }
+        head = head-&gt;next;
+    }
+    if (j) j-&gt;next = NULL;
+    if (i) i-&gt;next = right;
+    return (left) ? left : right;
+}
+</code></p>
+
+<h3>Intersection</h3>
+
+<p>Given two single linked lists, determine if the two lists intersect. Return the intersecting node. Note that the intersection is defined based on reference, not value. That is if the kth node of the first linked list is the exact same node (by reference) as the jth node of the second linked list then they are intersecting.</p>
+
+<p><code>cpp
+/* Count length of both the lists. Go exactly |n-m| steps from behind in the
+bigger list */
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
+{
+    ListNode *i = headA, *j = headB;
+    int n = 0, m = 0;
+    while (i) { n++; i = i-&gt;next; }
+    while (j) { m++; j = j-&gt;next; }
+    int dif = abs(n - m);
+    if (m &gt; n) swap(headA, headB);
+    while (dif--) headA = headA-&gt;next;
+    while (headA != headB)
+    {
+        headA = headA-&gt;next;
+        headB = headB-&gt;next;
+    }
+    return headA;
+}
+</code></p>
+
+<h3>Remove nth from end</h3>
+
+<p>Kth from last element (simply ek loop me linked list ka size pata karlo then dusre me n-k pe chale jaao BUT WHAT ARE OTHER WAYS? say size allowed naaho toh simply k element tak jaao then ek aur pointer lo jo head pe ho now dono ko chalao jabktak null naa hojaye pehla wala dusra wala pointer is the ans)</p>
+
+<h3>Detect if List is Palindrome</h3>
+
+<p>Go to the middle of linked list and reverse from middle to the end and break it into two half. Now just iterate both halves for equality.</p>
+
+<p>To go to middle, slow and fast pointer can be used when fast will become NULL (reach end) it will cover 2x distance while x distance will be covered by slow pointer which will be then the middle.</p>
+
+<h3>Reverse a Linked List</h3>
+
+<p>```cpp
+Node *cur = head, *next = NULL, *prev = NULL;
+while (cur != NULL)
+{
+    next = cur->next;
+    cur->next = prev;
+    prev = cur;
+    cur = next;
+}
+return prev;</p>
+
+<p>// Reverse groups of K
+ListNode* reverse(ListNode* first, ListNode* last)
+{
+    ListNode* prev = last;
+    while (first != last)
+    {
+        auto tmp = first->next;
+        first->next = prev;
+        prev = first;
+        first = tmp;
+    }
+    return prev;
+}
+ListNode* reverseKGroup(ListNode* head, int k)
+{
+    auto node = head;
+    for (int i = 0; i &lt; k; ++i)
+    {
+        if (!node) return head; //nothing to do list too sort
+        node = node->next;
+    }
+    auto new<em>head = reverse(head, node);
+    head->next = reverseKGroup(node, k);
+    return new</em>head;
+}</p>
+
+<p>// Reverse within a range
+ListNode* Solution::reverseBetween(ListNode* A, int B, int C)
+{
+    ListNode *head = A, *cur = A, *next = NULL, *prev = NULL;
+    int i = 0;
+    if (B == 1)
+    {
+        ListNode *temp = A;
+        while (cur != NULL &amp;&amp; i &lt; C)
+        {
+            ++i;
+            next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
+        }
+        temp->next = next;
+        head = prev;
+    }
+    else
+    {
+        while (cur != NULL &amp;&amp; i &lt; B-2) ++i, cur = cur->next;
+        ListNode *temp = cur;
+        cur = cur->next;
+        prev = NULL;
+        while (cur != NULL &amp;&amp; i &lt; C-1)
+        {
+            ++i;
+            next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
+        }
+        temp->next->next = next;
+        temp->next = prev;
+    }
+    return head;
+}
+```</p>
+
+<h3>Loop</h3>
+
+<p>Why Floyd cycle detection Works?: <a href="https://www.youtube.com/watch?v=LUm2ABqAs1w&amp;t=1220s">https://www.youtube.com/watch?v=LUm2ABqAs1w&amp;t=1220s</a></p>
+
+<p>```cpp
+bool hasCycle(ListNode *head)
+{
+    if (!head) return false;
+    ListNode *slow = head, *fast = head->next;
+    while (slow &amp;&amp; fast &amp;&amp; fast->next)
+    {
+        slow = slow->next, fast = fast->next->next;
+        if (slow == fast) return true;
+    }
+    return false;
+}</p>
+
+<p>void removeTheLoop(Node <em>A)
+{
+    Node *slow = A, *fast = A;
+    while (slow &amp;&amp; fast)
+    {
+        slow = slow->next;
+        if (!fast || !slow || !fast->next) return;
+        fast = fast->next->next;
+        if (!fast || !slow || !fast->next) return;
+        if (slow == fast) break;
+    }
+    if (!fast || !slow || !fast->next) return;
+    fast = A;
+    Node</em> prev = NULL;
+    while (slow !=fast)
+    {
+        prev = slow;
+        slow = slow->next;
+        fast = fast->next;
+    }
+    prev->next = NULL;
+}
+```</p>
+
+<h3><a href="https://leetcode.com/problems/copy-list-with-random-pointer/">Copy Linked List with Random Pointer</a></h3>
+
+<p>Given a linked list with next and random pointer create a copy of it.</p>
+
+<p>```cpp
+/* One way is to iterate over linked list mapping that node with it's newly
+created copy (so that we can later use map to random-access that node).
+It's O(N) time with O(N) space <em>/
+Node</em> copyRandomList(Node* head)
+{
+    unordered_map<Node*, Node*> rec;
+    Node *cur = head;
+    while (cur)
+    {
+        rec[cur] = new Node(cur->val);
+        cur = cur->next;
+    }</p>
+
+<pre><code>cur = head;
+while (cur)
+{
+    if (cur-&gt;next) rec[cur]-&gt;next = rec[cur-&gt;next];
+    if (cur-&gt;random) rec[cur]-&gt;random = rec[cur-&gt;random];
+    cur = cur-&gt;next;
+}
+
+return rec[head];
+</code></pre>
+
+<p>}</p>
+
+<p>/* To do in O(1) space we have to utilize our list only, making it keep all
+the relevant informations. What we need is a random access. */
+```</p>
+
+<p><img src=".gitbook/assets/image%20%28265%29.png" alt="" title="" /></p>
+
+<p>```cpp
+/* We store next to old<em>node the new</em>node next of new<em>node is next</em>old<em>node.
+Now to random access a node from old</em>node just go to it's next. <em>/
+Node</em> copyRandomList(Node* head)
+{
+    Node *cur = head;
+    while (cur)
+    {
+        Node *newNode = new Node(cur->val);
+        newNode->next = cur->next;
+        cur->next = newNode;
+        cur = newNode->next;
+    }
+    cur = head;
+    while (cur)
+    {
+        if (cur->random) cur->next->random = cur->random->next;
+        cur = cur->next->next;
+    }</p>
+
+<pre><code>cur = head;
+Node *p, *q, *newList = NULL, *cur2 = NULL;
+while (cur)
+{
+    p = cur, q = cur-&gt;next-&gt;next;
+    if (!newList) newList = cur-&gt;next, cur2 = cur-&gt;next;
+    else cur2-&gt;next = cur-&gt;next, cur2 = cur2-&gt;next;
+    cur = cur-&gt;next-&gt;next;
+    p-&gt;next = q;
+}        
+return newList;
+</code></pre>
+
+<p>}
+```</p>
+
+<h3><a href="https://www.interviewbit.com/problems/merge-k-sorted-lists/">Merge K Sorted Linked Lists</a></h3>
+
+<p>```cpp
+/*
+Interviebit question is bullshit gives correct answer even for high time, in reality this question has tighter constraints and is asked by Google</p>
+
+<p>Way #1: Brute Force - Array me yaa map me saare element daalo sort kardo then linked list banado Time: O(KNlogKN) Space: O(KN)</p>
+
+<p>Way #2: Create K pointers, initially pointing to head of each linked list choose smallest increment it's pointer. Keep doing it. Time: O(KN) Space: O(K). Interview bit variation passes this. One optimization in this is use priority queue to avoid comparisons then time will become: O(NlogK)</p>
+
+<p>Way #3: merge two sorted linked list at a time till (k-1) times. Time: O(KN) Space: O(1)
+*/</p>
+
+<p>//Way 1: Using maps insertion will be logN so total time will be: log1 + log2 + .... + log(KN) for insertion this is integration from 1 to n logx = nlogn + n i.e. KNlogKN then inside for loop of map theres KN iteration so overall O(KNLogKN) but in case of duplicacy it stores count so it can perform better in that case
+ListNode* Solution::mergeKLists(vector<ListNode*> &amp;A)
+{
+    map<int, int> myMap;
+    for (auto x : A)
+        while(x)
+            myMap[x->val]++, x = x->next;</p>
+
+<pre><code>ListNode *head = NULL, *cur = NULL;
+for (auto it = myMap.begin(); it != myMap.end(); ++it)
+{
+    while (it-&gt;second != 0)
+    {
+        ListNode *list = new ListNode(it-&gt;first);
+        if (!head) head = list, cur = list;
+        else cur-&gt;next = list, cur = cur-&gt;next;
+        it-&gt;second--;
+    }
+}
+return head;
+</code></pre>
+
+<p>}</p>
+
+<p>//Way 2: Just O(K) space, O(KNK) time
+ListNode* mergeKLists(vector<ListNode*>&amp; A)
+{
+    vector<ListNode*> ptrs;
+    for (auto x : A) ptrs.push<em>back(x);
+    ListNode *head = NULL, *cur = NULL;
+    while (true)
+    {
+        int minVal = INT</em>MAX, minIndex = 0;
+        for (int i = 0; i &lt; ptrs.size(); ++i)
+            if (ptrs[i] &amp;&amp; ptrs[i]->val &lt; minVal)
+                minVal = ptrs[i]->val, minIndex = i;</p>
+
+<pre><code>    if (minVal == INT_MAX) break;
+    ListNode *temp = new ListNode(minVal);
+    if (!head) head = temp, cur = head;
+    else cur-&gt;next = temp, cur = cur-&gt;next;
+    ptrs[minIndex] = ptrs[minIndex]-&gt;next;
+}
+return head;
+</code></pre>
+
+<p>}</p>
+
+<p>// O(KNlogK) time, O(K) space
+typedef pair<int, ListNode*> pilist;
+ListNode* Solution::mergeKLists(vector<ListNode*> &amp;A)
+{
+    priority_queue<pilist, vector<pilist>, greater<pilist> > ptrs;
+    for (auto x : A)
+        ptrs.push({x->val, x});
+    ListNode *head = NULL, *cur = NULL;
+    while (!ptrs.empty())
+    {
+        pilist front = ptrs.top();
+        ptrs.pop();
+        ListNode *temp = new ListNode(front.first);
+        if (!head) head = temp, cur = head;
+        else cur->next = temp, cur = cur->next;
+        if ((front.second)->next)
+        {
+            front.second = (front.second)->next;
+            front.first = (front.second)->val;
+            ptrs.push(front);
+        }
+    }
+    return head;
+}
+// Conclusion: this one is better but if there are many duplicacy present 1st one is better
+```</p>
+
+<h3><a href="https://www.lintcode.com/problem/insert-into-a-cyclic-sorted-list/description">Insert Into Cyclic Sorted List</a></h3>
+
+<p>```c++
+ListNode * insert(ListNode *head, int x)
+{
+    if (!head)
+    {
+        ListNode *node = new ListNode(x);
+        node->next = node;
+        return node;
+    }</p>
+
+<pre><code>ListNode *cur = head, *maxNode = head;
+bool inserted = false;
+while(true)
+{
+    if (cur-&gt;next-&gt;val &lt; cur-&gt;val) maxNode = cur;
+    if (cur-&gt;next-&gt;val &gt;= x &amp;&amp; cur-&gt;val &lt;= x)
+    {
+        ListNode *node = new ListNode(x, cur-&gt;next);
+        cur-&gt;next = node;
+        inserted = true;
+        break;
+    }
+
+    cur = cur-&gt;next;
+    if (cur == head) break;
+}
+
+// Turning point from max to min
+if (!inserted) maxNode-&gt;next = new ListNode(x, maxNode-&gt;next);
+return head;
+</code></pre>
+
+<p>}
+```</p>
+
+<h3>Sort Linked List</h3>
+
+<p>```cpp
+// Merge Sort
+ListNode* merge(ListNode* A, ListNode* B)
+{
+    ListNode *head = NULL, *cur = head, *itA = A, *itB = B;
+    while (itA &amp;&amp; itB)
+    {
+        if (itA->val &lt; itB->val)
+        {
+            if (!head) head = itA, cur = itA;
+            else cur->next = itA, cur = cur->next;
+            itA = itA->next;
+        }
+        else
+        {
+            if (!head) head = itB, cur = itB;
+            else cur->next = itB, cur = cur->next;
+            itB = itB->next;
+        }
+    }
+    while (itA)
+    {
+        if (!head) head = itA, cur = itA;
+        else cur->next = itA, cur = cur->next;
+        itA = itA->next;
+    }
+    while (itB)
+    {
+        if (!head) head = itB, cur = itB;
+            else cur->next = itB, cur = cur->next;
+            itB = itB->next;
+    }
+    return head;
+}</p>
+
+<p>ListNode* sortList(ListNode* head)
+{
+    if (!head || !head->next) return head;
+    ListNode <em>start = head, *mid = head, *end = head->next;
+    while (mid &amp;&amp; end &amp;&amp; end->next)
+    {
+        mid = mid->next;
+        end = end->next->next;
+    }
+    ListNode *tmp = mid->next;
+    mid->next = NULL;
+    mid = tmp;
+    return merge(sortList(start), sortList(mid));
+}
+// Insertion Sort
+ListNode</em> Solution::insertionSortList(ListNode* head)
+{
+    ListNode *sorted = NULL;
+    ListNode *list = head;
+    while (list)
+    {
+        ListNode *curr = list;
+        list = list->next;
+        if (sorted == NULL || sorted->val > curr->val)
+        {
+            curr->next = sorted;
+            sorted = curr;
+        }
+        else
+        {
+            ListNode *tmp = sorted;
+            while (tmp)
+            {
+                ListNode *c = tmp;
+                tmp = tmp->next;
+                if (c->next == NULL || c->next->val > curr->val)
+                {
+                    c->next = curr;
+                    curr->next = tmp;
+                    break;
+                }
+            }
+        }
+    }
+    return sorted;
+}
+```</p>
+
+<h3><a href="https://leetcode.com/problems/design-skiplist/">Design Skip List</a></h3>
+
+<p>{% embed url="https://youtu.be/2g9OSRKJuzM" %}</p>
+
+<p>We maintain different levels of linkedlist. Let's say we have 2 layers. L1 is the express line and L0 is slower (having all n). \|L1\| + \|L0\|/\|L1\| is the worst case analysis, this gives \|L1\|^2 = \|L0\| = n giving size of L1 (express lane) as root n for optimal scenario. This 2 layer skip list has root N search, insert and remove complexity.</p>
+
+<p>2 Lanes gives: 2 ²√n <br />
+3 Lanes gives: 3 ³√n <br />
+k Lanes gives: k k√n <br />
+logN Lanes gives: logN logN√n <br />
+simplifying this will give 2 logN</p>
+
+<p>Takes log(n) time to add, erase and search</p>
+
+<p><img src=".gitbook/assets/image%20%28200%29.png" alt="" title="" /></p>
+
+<p>Searching is simply start with top most lane, if cur-&gt;right is null or &gt; x then switch to down lane which increments slowly.</p>
+
+<p>To add:</p>
+
+<p><img src=".gitbook/assets/image%20%28198%29.png" alt="" title="" /></p>
+
+<p>blue are all the portion iteration leads us to, before changing lanes we keep track of last relevant pos in that lane in the stack.</p>
+
+<p>We flip a coin after insertion, if tail we move up. Even after finishing all lanes if in the end tail means we create a new tail. So every insertion has a potential of adding a new layer.</p>
+
+<p>```cpp
+class Skiplist
+{
+private:
+    struct Node { int val; Node *right, *down; };
+    Node *head;</p>
+
+<p>public:
+    Skiplist() { head = new Node{0, NULL, NULL}; }
+    bool search(int x)
+    {
+        Node *cur = head;
+        while (cur)
+        {
+            while (cur->right &amp;&amp; cur->right->val &lt; x) cur = cur->right;
+            if (!cur->right || cur->right->val > x) cur = cur->down;
+            else return true;
+        }
+        return false;
+    }
+    void add(int x)
+    {
+        Node *cur = head;
+        stack<Node*> st;
+        while (cur)
+        {
+            while (cur->right &amp;&amp; cur->right->val &lt; x) cur = cur->right;
+            st.push(cur);
+            cur = cur->down;
+        }</p>
+
+<pre><code>    Node *downNode = NULL;
+    bool insertUp = true;
+    while (insertUp &amp;&amp; !st.empty())
+    {
+        auto tp = st.top(); st.pop();
+        tp-&gt;right = new Node{x, tp-&gt;right, downNode};
+        downNode = tp-&gt;right;
+        insertUp = (rand()&amp;1);
+    }
+    if (insertUp)
+        head = new Node{0, new Node{x, NULL, downNode}, head};
+}
+bool erase(int x)
+{
+    Node *cur = head;
+    bool seen = false;
+    while (cur)
+    {
+        while (cur-&gt;right &amp;&amp; cur-&gt;right-&gt;val &lt; x) cur = cur-&gt;right;
+        if (!cur-&gt;right || cur-&gt;right-&gt;val &gt; x) cur = cur-&gt;down;
+        else
+        {
+            seen = true;
+            cur-&gt;right = cur-&gt;right-&gt;right;
+            cur = cur-&gt;down;
+        }
+    }
+    return seen;
+}
+</code></pre>
+
+<p>};
+```</p>
