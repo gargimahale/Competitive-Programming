@@ -1,63 +1,61 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int64_t search(vector<int32_t> &divisors, vector<int32_t> &offsets, vector<int32_t> &modifiers, auto op) {
-    unordered_map<int64_t, int64_t> z_values;
-    unordered_map<int64_t, int64_t> z_values_new;
-    z_values.insert(make_pair(0, 0));
+struct NumProcess{
+    NumProcess(ifstream& in){
+        string s;
+        for (int i = 0; i < 13; ++i)
+            in >> s;
 
-    for (int64_t index = 0; index < 14; index++) {
-        for (auto z0 : z_values) {
-            for (int64_t digit = 9; digit > 0; digit--) {
-                int64_t candidate = z0.second * 10 + digit;
-                int64_t z = z0.first / divisors[index];
-
-                if (z0.first % 26 + offsets[index] != digit)
-                    z = z * 26 + digit + modifiers[index];
-
-                auto [it, flag] = z_values_new.emplace(z, candidate);
-
-                if (!flag)
-                    it->second = op(it->second, candidate);
-            }
+        if ((push = s == "1")){
+            for (int i = 0; i < 33; ++i)
+                in >> s;
+            delta = stoi(s);
+            for (int i = 0; i < 6; ++i)
+                in >> s;
         }
-        z_values = move(z_values_new);
-    }
-    return z_values[0];
-}
-
-int main(void) {
-    ifstream input("input.txt");
-
-    vector<int32_t> divisors;
-    vector<int32_t> offsets;
-    vector<int32_t> modifiers;
-
-    string line;
-    size_t block_id = 0;
-    size_t line_id = 0;
-
-    while (getline(input, line)) {
-        if (line_id == 4) {
-            int32_t val = stol(line.substr(6));
-            divisors.push_back(val);
+        else{
+            for (int i = 0; i < 3; ++i)
+                in >> s;
+            delta = stoi(s);
+            for (int i = 0; i < 36; ++i)
+                in >> s;
         }
-
-        if (line_id == 5) {
-            int32_t val = stol(line.substr(6));
-            offsets.push_back(val);
-        }
-
-        if (line_id == 15) {
-            int32_t val = stol(line.substr(6));
-            modifiers.push_back(val);
-        }
-
-        line_id++;
-        block_id += line_id / 18;
-        line_id %= 18;
     }
 
-    cout << "Highest valid number: " << search(divisors, offsets, modifiers, [](uint64_t a, uint64_t b) { return max(a, b); }) << "\n";
-    cout << "Lowest valid number: " << search(divisors, offsets, modifiers, [](uint64_t a, uint64_t b) { return min(a, b); }) << "\n";
+    int delta = 0;
+    bool push = false;
+};
+
+int main(void){
+    ifstream in("input.txt");
+
+    string s, maxValue, minValue;
+    vector<NumProcess> blocks;
+    vector<pair<int, int>> stack;
+
+    while (in >> s)
+        blocks.emplace_back(in);
+
+    for (int i = 0; i < 14; ++i){
+        if (blocks[i].push){
+            stack.push_back({ i, blocks[i].delta });
+            maxValue += '0';
+            minValue += '0';
+        }
+        else{
+            auto [index, val] = stack.back();
+            stack.pop_back();
+            int diff = blocks[i].delta + val;
+            int max_push = min(9, 9 - diff);
+            maxValue[index] = '0' + max_push;
+            maxValue += '0' + max_push + diff;
+
+            int min_push = max(1, 1 - diff);
+            minValue[index] = '0' + min_push;
+            minValue += '0' + min_push + diff;
+        }
+    }
+    
+    cout << "Part 1: " << maxValue << "\nPart 2: " << minValue << endl;
 }
