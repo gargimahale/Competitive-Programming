@@ -2,13 +2,11 @@
 using namespace std;
 
 /*
-
     Time:
         MKAverage: O(1)
         addElement: O(logM)
         calculateMKAverage: O(1)
     Space: O(M)
-
 */
 
 class MKAverage {
