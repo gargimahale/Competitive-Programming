@@ -3,7 +3,6 @@
 #include <iostream>
 using namespace std;
 
-
 struct TreeNode{
     int val;
     TreeNode* left, *right;
@@ -30,5 +29,6 @@ public:
         return maxSum;
     }
 };
+
 // TC: O(N)
 // SC: O(H)
