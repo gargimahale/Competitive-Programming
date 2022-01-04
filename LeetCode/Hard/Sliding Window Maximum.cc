@@ -3,7 +3,6 @@
 #include <queue>
 using namespace std;
 
-
 // Time: O(NlogN), Space: O(logN)
 vector<int> maxSlidingWindow_queue(vector<int>& nums, int k) {
     vector<int> res;
