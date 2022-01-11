@@ -9,6 +9,7 @@ using namespace std;
  *     int guess(string word);
  * };
  */
+
 class Solution {
 public:
 
