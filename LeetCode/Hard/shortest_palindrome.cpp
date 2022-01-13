@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// KMP - Tushar Roy
-
 class Solution {
 public:
    void fill_lps(string &s, int lps[])
