@@ -2,7 +2,6 @@
 using namespace std;
 
 class Solution {
-
     void popAndFindArea(int pos){
         tempH = log.back().first;
         tempPos = log.back().second;
@@ -12,7 +11,6 @@ class Solution {
     }
 
 public:
-    
     vector<pair<int, int>> log;
     int maxArea = INT_MIN, pos = 0, tempH = 0, tempPos = 0, area = 0;
     
