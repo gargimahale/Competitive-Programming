@@ -2,7 +2,6 @@
 using namespace std;
 
 // TC: O(NlogN), SC: O(N)
-
 class Solution {
     int findParents(int x, vector<int>& parents){
         int id = x;
