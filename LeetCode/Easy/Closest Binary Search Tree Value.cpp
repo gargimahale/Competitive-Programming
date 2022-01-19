@@ -11,6 +11,7 @@ class Solution {
 public:
     int closestValue(TreeNode *root, double target) {
         int val, close = root->val;
+        
         while (root) {
             val = root->val;
             close = abs(val - target) < abs(close - target) ? val : close;
