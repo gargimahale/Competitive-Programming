@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-
 
 /*
 Compare all neignbour elements (a,b) in A,
