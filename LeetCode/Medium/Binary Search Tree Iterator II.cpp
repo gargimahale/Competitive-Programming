@@ -12,6 +12,7 @@ using namespace std;
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
 class BSTIterator {
 public:
     stack<TreeNode*> path;
