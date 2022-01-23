@@ -2,7 +2,6 @@
 using namespace std;
 
 // Tc: O(nlogn), SC: O(n)
-
 class Solution {
 public:
     int maxEnvelopes(vector<vector<int> >& env) {
