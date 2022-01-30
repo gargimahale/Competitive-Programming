@@ -25,8 +25,8 @@ using namespace std;
                     3        8     
 
 */
-class Solution
-{
+
+class Solution{
 public:
     int sum = 0;
 
