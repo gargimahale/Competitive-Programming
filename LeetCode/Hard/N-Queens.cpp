@@ -3,7 +3,6 @@ using namespace std;
 
 class Solution {
 public:
-
     vector<vector<string>> ans;
     bool isSafe(const vector<string>& board, int row, int col) {
         // column check
