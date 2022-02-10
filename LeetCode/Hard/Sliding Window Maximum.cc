@@ -1,6 +1,4 @@
-#include <deque>
-#include <vector>
-#include <queue>
+#include <bits/stdc++.h>
 using namespace std;
 
 // Time: O(NlogN), Space: O(logN)
