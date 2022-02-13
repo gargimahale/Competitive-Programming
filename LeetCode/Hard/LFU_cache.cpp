@@ -1,6 +1,4 @@
-#include <algorithm>
-#include <unordered_map>
-#include <queue>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define pi pair<int, int>
