@@ -3,8 +3,7 @@ using namespace std;
 
 class Solution {
 public:
-    vector<pair<int, string>> nums =
-    {
+    vector<pair<int, string>> nums ={
         {1000000000, "Billion"}, {1000000, "Million"}, {1000, "Thousand"}, {100, "Hundred"},
         {90, "Ninety"},{80, "Eighty"},{70, "Seventy"},{60, "Sixty"}, 
         {50, "Fifty"}, {40, "Forty"}, {30, "Thirty"}, {20, "Twenty"},
@@ -15,11 +14,10 @@ public:
 
 
     string numberToWords(int num) {
-      if (num == 0) return "Zero";
-      for (auto it = nums.begin(); ; ++it)
-        if (num / it->first > 0)
-          return (num >= 100 ? numberToWords(num / it->first) + " " : "") + it->second +
-            (num % it->first == 0 ? "" : " " + numberToWords(num % it->first));
+        if (num == 0) return "Zero";
+        for (auto it = nums.begin(); ; ++it)
+            if (num / it->first > 0)
+                return (num >= 100 ? numberToWords(num / it->first) + " " : "") + it->second + (num % it->first == 0 ? "" : " " + numberToWords(num % it->first));
     }
 
 };
