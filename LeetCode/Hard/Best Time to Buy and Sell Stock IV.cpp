@@ -27,6 +27,7 @@ public:
 
 
 // OR
+// TC and SC: O(Days * k)
 class Solution_1 {
 public:
     int maxProfit(int k, vector<int>& prices) {
@@ -47,6 +48,3 @@ public:
         return dp[k][n - 1];
     }
 };
-
-
-// TC and SC: O(Days * k)
