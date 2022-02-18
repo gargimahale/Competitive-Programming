@@ -3,7 +3,6 @@
 using namespace std;
 
 // TC & SC: O(N)
-
 class Solution {
 public:
     int calculate(string s) {
