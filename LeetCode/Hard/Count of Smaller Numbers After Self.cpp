@@ -3,6 +3,7 @@ using namespace std;
 
 class Solution {
 public:
+    
 #define iterator vector<vector<int>>::iterator
 
     void sort_count(iterator l, iterator r, vector<int>& count) {
