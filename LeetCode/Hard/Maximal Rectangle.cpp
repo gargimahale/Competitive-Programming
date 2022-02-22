@@ -2,7 +2,6 @@
 using namespace std;
 
 class Solution {
-    
     void popAndCheck(){
         tempH = hStack.back();
         hStack.pop_back();
