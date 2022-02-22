@@ -3,7 +3,6 @@ using namespace std;
 
 class Solution {
 public:
-
    void fill_lps(string &s, int lps[]){
        int len =0;
        lps[0] = 0;
