@@ -8,7 +8,6 @@ store it in a set h1. Then, generate possible sums for the second half in h2.
 For each sum from the second half, use binary search to find a complement sum in the first half.
 
 Additional optimizations:
-
     Compute sum of all positive and all negative values. If the goal is larger (or smaller),
     we know what's the best at this point.
     Check if res == 0 and exit. We cannot do better than zero!
