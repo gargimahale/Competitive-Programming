@@ -3,7 +3,6 @@ using namespace std;
 
 // TC: O(Nlogk) - N is the number of nodes, k is the number of linkedlists
 // SC: O(1)
-
 struct ListNode {
     int val;
     ListNode *next;
