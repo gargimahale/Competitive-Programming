@@ -2,8 +2,7 @@
 using namespace std;
 
 // 0-1 KnapSack
-// TC: O(n*cap)
-// SC: O(n*cap)
+// TC: O(n*cap), SC: O(n*cap)
 
 class Solution {
 public:
