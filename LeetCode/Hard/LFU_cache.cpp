@@ -4,7 +4,6 @@ using namespace std;
 #define pi pair<int, int>
 
 /*
-
 Let's consider a constant stream of cache requests with a cache capacity of 3, see below:
 
 A, B, C, A, A, A, A, A, A, A, A, A, A, A, B, C, D
@@ -28,7 +27,6 @@ C - 2
 D - 1
 Least Frequently Used (LFU) cache takes advantage of this information by keeping track of how many
 times the cache request has been used in its eviction algorithm.
-
 */
 
 class LFUCache {
