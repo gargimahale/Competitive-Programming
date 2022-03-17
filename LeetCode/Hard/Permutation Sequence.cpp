@@ -35,5 +35,4 @@ public:
         return s;
     }
 };
-
 // O(N*K)
