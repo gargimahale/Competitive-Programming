@@ -3,7 +3,6 @@ using namespace std;
 
 class Solution {
 public:
-
     void dfs(vector<vector<int>>& graph, vector<vector<int>>& result, vector<int>& temp, int u){
         temp.push_back(u);
         if (u == graph.size()-1){
