@@ -20,7 +20,9 @@ public:
     void addElement(int n) {
         if (q.size() < m)
             mid.insert(n); // when there are less than `m` numbers, always insert into `mid`.
+
         q.push(n);
+        
         if (q.size() == m) {
             // when we reached exactly `m` numbers, we nudge numbers from `mid` to `top` and `bot`, and calculate `sum`.
             for (int i = 0; i < k; ++i) {
