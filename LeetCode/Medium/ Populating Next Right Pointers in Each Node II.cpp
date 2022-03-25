@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// TC: O(n), SC: O(1)
+
 class Node{
 public:
     int val;
@@ -10,7 +12,6 @@ public:
     Node(int _val, Node* _left, Node* _right, Node* _next) : val(_val), left(_left), right(_right), next(_next) {}
 };
 
-// TC: O(n), SC: O(1)
 class Solution{
 public:
     Node *connect(Node *root){
