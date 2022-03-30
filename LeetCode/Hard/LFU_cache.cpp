@@ -7,6 +7,7 @@ using namespace std;
 Let's consider a constant stream of cache requests with a cache capacity of 3, see below:
 
 A, B, C, A, A, A, A, A, A, A, A, A, A, A, B, C, D
+
 If we just consider a Least Recently Used (LRU) cache with a HashMap + doubly linked list
 implementation with O(1) eviction time and O(1) load time, we would have the following elements
 cached while processing the caching requests as mentioned above.
@@ -18,6 +19,7 @@ cached while processing the caching requests as mentioned above.
 [C, A, B]
 [A, B, C]
 [B, C, D] <- here, we evict A, we can do better!
+
 When you look at this example, you can easily see that we can do better - given the higher expected
 chance of requesting an A in the future, we should not evict it even if it was least recently used.
 
