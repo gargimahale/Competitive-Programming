@@ -29,8 +29,7 @@ public:
         }
         return -1;
     }
-
-
+    
     int findInMountainArray(int target, MountainArray &mountainArr) {
         int n = mountainArr.length();
         int border, low=0, high=n-1;
