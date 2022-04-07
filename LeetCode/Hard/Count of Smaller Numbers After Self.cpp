@@ -11,6 +11,7 @@ public:
         iterator m = l + (r - l) / 2;
         sort_count(l, m, count);
         sort_count(m, r, count);
+        
         for (iterator i = l, j = m; i < m; i++) {
             while (j < r && (*i)[0] > (*j)[0]) j++;
             count[(*i)[1]] += j - m; // add the number of valid "j"s to the indices of *i
