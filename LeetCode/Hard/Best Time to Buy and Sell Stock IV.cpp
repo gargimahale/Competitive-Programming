@@ -22,8 +22,7 @@ public:
         return dp[k][n - 1];
     }
 };
-// TC: O(days^2 * k)
-// SC: O(days * k)
+// TC: O(days^2 * k), SC: O(days * k)
 
 
 // OR
