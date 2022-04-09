@@ -19,6 +19,7 @@ class Solution {
             )
         );
     }
+    
 public:
     vector<vector<int>> len;
     int longestIncreasingPath(vector<vector<int>>& matrix, int res = 0) {
