@@ -11,8 +11,7 @@ public:
         return (x >= 0 && x < n && y >= 0 && y < m);
     }
 
-    bool canWalk(int srcX, int srcY, int destX, int destY, vector<vector<char>>&grid, vector<vector<int>>&visited)
-    {
+    bool canWalk(int srcX, int srcY, int destX, int destY, vector<vector<char>>&grid, vector<vector<int>>&visited){
         if(srcX == destX && srcY == destY) return true;
         visited[srcX][srcY] = 1;
         for(int i = 0; i < 4; i++)
