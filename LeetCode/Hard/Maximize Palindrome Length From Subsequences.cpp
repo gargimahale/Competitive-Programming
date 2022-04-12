@@ -9,6 +9,7 @@ public:
                 dp[i][i + len] = s[i] == s[i + len - 1] ? 
                     dp[i + 1][i + len - 1] + (len == 1 ? 1 : 2) : 
                         max(dp[i][i + len - 1],  dp[i + 1][i + len]);
+        
         return dp[0][s.size()];
     }    
     int longestPalindrome(string w1, string w2) {
