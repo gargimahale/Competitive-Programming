@@ -16,6 +16,7 @@ public:
             while (j < r && (*i)[0] > (*j)[0]) j++;
             count[(*i)[1]] += j - m; // add the number of valid "j"s to the indices of *i
         }
+        
         inplace_merge(l, m, r);
     }
 
