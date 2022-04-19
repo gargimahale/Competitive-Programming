@@ -3,6 +3,7 @@ using namespace std;
 
 class DinnerPlates {
 public:
+    
     vector<vector<int>> v;
     int cap, l, r, out;
 
