@@ -3,6 +3,7 @@ using namespace std;
 
 class Node {
 public:
+    
     unordered_map<char, Node*> children;
     unordered_map<string, int> counter;
     Node() {};
