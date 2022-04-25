@@ -29,6 +29,7 @@ public:
                 curr = curr->next[folder];
             }
         }
+        
         return curr;
     }
     
