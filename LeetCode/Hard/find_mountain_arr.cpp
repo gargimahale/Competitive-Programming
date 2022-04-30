@@ -13,7 +13,6 @@ using namespace std;
 
 class Solution {
 public:
-
     int binarySearch(MountainArray &mountainArr, int low, int high, int target, function<bool (int, int)> compare){
         int mid;
         while(low<=high){
