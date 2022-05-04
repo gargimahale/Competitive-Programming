@@ -21,6 +21,7 @@ public:
     }
 
     vector<int> countSmaller(vector<int>& nums) {
+        
         vector<vector<int>> hold;
         int n = nums.size();
         for (int i = 0; i < n; ++i) hold.push_back({nums[i], i}); // "zip" the nums with their indices
