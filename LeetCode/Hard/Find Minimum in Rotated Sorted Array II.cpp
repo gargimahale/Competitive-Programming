@@ -16,6 +16,7 @@ public:
             else
                 --h;
         }
+        
         return nums[l];
     }
 };
