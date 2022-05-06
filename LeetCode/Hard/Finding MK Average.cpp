@@ -10,6 +10,7 @@ using namespace std;
 */
 
 class MKAverage {
+    
     multiset<int> top, bot, mid;
     queue<int> q;
     long sum = 0, m, k;
