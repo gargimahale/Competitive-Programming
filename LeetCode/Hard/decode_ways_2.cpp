@@ -37,6 +37,7 @@ int numDecodings(string s) {
 		f2 = temp;
 		cnt = 0;
 	}
+
 	return f1;
 }
 
