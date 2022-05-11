@@ -5,7 +5,6 @@ class Solution {
 public:  
     
 #define iterator vector<vector<int>>::iterator
-
     void sort_count(iterator l, iterator r, vector<int>& count) {
         if (r - l <= 1) return;
         iterator m = l + (r - l) / 2;
