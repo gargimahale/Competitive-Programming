@@ -4,8 +4,8 @@ using namespace std;
 // Definition for an Interval.
 class Interval {
 public:
-    int start;
-    int end;
+
+    int start, end;
 
     Interval() {}
 
