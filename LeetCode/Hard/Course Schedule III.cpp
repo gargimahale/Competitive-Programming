@@ -16,6 +16,7 @@ public:
         for (int i = 0; i < courses.size(); ++i) {
             heap.push(courses[i][0]);
             now += courses[i][0];
+            
             if (now > courses[i][1]) {
                 now -= heap.top();
                 heap.pop();
