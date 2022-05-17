@@ -3,7 +3,6 @@ using namespace std;
 
 class MedianFinder {
 public:
-    
     priority_queue<int> low, high;
 
     MedianFinder() {}
