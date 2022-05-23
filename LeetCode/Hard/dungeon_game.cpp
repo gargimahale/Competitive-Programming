@@ -5,7 +5,6 @@ using namespace std;
 int solve(vector <vector <int>>& dungeon) {
     
     int r = dungeon.size(), c = dungeon[0].size();
-    
     vector<vector<int>> sol (r, vector<int>(c));
 
     sol[r - 1][c - 1] = dungeon[r - 1][c - 1] > 0 ? 1 : 1 - dungeon[r - 1][c - 1];
