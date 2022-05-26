@@ -14,6 +14,7 @@ int numDecodings(string s) {
 	if (n == 0 || s[0] == '0') {
 		return 0;
 	}
+	
 	if (n == 1) {
 		return 1;
 	}
