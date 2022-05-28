@@ -3,7 +3,6 @@
 using namespace std;
 
 int solve(vector <vector <int>>& dungeon) {
-    
     int r = dungeon.size(), c = dungeon[0].size();
     vector<vector<int>> sol (r, vector<int>(c));
 
