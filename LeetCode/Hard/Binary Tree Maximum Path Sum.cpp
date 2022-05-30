@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// TC: O(N), SC: O(H)
+
 struct TreeNode{
     int val;
     TreeNode* left, *right;
@@ -22,11 +24,11 @@ public:
         int new_price = root->val + left + right;
         maxSum = max(maxSum, new_price);
 
+        return maxSum;
+    }
+
     int maxPathSum(TreeNode* root) {
         dfs(root);
         return maxSum;
     }
 };
-
-// TC: O(N)
-// SC: O(H)
