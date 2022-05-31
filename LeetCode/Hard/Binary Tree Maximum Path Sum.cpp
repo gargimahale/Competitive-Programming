@@ -2,7 +2,6 @@
 using namespace std;
 
 // TC: O(N), SC: O(H)
-
 struct TreeNode{
     int val;
     TreeNode* left, *right;
