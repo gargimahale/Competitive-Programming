@@ -11,7 +11,8 @@ public:
                         max(dp[i][i + len - 1],  dp[i + 1][i + len]);
         
         return dp[0][s.size()];
-    }    
+    }
+        
     int longestPalindrome(string w1, string w2) {
         int sz = w1.size() + w2.size(), res = 0;
         vector<vector<int>> dp(sz + 1, vector<int>(sz + 1));
