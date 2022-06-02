@@ -16,6 +16,7 @@ Additional optimizations:
 class Solution {
 public:
     int minAbsDifference(vector<int>& ns, int goal) {
+        
         int res = abs(goal), pos = 0, neg = 0;
         for (int x : ns) {
             pos += max(0, x);
