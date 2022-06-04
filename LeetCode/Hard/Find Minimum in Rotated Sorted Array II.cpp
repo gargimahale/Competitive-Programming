@@ -3,7 +3,6 @@ using namespace std;
 
 class Solution {
 public:
-
     int findMin(vector<int> &nums) {
         int l = 0, h = nums.size() - 1;
         
