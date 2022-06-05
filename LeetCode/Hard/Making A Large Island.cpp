@@ -3,7 +3,6 @@ using namespace std;
 
 class Solution {
 public:
-    
     int get(int i, int j, vector<vector<int>>& g) {
         return (i < 0 || j < 0 || i >= g.size() || j >= g[0].size()) ? 0 : g[i][j];
     }
