@@ -27,6 +27,7 @@ public:
                 while(!log.empty() && heights[pos] < log.back().first){
                     popAndFindArea(pos);
                 }
+                
                 log.push_back({heights[pos], tempPos});
             }
         }
