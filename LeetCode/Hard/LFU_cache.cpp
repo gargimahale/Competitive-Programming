@@ -64,6 +64,7 @@ public:
                 }
             }
         }
+        
         freq[key]++;
         values[key] = value;
         cache.push({freq[key], {time++, key}});
