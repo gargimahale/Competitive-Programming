@@ -18,6 +18,7 @@ private:
         }
         return sum == 0;
     }
+
 public:
     vector<string> removeInvalidParentheses(string s) {
         int num1 = 0, num2 = 0;
