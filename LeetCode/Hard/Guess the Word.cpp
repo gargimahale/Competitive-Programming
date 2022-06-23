@@ -12,7 +12,6 @@ using namespace std;
 
 class Solution {
 public:
-
     int match(string a, string b) {
         int matches = 0;
         for (int i = 0; i < a.length(); ++i)
