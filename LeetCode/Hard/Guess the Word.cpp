@@ -22,7 +22,6 @@ public:
 
     void findSecretWord(vector<string>& wordlist, Master& master) {
         random_shuffle(wordlist.begin(), wordlist.end());
-
         for (int i = 0, x = 0; i < 10 && x < 6; ++i) {
             string guess = wordlist[0];
             x = master.guess(guess);
