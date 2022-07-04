@@ -2,6 +2,7 @@
 using namespace std;
 
 class Solution {
+
     void popAndFindArea(int pos){
         tempH = log.back().first;
         tempPos = log.back().second;
