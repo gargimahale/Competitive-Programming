@@ -15,8 +15,7 @@ class Solution {
 public:
     int binarySearch(MountainArray &mountainArr, int low, int high, int target, function<bool (int, int)> compare){
         int mid;
-        while(low<=high){
-            
+        while(low <= high){
             mid = low+(high-low)/2;
             int midEle = mountainArr.get(mid);
             
