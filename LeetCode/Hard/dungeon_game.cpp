@@ -25,6 +25,7 @@ int solve(vector <vector <int>>& dungeon) {
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    
     vector<vector<int>> dungeon = {{ -2, -3, 3}, { -5, -10, 1}, {10, 30, -5}};
     int t = 1;
     
