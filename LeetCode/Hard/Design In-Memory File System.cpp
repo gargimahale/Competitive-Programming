@@ -3,6 +3,7 @@ using namespace std;
 
 class FileSystem {
 public:
+
     struct FileNode{
         bool isFile;
         string content;
