@@ -36,6 +36,7 @@ public:
                 end = vec[i].end;
             }
         }
+
         return res;
     }
 };
