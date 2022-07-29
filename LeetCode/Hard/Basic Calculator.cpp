@@ -5,6 +5,7 @@ using namespace std;
 // TC & SC: O(N)
 class Solution {
 public:
+
     int calculate(string s) {
         int n = s.size(), result = 0, sign = 1;
         stack<int> stk;
