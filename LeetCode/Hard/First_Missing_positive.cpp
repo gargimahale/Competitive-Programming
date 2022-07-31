@@ -47,6 +47,7 @@ public:
         if (!found_one) {
             return 1;
         }
+
         for (int i = 0; i < n; ++i) {
             if (nums[i] > n || nums[i] <= 0) {
                 nums[i] = 1;
