@@ -24,8 +24,8 @@ public:
 };
 // TC: O(days^2 * k), SC: O(days * k)
 
-
 // OR
+
 // TC and SC: O(Days * k)
 class Solution_1 {
 public:
