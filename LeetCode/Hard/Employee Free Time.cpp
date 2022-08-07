@@ -18,7 +18,6 @@ public:
     vector<Interval> employeeFreeTime(vector<vector<Interval>> schedule) {
         
         vector<Interval> vec;
-        
         for (auto& s : schedule) vec.insert(vec.end(), s.begin(), s.end());
         sort(begin(vec), end(vec), [&](auto a, auto b){
             return a.start < b.start || (a.start == b.start && a.end < b.end);
