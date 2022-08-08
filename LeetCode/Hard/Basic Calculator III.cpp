@@ -23,6 +23,7 @@ public:
             }
             op = s[i];
         }
+
         int res = 0;
         for (int n : nums) res += n;
         return res;
