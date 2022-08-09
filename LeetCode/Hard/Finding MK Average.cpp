@@ -13,7 +13,6 @@ class MKAverage {
     multiset<int> top, bot, mid;
     queue<int> q;
     long sum = 0, m, k;
-
 public:
     MKAverage(int m, int k) : m(m), k(k) {}
 
