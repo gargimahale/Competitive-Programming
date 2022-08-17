@@ -3,7 +3,6 @@ using namespace std;
 
 class Solution {
 public:
-
     int maxProfit(int k, vector<int>& prices) {
         int n = prices.size();
 
@@ -30,7 +29,6 @@ public:
 // TC and SC: O(Days * k)
 class Solution_1 {
 public:
-
     int maxProfit(int k, vector<int>& prices) {
         int n = prices.size();
 
