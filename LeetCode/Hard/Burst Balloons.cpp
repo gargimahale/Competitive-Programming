@@ -7,6 +7,7 @@ public:
         int n = nums.size();
         nums.insert(nums.begin(), 1);
         nums.push_back(1);
+
         vector<vector<int>> dp(nums.size(), vector<int>(nums.size(), 0));
         
         for (int len = 1; len <= n; ++len){
