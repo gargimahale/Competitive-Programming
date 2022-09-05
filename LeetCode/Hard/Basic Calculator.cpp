@@ -1,5 +1,6 @@
 #include <stack>
 #include <string>
+#include <iostream>
 using namespace std;
 
 // TC & SC: O(N)
@@ -34,3 +35,8 @@ public:
         return result;
     }
 };
+
+int main(){
+    Solution sol;
+    cout << sol.calculate("5+4") << "\n";
+}
