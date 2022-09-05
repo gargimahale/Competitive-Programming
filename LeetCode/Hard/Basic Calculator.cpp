@@ -6,26 +6,25 @@ using namespace std;
 // TC & SC: O(N)
 class Solution {
 public:
-
-    int calculate(string s) {
-        int n = s.size(), result = 0, sign = 1;
+    static int calculate(string input) {
+        int n = (int)input.size(), result = 0, sign = 1;
         stack<int> stk;
         for (int i = 0; i < n; ++i) {
-            if (isdigit(s[i])) {
-                int num = s[i] - '0';
-                while (i + 1 < n && isdigit(s[i + 1])) {
-                    num = num * 10 + (s[++i] - '0');
+            if (isdigit(input[i])) {
+                int num = input[i] - '0';
+                while (i + 1 < n && isdigit(input[i + 1])) {
+                    num = num * 10 + (input[++i] - '0');
                 }
                 result += sign * num;
             }
-            else if (s[i] == '+') sign = 1;
-            else if (s[i] == '-') sign = -1;
-            else if (s[i] == '(') {
+            else if (input[i] == '+') sign = 1;
+            else if (input[i] == '-') sign = -1;
+            else if (input[i] == '(') {
                 stk.push(result);
                 stk.push(sign);
                 result = 0;
                 sign = 1;
-            } else if (s[i] == ')') {
+            } else if (input[i] == ')') {
                 result *= stk.top();
                 stk.pop();
                 result += stk.top();
@@ -37,6 +36,5 @@ public:
 };
 
 int main(){
-    Solution sol;
-    cout << sol.calculate("5+4") << "\n";
+    cout << Solution::calculate("5+4") << "\n";
 }
